@@ -57,13 +57,22 @@ The four main assumptions of this model are:
 `unmarked` is able to fit several different models under this banner. This ranges from standard occupancy models to distance sampling and colonisation extinction models. While this guide will only cover `occu()` for standard occupancy models, only minimal adjustment is required to fit the others
 
 ```{r echo=FALSE}
-a <- data.frame(Model = c("Occupancy", "Royle-Nichols", "Point Count",
-                     "Distance Sampling", "Generalized Distance Sampling",
-                     "Arbitrary multinomial Poisson", "Colinization Extinction",
-                     "Generalized multinomial mixture"),
-           FittingFunction = c("occu", "occuRN", "pcount", "distsamp",
-                               "gdistsamp", "multinomPois", "colext", "gmultmix"),
-           Data = c("unmarkedFrameOccu", "unmarkedFrameOccu", "unmarkedFramePCount",
+a <- data.frame(Model = c("Occupancy",
+                          "Royle-Nichols",
+                          "False Positives",
+                          "Point Count",
+                          "Generalised Point Count",
+                          "Open Point Count",
+                          "Distance Sampling",
+                          "Generalized Distance Sampling",
+                          "Arbitrary multinomial Poisson",
+                          "Colinization Extinction",
+                          "Generalized multinomial mixture"),
+           FittingFunction = c("occu", "occuRN", "occuFP", "pcount", "gpcount",
+                               "pcountOpen", "distsamp", "gdistsamp", "multinomPois",
+                               "colext", "gmultmix"),
+           Data = c("unmarkedFrameOccu", "unmarkedFrameOccu", "unmarkedFrameOccuFP",
+                    "unmarkedFramePCount", "unmarkedFrameGPC", "unmarkedFramePCO",
                     "unmarkedFrameDS", "unmarkedFrameGDS", "unmarkedFrameMPois",
                     "unmarkedMultFrame", "unmarkedFrameGMM"))
 
@@ -82,12 +91,13 @@ For this guide we will use a sample dataset supplied with the package.
 
 ```{r}
 data <- read.csv(system.file("csv", "widewt.csv", package = "unmarked"))
+```
 
+```{r echo = FALSE}
 kable(data, "html") %>%
   kable_styling() %>%
   scroll_box(width = "800px", height = "400px")
 ```
-
 
 Data needs to be formatted for use with a specific model fitting function, and this is accomplished with a call to an appropriate `unmarkedFrame`. `unmarkedFrame`'s are a special class of object used in this package for organising our data. These are built using `R`'s `S4` reference class system instead of the more common `S3` (like a linear model object `lm`). The benefit of this is a formal definition and validity checking to prevent accidentally breaking it, but the consequence is a slightly different syntax for examing it (covered later). In our case, to fit an `occu()` model we need to use the `unmarkedFrameOccu()`. This requires two `data.frame`s and a `list` of `data.frame`s: 
 
@@ -214,7 +224,7 @@ modelList <- dredge(full,
                     rank = "AIC")
 ```
 
-```{r}
+```{r echo = FALSE}
 kable(modelList, "html") %>%
   kable_styling() %>%
   scroll_box(width = "800px", height = "400px")

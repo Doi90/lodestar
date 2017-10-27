@@ -279,31 +279,46 @@ div.tocify {
 <td align="left">unmarkedFrameOccu</td>
 </tr>
 <tr class="odd">
+<td align="left">False Positives</td>
+<td align="left">occuFP</td>
+<td align="left">unmarkedFrameOccuFP</td>
+</tr>
+<tr class="even">
 <td align="left">Point Count</td>
 <td align="left">pcount</td>
 <td align="left">unmarkedFramePCount</td>
 </tr>
+<tr class="odd">
+<td align="left">Generalised Point Count</td>
+<td align="left">gpcount</td>
+<td align="left">unmarkedFrameGPC</td>
+</tr>
 <tr class="even">
+<td align="left">Open Point Count</td>
+<td align="left">pcountOpen</td>
+<td align="left">unmarkedFramePCO</td>
+</tr>
+<tr class="odd">
 <td align="left">Distance Sampling</td>
 <td align="left">distsamp</td>
 <td align="left">unmarkedFrameDS</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Generalized Distance Sampling</td>
 <td align="left">gdistsamp</td>
 <td align="left">unmarkedFrameGDS</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Arbitrary multinomial Poisson</td>
 <td align="left">multinomPois</td>
 <td align="left">unmarkedFrameMPois</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Colinization Extinction</td>
 <td align="left">colext</td>
 <td align="left">unmarkedMultFrame</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Generalized multinomial mixture</td>
 <td align="left">gmultmix</td>
 <td align="left">unmarkedFrameGMM</td>
@@ -318,11 +333,7 @@ div.tocify {
 <div id="load-data" class="section level2">
 <h2>Load Data</h2>
 <p>For this guide we will use a sample dataset supplied with the package.</p>
-<pre class="r"><code>data &lt;- read.csv(system.file(&quot;csv&quot;, &quot;widewt.csv&quot;, package = &quot;unmarked&quot;))
-
-kable(data, &quot;html&quot;) %&gt;%
-  kable_styling() %&gt;%
-  scroll_box(width = &quot;800px&quot;, height = &quot;400px&quot;)</code></pre>
+<pre class="r"><code>data &lt;- read.csv(system.file(&quot;csv&quot;, &quot;widewt.csv&quot;, package = &quot;unmarked&quot;))</code></pre>
 <div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:400px; overflow-x: scroll; width:800px; ">
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
@@ -10272,9 +10283,6 @@ modSel(fit)</code></pre>
 modelList &lt;- dredge(full,
                     rank = &quot;AIC&quot;)</code></pre>
 <pre><code>## Fixed terms are &quot;psi(Int)&quot; and &quot;p(Int)&quot;</code></pre>
-<pre class="r"><code>kable(modelList, &quot;html&quot;) %&gt;%
-  kable_styling() %&gt;%
-  scroll_box(width = &quot;800px&quot;, height = &quot;400px&quot;)</code></pre>
 <div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:400px; overflow-x: scroll; width:800px; ">
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
