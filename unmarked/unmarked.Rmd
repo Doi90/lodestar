@@ -4,22 +4,34 @@ author: "David Wilkinson"
 date: "13 October 2017"
 output: 
   html_document:
+    css: lodestar.css
     toc: yes
     toc_float:
       collapsed: no
       toc_depth: 4
 ---
+
+<style>
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #208000;
+}
+</style>
+
 ```{r echo = FALSE, message = FALSE}
 library(knitr)
 library(kableExtra)
 library(lattice)
 ```
 
+<hr class="double">
+
 ## Occupancy Modelling with Imperfect Detection
 
 Site occupancy surveys are frequently used in the monitoring of species. Site occupancy probilities can be used as a metric when monitoring the current state of a population. This could be for overall changes in occupancy or the expansion/contraction of species distributions. The premise being that changes in site occupancy are correlated with changes in population size and characteristics.
 
 However, field surveys face the problem of impefect detection; there is no guarantee that each individual, or even each species, will be detected at a site even if it is present. The detectability of a species can be defined as the probability that at least one individual is detected in a particular sampling effort, conditional to the species being present in the area of interest during sampling. To be able to estimate the effect of imperfect detection we need to perform several *independent* surveys of the same site.
+
+<hr class="small">
 
 ### The Maths
 
@@ -28,7 +40,7 @@ A single species, single season occupancy model like we will cover today can be 
   + The *state* process: defined by the *true* site occupancy status (site occupied by the species or not)
   + The *observation* process: given the occupancy status, was the species detected
   
-The *true* occupancy status of a site is represented by $z_i$, which takes the value $1$ if site $i$ is occupied, or $0$ otherwise, and is modelled as:
+The *true* occupancy status of a site, which is unknown, is represented by the latent variable $z_i$, which takes the value $1$ if site $i$ is occupied, or $0$ otherwise, and is modelled as:
 
 $$z_i \sim Bernoulli(\psi_i)$$
 
@@ -36,7 +48,7 @@ where $\psi_i$ is the probability of occupancy. The observation process is model
 
 $$y_{ij} | z_i \sim Bernoulli(z_i * p_{ij})$$
 
-where $y_{ij}$ is our detection data site $i$ and sampling repeat $j$, and $p_{ij}$ is the probability of detecting the species.
+where $y_{ij}$ is our detection data site $i$ and sampling repeat $j$, and $p_{ij}$ is the probability of detecting the species given it is present.
 
 As written, these equations effectiely assume the probabilities of occupancy and detection are constant across all sites, when in reality sites are heterogeneous. Covariates can be incorporated into the model using a logit-link function (like in generalised linear regression), such that the occupancy and/or detectability at site $i$ can be modelled as a function of a series of covariates $\{x_{i1}, ..., x_{ik}\}$.
 
@@ -50,7 +62,9 @@ The four main assumptions of this model are:
   + The probability of detection is constant across all sites and surveys, or the variation is modelled by covariates
   + The detection of a species and its detection histories at each site are independent
 
-`unmarked` is an R package developed by Ian Fiske and Richard Chandler (and contributed to by Marc Kéry, Andy Royle, David Miller amongst others) to help users fit models accounting for imperfect detection.
+`unmarked` is an R package developed by Ian Fiske and Richard Chandler (and contributed to by Marc Kéry, Andy Royle, David Miller amongst others) to help users fit models accounting for the imperfect detection of *unmarked* individuals.
+
+<hr class="big">
 
 ## unmarked Models
 
@@ -79,11 +93,15 @@ a <- data.frame(Model = c("Occupancy",
 kable(a)
 ```
 
+<hr class="big">
+
 ## Load Package
 
 ```{r warning=FALSE, message=FALSE}
 library(unmarked)
 ```
+
+<hr class="big">
 
 ## Load Data
 
@@ -118,6 +136,8 @@ umf <- unmarkedFrameOccu(y = y, siteCovs = siteCovs, obsCovs = obsCovs)
 summary(umf)
 ```
 
+<hr class="big">
+
 ## Standardising Data
 
 If you haven't done this before creating the `unmarkedFrame` object the syntax for subsetting changes slightly since an `unmarkedFrame` is an S4 class. The first `$` subset is replaced with an `@`
@@ -131,13 +151,17 @@ umf@obsCovs$date <- scale(umf@obsCovs$date)
 umf@obsCovs$ivel <- scale(umf@obsCovs$ivel)
 ```
 
+<hr class="big">
+
 ## Missing Data Considerations
 
 We have two types of data in these models: our observation data and our covariate data. These models account for missing data in the two groups differently. 
 
   + You *are* allowed to have missing records in your observation data. In practice this could result from varying numbers of repeat visits to a site or the loss of data. As long as a site has at least one observation it can be used in the model. Any site that has zero observations will be removed.
   + You *cannot* have missing covariate data. If a site is missing the data for a site-level covariate it will be removed before model fitting. If a site is missing observation-level covariate data it will only be removed if it is missing for *all* observations, but the observation with missing data is removed. This is *very* important to consider when performing model selection so we will touch on this again later.
-  
+
+<hr class="big">
+
 ## Fitting a Model
 
 Fitting a model with `unmarked` uses a similar syntax to fitting a linear model with the `lm()` function. The main difference is that the way a formula is defined varies. In the case of `occu()` it requires a double right-hand side formula for detection and occupancy covariates in that order. Essentially `~ detection formula ~ occupancy formula`.
@@ -193,6 +217,8 @@ fm2 <- occu(formula = ~ date + ivel + forest
 fm2
 ```
 
+<hr class="big">
+
 ## Model Selection
 
 ### unmarked
@@ -206,6 +232,8 @@ fit <- fitList('psi(.)p(.)' = fm,
 
 modSel(fit)
 ```
+
+<hr class="small">
 
 ### MuMIn
 
@@ -230,15 +258,21 @@ kable(modelList, "html") %>%
   scroll_box(width = "800px", height = "400px")
 ```
 
+<hr class="small">
+
 ### Missing Data
 
 As mentioned previously, missing data can have serious impacts on model selection. This is because information criterion like AIC ** *are not* ** comparable between models fit to different datasets. If you fit *Model A* with covariates 1 & 2 with 100 sites, and *Model B* with covariates 1, 2, & 3 with 90 sites (because covariate 3 is missing data) then you cannot compare AIC. This rule holds no matter how miniscule the difference is (e.g. 10,000 vs 9,999).
 
 To account for this you need to manually remove the data for all sites/observations that are missing data for any covariates that could potentially be included in your model. In the previous example, both *Model A* and *Model B* should be fit to the 90 sites not missing data for covariate 3.
 
+<hr class="big">
+
 ## Proportion of Area Occupied
 
 Imperfect detection can bias our occupancy estimates. So how do we calculate the actual proportion of area occupied by our target species while accounting for imperfect detection?
+
+<hr class="small">
 
 ### Assuming perfect detection
 
@@ -251,6 +285,8 @@ siteValue <- apply(X = data[,2:4],
 
 mean(siteValue)
 ```
+
+<hr class="small">
 
 ### Accounting for Imperfect Detection
 
@@ -270,6 +306,8 @@ rbind(PAO = c(Estimate = sum(EBUP), colSums(CI)) / 237)
 ```
 
 A difference in the proportion of area occupied of over 15%! Depending on how hard a species can be to detect with a given survey method this difference can potentially be much higher!
+
+<hr class="big">
 
 ## Prediction
 
@@ -319,6 +357,8 @@ levelplot(Predicted ~ ggPred$x + ggPred$y,
           at = seq(0,1,length.out=101))
 ```
 
+<hr class="big">
+
 ## Common Errors
 
   + <span style="color:red">Error: Hessian is singular. Try providing starting values or using fewer covariates.</span> (The bane of my Masters existence)
@@ -338,7 +378,9 @@ levelplot(Predicted ~ ggPred$x + ggPred$y,
         + Your model is has converged on a local maximum. Likelihoods can have multiple peaks, but only one maximum, and your model is stuck on the wrong one. To fix this use the `starts` argument to provide starting values for parameters to start the optimisation in a different area.
   +  <span style="color:red">Model selection with `dredge()` is too much for my computer.</span>
     + See David (for Spartan) or Casey/Nick (for Boab)
-    
+
+<hr class="big">
+
 ## Additional resources
 
   + [*Overview of unmarked*](https://cran.r-project.org/web/packages/unmarked/vignettes/unmarked.pdf) vignette by Ian Fiske and Richard Chandler. The offical intro guide that I copied some of the early examples from.
@@ -346,4 +388,4 @@ levelplot(Predicted ~ ggPred$x + ggPred$y,
   + The `unmarked` [website](https://sites.google.com/site/unmarkedinfo/home).
   + The `unmarked` [google group/forum](https://groups.google.com/forum/#!forum/unmarked). This is frequented by most of the package creators/contributors and other occupancy modellers. More often than not the answer to your problems has already been solved here.
   
-  
+<hr class="double">  
