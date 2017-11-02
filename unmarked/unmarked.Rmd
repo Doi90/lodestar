@@ -50,7 +50,7 @@ $$y_{ij} | z_i \sim Bernoulli(z_i * p_{ij})$$
 
 where $y_{ij}$ is our detection data site $i$ and sampling repeat $j$, and $p_{ij}$ is the probability of detecting the species given it is present.
 
-As written, these equations effectiely assume the probabilities of occupancy and detection are constant across all sites, when in reality sites are heterogeneous. Covariates can be incorporated into the model using a logit-link function (like in generalised linear regression), such that the occupancy and/or detectability at site $i$ can be modelled as a function of a series of covariates $\{x_{i1}, ..., x_{ik}\}$.
+As written, these equations effectively assume the probabilities of occupancy and detection are constant across all sites, when in reality sites are heterogeneous. Covariates can be incorporated into the model using a logit-link function (like in generalised linear regression), such that the occupancy and/or detectability at site $i$ can be modelled as a function of a series of covariates $\{x_{i1}, ..., x_{ik}\}$.
 
 $$logit(\psi_i) = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} ... \beta_kx_{ik}$$
 $$logit(p_i) = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} ... \beta_kx_{ik}$$
@@ -117,9 +117,9 @@ kable(data, "html") %>%
   scroll_box(width = "800px", height = "400px")
 ```
 
-Data needs to be formatted for use with a specific model fitting function, and this is accomplished with a call to an appropriate `unmarkedFrame`. `unmarkedFrame`'s are a special class of object used in this package for organising our data. These are built using `R`'s `S4` reference class system instead of the more common `S3` (like a linear model object `lm`). The benefit of this is a formal definition and validity checking to prevent accidentally breaking it, but the consequence is a slightly different syntax for examing it (covered later). In our case, to fit an `occu()` model we need to use the `unmarkedFrameOccu()`. This requires two `data.frame`s and a `list` of `data.frame`s: 
+Data needs to be formatted for use with a specific model fitting function, and this is accomplished with a call to an appropriate `unmarkedFrame`. `unmarkedFrame`'s are a special class of object used in this package for organising our data. These are built using `R`'s `S4` reference class system instead of the more common `S3` (like a linear model object `lm`). The benefit of this is a formal definition and validity checking to prevent accidentally breaking it, but the consequence is a slightly different syntax for examining it (covered later). In our case, to fit an `occu()` model we need to use the `unmarkedFrameOccu()`. This requires two `data.frame`s and a `list` of `data.frame`s: 
 
-  + `y`: A `data.frame` of presence-absence records. Rows are sites, columns are visits.
+  + `y`: A `data.frame` of presence-absence records. Rows are sites, columns are repeat visits.
   + `siteCovs`: A `data.frame` of the site-level covariates. These are things that *don't* change between visits like elevation, annual rainfall, distance from roads, etc. One column per covariate
   + `obsCovs`: A `list` of `data.frame`s for the observation-level covariates. Each covariate is its own `data.frame` with rows as sites and columns as repeat visits. These are things that *can* change between visits. Could be environmental conditions like daily temperature or cloud cover, or methodological variables like survey method (spotlighting, pitfall traps, ink cards etc) or an observer ID.
 
@@ -262,7 +262,7 @@ kable(modelList, "html") %>%
 
 ### Missing Data
 
-As mentioned previously, missing data can have serious impacts on model selection. This is because information criterion like AIC ** *are not* ** comparable between models fit to different datasets. If you fit *Model A* with covariates 1 & 2 with 100 sites, and *Model B* with covariates 1, 2, & 3 with 90 sites (because covariate 3 is missing data) then you cannot compare AIC. This rule holds no matter how miniscule the difference is (e.g. 10,000 vs 9,999).
+As mentioned previously, missing data can have serious impacts on model selection. This is because information criterion like AIC **are not** comparable between models fit to different datasets. If you fit *Model A* with covariates 1 & 2 with 100 sites, and *Model B* with covariates 1, 2, & 3 with 90 sites (because covariate 3 is missing data) then you cannot compare AIC. This rule holds no matter how miniscule the difference is (e.g. 10,000 vs 9,999).
 
 To account for this you need to manually remove the data for all sites/observations that are missing data for any covariates that could potentially be included in your model. In the previous example, both *Model A* and *Model B* should be fit to the 90 sites not missing data for covariate 3.
 
@@ -372,11 +372,11 @@ levelplot(Predicted ~ ggPred$x + ggPred$y,
     + A dodgy fix: Set a random cell on the border of the area you are predicting to to the missing factor level
     + A proper fix: Use the `levels()` function to set additional levels to your prediction data
   + <span style="color:red">Your fitted model has unrealistic parameter estimates.</span>
-    + `occu()` is on the logit-scale, so anything outside [-5, 5] is when you need to start checking. When this is back transformed to the probability scale it is roughly [0, 1]. There is leeway if you are considering polynomial terms. If you start getting parameter estimates of +30, -90, or +462.10 (David's high score) then you definitely have an issue! This is equally likely to happen to categoricl or continuous data.
+    + `occu()` is on the logit-scale, so anything outside [-5, 5] is when you need to start checking. When this is back transformed to the probability scale it is roughly [0, 1]. There is leeway if you are considering polynomial terms. If you start getting parameter estimates of +30, -90, or +462.10 (David's high score) then you definitely have an issue! This is equally likely to happen to categorical or continuous data.
     + This could be one of two issues:
         + Your model has not converged on the maximum likelihood. Use the `control` argument when fitting the model to increase the number of iterations in the optimisation process. The default is rather small at 100 or 500 depending on your optimisation method. Setting it high (i.e. 10,000) is fine, as it is a maximum, and the model will stop if it converges earlier.
-        + Your model is has converged on a local maximum. Likelihoods can have multiple peaks, but only one maximum, and your model is stuck on the wrong one. To fix this use the `starts` argument to provide starting values for parameters to start the optimisation in a different area.
-  +  <span style="color:red">Model selection with `dredge()` is too much for my computer.</span>
+        + Your model has converged on a local maximum. Likelihoods can have multiple peaks, but only one maximum, and your model is stuck on the wrong one. To fix this use the `starts` argument to provide starting values for parameters to start the optimisation in a different area.
+  +  <span style="color:red">Model selection with `dredge()` is too much for my computer to handle.</span>
     + See David (for Spartan) or Casey/Nick (for Boab)
 
 <hr class="big">
