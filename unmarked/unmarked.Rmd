@@ -27,9 +27,9 @@ library(lattice)
 
 ## Occupancy Modelling with Imperfect Detection
 
-Site occupancy surveys are frequently used in the monitoring of species. Site occupancy probilities can be used as a metric when monitoring the current state of a population. This could be for overall changes in occupancy or the expansion/contraction of species distributions. The premise being that changes in site occupancy are correlated with changes in population size and characteristics.
+Site occupancy surveys are frequently used in the monitoring of species. Site occupancy probabilities can be used as a metric when monitoring the current state of a population. This could be for overall changes in occupancy or the expansion/contraction of species distributions. The premise being that changes in site occupancy are correlated with changes in population size and characteristics.
 
-However, field surveys face the problem of impefect detection; there is no guarantee that each individual, or even each species, will be detected at a site even if it is present. The detectability of a species can be defined as the probability that at least one individual is detected in a particular sampling effort, conditional to the species being present in the area of interest during sampling. To be able to estimate the effect of imperfect detection we need to perform several *independent* surveys of the same site.
+However, field surveys face the problem of imperfect detection; there is no guarantee that each individual, or even each species, will be detected at a site even if it is present. The detectability of a species can be defined as the probability that at least one individual is detected in a particular sampling effort, conditional to the species being present in the area of interest during sampling. To be able to estimate the effect of imperfect detection we need to perform several *independent* surveys of the same site.
 
 <hr class="small">
 
@@ -120,8 +120,8 @@ kable(data, "html") %>%
 Data needs to be formatted for use with a specific model fitting function, and this is accomplished with a call to an appropriate `unmarkedFrame`. `unmarkedFrame`'s are a special class of object used in this package for organising our data. These are built using `R`'s `S4` reference class system instead of the more common `S3` (like a linear model object `lm`). The benefit of this is a formal definition and validity checking to prevent accidentally breaking it, but the consequence is a slightly different syntax for examining it (covered later). In our case, to fit an `occu()` model we need to use the `unmarkedFrameOccu()`. This requires two `data.frame`s and a `list` of `data.frame`s: 
 
   + `y`: A `data.frame` of presence-absence records. Rows are sites, columns are repeat visits.
-  + `siteCovs`: A `data.frame` of the site-level covariates. These are things that *don't* change between visits like elevation, annual rainfall, distance from roads, etc. One column per covariate
-  + `obsCovs`: A `list` of `data.frame`s for the observation-level covariates. Each covariate is its own `data.frame` with rows as sites and columns as repeat visits. These are things that *can* change between visits. Could be environmental conditions like daily temperature or cloud cover, or methodological variables like survey method (spotlighting, pitfall traps, ink cards etc) or an observer ID.
+  + `siteCovs`: A `data.frame` of the site-level covariates. These are things that *don't* change between visits like elevation, annual rainfall, distance from roads, etc.. One column per covariate
+  + `obsCovs`: A `list` of `data.frame`s for the observation-level covariates. Each covariate is its own `data.frame` with rows as sites and columns as repeat visits. These are things that *can* change between visits. Could be environmental conditions like daily temperature or cloud cover, or methodological variables like survey method (spotlighting, pitfall traps, ink cards etc.) or an observer ID.
 
 ```{r warning=FALSE, message=FALSE}
 y <- data[ ,2:4]
@@ -237,7 +237,7 @@ modSel(fit)
 
 ### MuMIn
 
-All `unmarked` models are compatible with the functions in the `MuMIn` package. For example, the `dredge()` and `pdredge()` functions perform dredge-based model selection that takes a 'full' or 'global' model and fits every possible combination of covariates and ranks them by some information criteria (AIC, BIC, etc).
+All `unmarked` models are compatible with the functions in the `MuMIn` package. For example, the `dredge()` and `pdredge()` functions perform dredge-based model selection that takes a 'full' or 'global' model and fits every possible combination of covariates and ranks them by some information criteria (AIC, BIC, etc.).
 
 ```{r echo=FALSE}
 library(MuMIn)
@@ -262,7 +262,7 @@ kable(modelList, "html") %>%
 
 ### Missing Data
 
-As mentioned previously, missing data can have serious impacts on model selection. This is because information criterion like AIC **are not** comparable between models fit to different datasets. If you fit *Model A* with covariates 1 & 2 with 100 sites, and *Model B* with covariates 1, 2, & 3 with 90 sites (because covariate 3 is missing data) then you cannot compare AIC. This rule holds no matter how miniscule the difference is (e.g. 10,000 vs 9,999).
+As mentioned previously, missing data can have serious impacts on model selection. This is because information criterion like AIC **are not** comparable between models fit to different datasets. If you fit *Model A* with covariates 1 & 2 with 100 sites, and *Model B* with covariates 1, 2, & 3 with 90 sites (because covariate 3 is missing data) then you cannot compare AIC. This rule holds no matter how minuscule the difference is (e.g. 10,000 vs 9,999).
 
 To account for this you need to manually remove the data for all sites/observations that are missing data for any covariates that could potentially be included in your model. In the previous example, both *Model A* and *Model B* should be fit to the 90 sites not missing data for covariate 3.
 
@@ -324,7 +324,7 @@ umfGG <- unmarkedFrameOccu(y = gg[ ,2:11],
                                           Orientation = gg[ ,42:51]))
 ```
 
-Now lets fit a modl with a larger amount of covariates. We can also alter some additional model parameters. `method` sets to optimisation method used by `optim` under the hood to estimate the maximum likelihood, `control` here sets the maximum number of iterations allowed for the model to converge (the default value is rather small so this is useful for more complex models), and `engine` gives you the choice to run the optimisation in native `R` code or fast `C++`.
+Now lets fit a model with a larger amount of covariates. We can also alter some additional model parameters. `method` sets to optimisation method used by `optim` under the hood to estimate the maximum likelihood, `control` here sets the maximum number of iterations allowed for the model to converge (the default value is rather small so this is useful for more complex models), and `engine` gives you the choice to run the optimisation in native `R` code or fast `C++`.
 
 ```{r}
 occuGG <- occu(formula = ~ BHG + Rat + Height + Orientation + 
@@ -336,7 +336,7 @@ occuGG <- occu(formula = ~ BHG + Rat + Height + Orientation +
                engine = "C")
 ```
 
-Now we load in the data we want to predict occupancy for. This dataset needs to have two columns for longitude and latitude values for each site/pixel, and a column for each covariate (each row is one site/pixel). Categorical variables need to have a single level specified per site. This is straight forward for something like vegetation class, but for methodological variables like survey method(ink cards, spotlighting, etc) you need to select one *a priori*. 
+Now we load in the data we want to predict occupancy for. This dataset needs to have two columns for longitude and latitude values for each site/pixel, and a column for each covariate (each row is one site/pixel). Categorical variables need to have a single level specified per site. This is straight forward for something like vegetation class, but for methodological variables like survey method(ink cards, spotlighting, etc.) you need to select one *a priori*. 
 
 ```{r}
 ggPred <- read.csv("SiteValues.csv")
@@ -359,6 +359,34 @@ levelplot(Predicted ~ ggPred$x + ggPred$y,
 
 <hr class="big">
 
+## Model Evaluation
+
+A vital step in modelling is evaluating the accuracy of model predictions. Model evaluation usually involves testing how well our model can predict data *not* used in the model fitting process. Does our model predict high probability of occupancy for sites with observed presences in our hold-out data? Does it predict low probability of ocurrence for the sites with observed absences? The Area Under the Receiver Operating Curve (AUC) is a popular metric for this evaluation.
+
+The problem with this type of model evaluation for models accounting for imperfect detection is that we don't know the *true* occupancy state of a site. Is the species actually absent from the site in our hold-out data, or did we just fail to detect it? As such this type of model evaluation is not appropriate for our modelling method.
+
+Instead we can use several goodness-of-fit tests to perform model evaluation. Here we use three tests: sum of squared errors, Pearson's Chi-squared, and Freeman-Tukey Chi-squared. We create a new function called `fitstats` (where *model.name* should be replaced with your own), and then use it when fitting our model to bootsrapped samples of our data to assess model fit. Even though these are called goodness-of-fit tests they are looking for significant lack-of-fit evidence (which sounds too pessimistic), so a p-value of <0.05 is actually a poorly fit model. A "good" model should return a value >> 0.05 for each test. Yet the issue of imperfect detection can still impact these tests. It is possible to fail one test but pass the others on the basis of poor prediction at a small subset of sites (even one). For example, an observed presence at a really low probability of detection site can dramatically inflate the test statistic. In these scenarios it is important to assess the input of each site to the test statistic to determine if the "lack-of-fit" can be disregarded as over-penalising the mismatch in a very low proportion of sites. 
+
+```{r eval = FALSE}
+fitstats <- function(model.name, method = "nonparboot") {
+  observed <- getY(model.name@data)
+  expected <- fitted(model.name)
+  resids <- residuals(model.name, method = "nonparboot")
+  sse <- sum(resids^2, na.rm=TRUE)
+  chisq <- sum((observed - expected)^2 / expected, na.rm=TRUE)
+  freeTuke <- sum((sqrt(observed) - sqrt(expected))^2, na.rm=TRUE)
+  out <- c(SSE=sse, Chisq=chisq, freemanTukey=freeTuke)
+  return(out)
+}
+
+pb <- parboot(model.name, fitstats, nsim=1000, report=TRUE, method = "nonparboot")
+pb
+par(mfrow=c(3,1))
+plot(pb, main="", xlab=c("SSE","Chisq","FT"))
+```
+
+<hr class="big">
+
 ## Common Errors
 
   + <span style="color:red">Error: Hessian is singular. Try providing starting values or using fewer covariates.</span> (The bane of my Masters existence)
@@ -366,7 +394,7 @@ levelplot(Predicted ~ ggPred$x + ggPred$y,
     + For models with a very low naive occupancy rate, especially in small datasets, you might need to specify starting values for the maximum likelihood estimation (see `?occu`)
     + You have complete separation in one or more covariates. This means the model doesn't have the necessary data to calculate parameter estimates. For categorical variables this is commonly a factor level that has exclusively presence *or* absence observations (or potentially when the prevalence is near 0 or 1 in very big datasets), or there are factor levels in two or more categorical variables that never co-occur. Consider merging factor levels if possible! For continuous variables this is where the data is split into two (or more) groups at either end of a sampling range. For example, you are including elevation as a covariate but have presence records only at 0-20m, and absences only at 80-100m. The model then can't estimate the slope of the relationship.
     + You have somehow got a continuous variable set to  factor
-    + You have too many covariates in the model for your data. There is no set rule for this and different people will give different answers. Every 10 sites alows one covariate, every 10 presences allows one covariate, every 10 allows one covariate in each formula, each level in a categorical variable is treated as a separate binary dummy variable and it does/does not count as a separate covariate for this count etc.
+    + You have too many covariates in the model for your data. There is no set rule for this and different people will give different answers. Every 10 sites allows one covariate, every 10 presences allows one covariate, every 10 allows one covariate in each formula, each level in a categorical variable is treated as a separate binary dummy variable and it does/does not count as a separate covariate for this count etc..
   + <span style="color:red">Something about factor levels and prediction.</span>
     + If you have a model with a categorical covariate with 5 factor levels, the data being predicted to must have 5 levels. Each site being predicted to can have the same level, but the data must be allowed to have other levels. This is an `R` error and not a statistical error. This is commonly caused by methodological observation-level covariates. For example, your data comes from three different survey methods (e.g. spotlighting, trapping, and drones), you fit the model and find out that spotlighting has the best probability of detecting your target species, and then predict to only spotlighting as a survey method. A really easy mistake to make!
     + A dodgy fix: Set a random cell on the border of the area you are predicting to to the missing factor level
@@ -383,7 +411,7 @@ levelplot(Predicted ~ ggPred$x + ggPred$y,
 
 ## Additional resources
 
-  + [*Overview of unmarked*](https://cran.r-project.org/web/packages/unmarked/vignettes/unmarked.pdf) vignette by Ian Fiske and Richard Chandler. The offical intro guide that I copied some of the early examples from.
+  + [*Overview of unmarked*](https://cran.r-project.org/web/packages/unmarked/vignettes/unmarked.pdf) vignette by Ian Fiske and Richard Chandler. The official intro guide that I copied some of the early examples from.
   + [*unmarked: An R Package for Fitting Hierarchical Models of Wildlife Occurrence and Abundance*](https://www.google.com.au/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&ved=0ahUKEwiFws-PtojXAhXCXrwKHdxKA70QFghLMAQ&url=https%3A%2F%2Fwww.jstatsoft.org%2Farticle%2Fview%2Fv043i10%2Fv43i10.pdf&usg=AOvVaw25YLdQ8rX4TzNWw0NGUneI). The paper about the package
   + The `unmarked` [website](https://sites.google.com/site/unmarkedinfo/home).
   + The `unmarked` [google group/forum](https://groups.google.com/forum/#!forum/unmarked). This is frequented by most of the package creators/contributors and other occupancy modellers. More often than not the answer to your problems has already been solved here.
