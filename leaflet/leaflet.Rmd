@@ -1,0 +1,298 @@
+---
+title: "Leaflet maps"
+author: "David Wilkinson"
+date: "10 January 2018"
+output: 
+  html_document:
+    css: lodestar.css
+    toc: yes
+    toc_float:
+      collapsed: no
+      toc_depth: 4
+---
+
+<style>
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background-color: #208000;
+}
+</style>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(leaflet)
+library(maps)
+library(viridis)
+library(RColorBrewer)
+library(mapr)
+library(zoon)
+
+data(quakes)
+```
+
+<hr class="double">
+
+## Leaflet Maps
+
+Leaflet maps are interactive maps made using the `Leaflet.js` JavaScript library with the help of the `leaflet` R package. These maps are really effective for "end-of-project" uses like presentations or in digital publications like blogs and websites. This is their most common usage, but they also provide some unique approaches to "start-of-project" tasks like data exploration.
+
+An [excellent guide](https://rstudio.github.io/leaflet/) for Leaflet maps already exists, so instead of re-inventing the wheel this guide will step through the basics and then cover some ecology-related uses
+
+<hr class="small">
+
+## The Basics
+
+Leaflet maps are built with a syntax similar to the *grammar of graphics* approach of `ggplot2`. You start with an empty plot, add a base-layer on top, maybe add some more layers on top, possibly add some markers, do any customising you want, and run the code. One obvious difference is that `leaflet` uses the `%>%` pipe from `magrittr` instead of the `+` in `ggplot2`, but the usage is the same.
+
+A basic Leaflet map looks like this:
+
+```{r}
+leaflet()
+```
+
+
+This is equivalent to an empty `ggplot()` graph.
+
+<hr class="small">
+
+### Base Maps
+
+The first thing you will normally want to do is add a basemap with the `addTiles()` function. By default this is the `OpenStreetMap`. While we're at it, lets also use the `setView()` function so we're not looking at the whole globe by default.
+
+```{r}
+leaflet() %>% 
+  addTiles() %>% 
+  setView(lng = 144.9612, lat = -37.7964, zoom = 13)
+```
+
+
+There are also a lot of freely-available third-party layers that can be accessed with the `addProviderTiles()` function. Examples of all of these can be found [here](http://leaflet-extras.github.io/leaflet-providers/preview/index.html). Some examples:
+
+```{r}
+leaflet() %>%
+  addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
+  setView(lng = 15.2663, lat = 4.4419, zoom = 5)
+```
+
+```{r}
+leaflet() %>%
+  addProviderTiles(providers$Esri.WorldImagery) %>%
+  setView(lng = -77.7812, lat = 21.5218, zoom = 4)
+```
+
+```{r}
+leaflet() %>%
+  addProviderTiles(providers$Stamen.Toner) %>%
+  setView(lng = -76.6122, lat = 39.2904, zoom = 10)
+```
+
+
+There are also third-party maps that cost nothing, but require registration to get an api key. Adding these goes back to the `addTiles()` function. In fact, anything you want to add that isn't one of the available provider tiles is done with `addTiles()`.
+
+```{r}
+leaflet() %>%
+  addTiles("http://{s}.tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png?apikey=276ae9b671ed49e4a663b0edd985b2d1") %>%
+  setView(lng = 4.30535, lat = 50.8549541, zoom = 5)
+```
+
+
+Once you have a basemap picked out, you're going to want to add stuff on top.
+
+### Polygons
+
+One of the most common uses for leaflet maps that you will see online is chloropleth maps. These maps shade areas based on a measurement of some statistical value like per-capita income or housing prices. These are done by adding polygons to a map using the `addPolygons()` function. Here, lets colour the states of the contiguous USA with a random draw (because I don't have anything better to hand that's simple):
+
+```{r}
+mapStates <- map("state", fill = TRUE, plot = FALSE)
+
+leaflet(data = mapStates) %>% 
+  addTiles() %>%
+  addPolygons(fillColor = rainbow(50, alpha = NULL),
+              stroke = FALSE)
+```
+
+### Markers
+
+Another thing that can be added to Leaflet maps are point markers using `addMarkers()`. These can be as simple as icons on a map:
+
+```{r}
+# Show first 20 rows from the `quakes` dataset
+
+leaflet(data = quakes[1:20,]) %>% 
+  addTiles() %>%
+  addMarkers(~long, ~lat)
+```
+
+
+To having pop-up information:
+
+```{r}
+leaflet(data = quakes[1:20,]) %>% 
+  addTiles() %>%
+  addMarkers(~long, ~lat, 
+             popup = ~as.character(mag),
+             label = ~as.character(mag))
+```
+
+
+Or custom icons with conditional colouring:
+
+```{r}
+df.20 <- quakes[1:20,]
+
+getColor <- function(quakes) {
+  sapply(quakes$mag, function(mag) {
+  if(mag <= 4) {
+    "green"
+  } else if(mag <= 5) {
+    "orange"
+  } else {
+    "red"
+  } })
+}
+
+icons <- awesomeIcons(
+  icon = 'fa-flag-checkered',
+  iconColor = 'black',
+  library = 'fa',
+  markerColor = getColor(df.20)
+)
+
+leaflet(df.20) %>% addTiles() %>%
+  addAwesomeMarkers(~long, ~lat, icon=icons, label=~as.character(mag))
+```
+
+
+If you have lots of points you can even cluster them:
+
+```{r message=FALSE, warning=FALSE}
+leaflet(quakes) %>%
+  addTiles() %>%
+  addMarkers(clusterOptions = markerClusterOptions())
+```
+
+<hr class="small">
+
+## Some Ecological Examples
+
+Lets set up some data exploration for a species distribution model. Here we add our covariate rasters using `addTile()`, add our presence points with `addCircleMarkers()`, and make use og `groups` to control what can be turned on/off simultaneously, can only be shown one at a time, and what is visible at the beginning.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+LoadModule("CarolinaWrenPO")
+LoadModule("Bioclim")
+
+data <- CarolinaWrenPO()
+
+ras <- Bioclim(extent = c(-138.71, -52.58, 18.15, 54.95),
+               layers = 1:10)
+```
+
+```{r message=FALSE, warning=FALSE}
+## Set up map + base layers
+
+map <- leaflet(data) %>%
+    addTiles(group = "OpenStreetMap") %>%
+    addProviderTiles(provider = 'Esri.WorldImagery',
+                     group = 'Esri.WorldImagery')
+
+## Set up group layers
+  
+overlay_groups <- c() # layers to "print"
+hide_groups <- c() # layers to not have ticked by default
+  
+## Point colour palette
+  
+fill_pal <- colorFactor(c("#FFFFFF", "#808080", "#080808"),
+                        domain = c('presence', 'background', 'absence'),
+                        ordered = TRUE)
+  
+border_pal <- colorFactor(c("#F0F0F0", "#808080", "#080808"),
+                          domain = c('presence', 'background', 'absence'),
+                          ordered = TRUE)  
+  
+## Data points
+  
+group_name <- "Presence Points"  # give layer name
+
+overlay_groups <- c(overlay_groups, group_name)  # add to overlay group
+      
+map <- addCircleMarkers(map = map,  # add circles to map
+                        lng = data$longitude,  # longitude values
+                        lat = data$latitude,  # latitude values
+                        color = grey(0.4),  # border colour
+                        fillColor = "#FFFFFF",  # fill colour
+                        weight = 1,
+                        opacity = 1,
+                        fillOpacity = 1,
+                        radius = 3.5,
+                        group = group_name,
+                        popup = paste('<b>',
+                                      paste(toupper(substr("presence", 1, 1)),
+                                            substr("presence", 2, nchar("presence")), sep=""),
+                                      '</b>',
+                                      '<br>Longitude:', data$longitude,
+                                      '<br>Latitude:', data$latitude))
+
+## Add points legend
+  
+map <- addLegend(map = map,
+                 pal = fill_pal,
+                 opacity = 0.8,
+                 values = factor(c('presence', 'absence', 'background'),
+                                 levels = c('presence', 'absence', 'background'),
+                                 ordered = TRUE),
+                 title = 'Data points')
+  
+## Add Covariate Rasters
+  
+for(i in seq(nlayers(ras))){
+  
+  ### layer names
+  
+  layer_name_tmp <- sprintf('names(ras)[%s]', i)  # get raster layer name
+  layer_name <- eval(parse(text = layer_name_tmp))
+  overlay_groups <- c(overlay_groups, layer_name)  # add layer to overlay group
+    
+  ### get raster colour palette
+    
+  ras_pal <- colorNumeric(viridis(10),    # set colour palette by viridis
+                          domain = seq(minValue(ras[[i]]),
+                                       maxValue(ras[[i]]),
+                                       length.out = 10),
+                          na.color = 'transparent')
+  
+  ### reproject ras[[i]], suppressing warnings
+    
+  suppressWarnings(ext <- raster::projectExtent(ras[[i]], crs = sp::CRS('+init=epsg:3857')))
+  suppressWarnings(tmp_ras <- raster::projectRaster(ras[[i]], ext))
+    
+  ### add layer
+    
+  map <- addRasterImage(map = map,  # add layer to map
+                        x = tmp_ras,
+                        colors = ras_pal,
+                        project = FALSE,
+                        opacity = 0.8,
+                        group = layer_name)
+    
+  ### add all bar first raster layer to hide group so default display is one raster
+    
+  if(i != 1){
+    hide_groups <- c(hide_groups, layer_name)
+    }
+  }
+  
+## Add toggle for the layers
+  
+map <- addLayersControl(map = map,   # add toggle switch for layers
+                        position = "topleft",
+                        baseGroups = c('OpenStreetMap',
+                                       'Esri.WorldImagery'),
+                        overlayGroups = overlay_groups,
+                        options = layersControlOptions(collapsed = FALSE))
+  
+map <- hideGroup(map = map,  # untick all raster layers except first
+                 hide_groups)
+  
+map
+```
+
+**Add some more examples. Maybe something with reserve borders and polygons? The Measurement add-on for field site spacing? Transect distances?**
