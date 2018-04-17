@@ -40,7 +40,9 @@ An [excellent guide](https://rstudio.github.io/leaflet/) for Leaflet maps alread
 
 ## The Basics
 
-Leaflet maps are built with a syntax similar to the *grammar of graphics* approach of `ggplot2`. You start with an empty plot, add a base-layer on top, maybe add some more layers on top, possibly add some markers, do any customising you want, and run the code. One obvious difference is that `leaflet` uses the `%>%` pipe from `magrittr` instead of the `+` in `ggplot2`, but the usage is the same.
+Leaflet maps are built with a syntax similar to the *grammar of graphics* approach of `ggplot2`. You start with an empty plot, add a base-layer on top, maybe add some more layers on top, possibly add some markers, do any customising you want, and run the code. 
+
+One obvious difference is that `leaflet` uses the `%>%` pipe from `magrittr` instead of the `+` in `ggplot2`, but the usage is the same.
 
 A basic Leaflet map looks like this:
 
@@ -173,7 +175,7 @@ leaflet(quakes) %>%
 
 ## Some Ecological Examples
 
-Lets set up some data exploration for a species distribution model. Here we add our covariate rasters using `addTile()`, add our presence points with `addCircleMarkers()`, and make use og `groups` to control what can be turned on/off simultaneously, can only be shown one at a time, and what is visible at the beginning.
+Lets set up some data exploration for a species distribution model. Here we add our covariate rasters using `addTile()`, add our presence points with `addCircleMarkers()`, and make use of `groups` to control what can be turned on/off simultaneously, can only be shown one at a time, and what is visible at the beginning.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 LoadModule("CarolinaWrenPO")
