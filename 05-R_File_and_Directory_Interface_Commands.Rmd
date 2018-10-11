@@ -1,0 +1,104 @@
+# R File & Directory Interface Commands
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Recently I've been running into problems setting up code for projects that require direct interaction with files and directories on my/a user's computer. `R` has plenty of functions to facilitate this, but they are scattered throughout several packages and often have rather uninformative names. If you know *what* you are looking for (or in my case, have a supervisor that does) then a quick Google search can find a function that does the job. However, if you don't know what you want, or at least not in "computer terms", then there is not (to my knowledge) any sort of catalogue of functions that you can browse. Here, I'm hoping to help fill that gap.
+  
+These functions are really useful when you are building functions and packages of your own. For example, I was building a new module for the `zoon` package that required access to R Markdown templates *without* the templates existing as actual files (modules in the `zoon` package have to be self-contained within a single script file). Using these functions I was able to achieve this by saving the templates as character strings in the script file, turn them into files (using `tempfile()`) in a temporary directory on the user's computer (using `tempdir()`), use them as intended, and then remove them (using `unlink()`) so it doesn't take up space on the user's computer.
+  
+Here I have tried to split these functions into broad categories: `Information`, `Creation`, `Modification`, `Deletion`, and a catch-all `Miscellaneous` for anything left over. All of these functions (at least at the time of first publication) are either in base R or the `utils` and `R.utils` packages.
+  
+## Information
+
+Sometimes you don't need to be doing anything to files and/or directories and just want some information about them. Maybe you only want to find the a file path, check read/write/execute permissions, or test to see if a directory exists? The functions in this section are information gatherers.
+
++ `Sys.info()`: This reports system and user information  
++ `file.info()`: This function returns information about the selected file/directory including its size (in bytes), time of creation, time last modified, and time last accessed.
++ `file.show()`: This will display one or more text files (e.g. in RStudio on Windows it opens a .Rmd file as a new script)
++ `list.files()`: This lists all files in the working directory
++ `list.dirs()`: This lists all directories in the working directory
++ `listDirectory()`: This lists all files, like `list.files()`, but is guaranteed to work recursively
++ `browseEnv()`: This opens a browser with a list of objects currently in the `sys.frame()` environment
++ `basename()`: This removes all of the file path up to and including the last path separator (if any)
++ `dirname()`: This return the file path up to but excluding the last path separator (or "." if there is no path separator)
++ `displayCode()`: This displays the contents of a text file with line numbers
++ `fileAccess()`: This tests for various permission about a file. There is a `file.access()` function in base R but it cannot be trusted on all OS platforms
++ `getAbsolutePath()`: This returns the absolute file path for a file/directory and not just relative to the working directory
++ `getRelativePath()`: This returns the file path relative to the working directory
++ `lastModified()`: Returns the time and date when the file was last modified
++ `Sys.time()`: This returns the current time and date
++ `Sys.timezone()`: This returns the time zone of the user's system
++ `normalizePath()`: Returns the absolute file path for a file
++ `file.choose()`: Get the file path to a file chosen interactively (opens a new window)
+
+### Testing
+
+A subset of these Information functions are those that perform tests. These functions test for the existence of a file and/or directory. This is useful for functions that rely on a user having some external file (like maxent.jar for ecologists fitting a MaxEnt model), or when saving outputs to a user's computer and either don't want to overwrite an existing file, or want to save it in a subdirectory that gets created if it does not already exist.
+  
++ `file.exists()`:  Returns a logical vector indicating whether the named files exist
++ `dir.exists()`: Returns a logical vector indicating whether the named directories exist
++ `isAbsolutePath()`: Returns a logical vector indicating whether the named file path is absolute
++ `isDirectory()`: Returns a logical vector indicating whether the named file path is a directory
++ `isFile()`: Returns a logical vector indicating whether the named file path is a file
++ `isOpen()`: Returns a logical vector indicating whether the file has open connections
++ `isUrl()`: Returns a logical vector indicating whether the pathnames are URLs
+
+## Creation
+
+This section covers the functions that create files and directories on the user's computer. These are useful for saving outputs (as .png/.pdf/.html/etc.) as well as storing things temporarily.
+
++ `file.create()`: This creates files with the given name if they do not already exist, or truncates them if they do
++ `file.copy()`: This copies a file from one location to another
++ `dir.create()`: This creates a directory in the given location
++ `mkdir()`: A wrapper around `dir.create()` designed for large shared file systems
++ `copyDirectory()`: This copies a directory from one location to another
++ `tempfile()`: This creates a temporary file
++ `tempdir()`: This creates a temporary directory
++ `createFileAtomically()`: This creates a file atomically by first creating a temporary file and then renaming it
++ `file.path()`: This constructs the path to a file from components in an OS-independent manner
++ `jpeg()`: Creates a .jpg file
++ `bmp()`: Creates a .bmp file
++ `png()`: Creates a .png file
++ `tiff()`: Creates a .tif file
++ `pdf()`: Creates a .pdf file
+
+## Modification
+
+This section covers the functions that modify existing files. This includes changing file permissions, renaming files, and adding to files. These could be useful for things as small as fixing spelling mistakes, or for larger jobs within automated tasks such as appending the results of analyses in loops to a single file.
+  
++ `file.rename()`: Rename a file
++ `file.append()`: Appends the files named in the second argument to those named in the first argument
++ `Sys.chmod()`: Sets the permissions for a file
++ `touchFile()`: Updates the `last modified` time for a file to the current time
+
+## Deletion
+
+This section covers the functions that delete files and directories. These are useful cleaning purposes (especially if using temporary files/directories) to prevent wasting disk space, or deleting files before creating a new version in situations where over-writing the file is not guaranteed to work correctly. However, you must be *very* careful about what you delete (I have no idea if `R` will let you do the old delete System32 trick, but I sure wont be trying it out). When creating code for others to use (like an R package) it is safest to use a combination of `tempfile()`/`tempdir()` and `file.copy()` to create things as temporary files and copying them to the user's working directory then delete the temporary files/directories rather than creating straight into the user's working directory as you don't know how they structure their workspace as you don't want to risk overwriting or deleting existing files.
+  
++ `file.remove()`: Removes the specified file
++ `removeDirectory()`: Removes the specified directory (and, if requested, its contents) 
++ `unlink()`: Deletes the specified file/directory 
+
+## Miscellaneous
+
+This section is a catch-all for functions that interact with files/directories that don't fit into the above categories *and* functions that can be used in tandem with some of the above sections.
+  
++ `Sys.glob()`: This function let you use wildcard expansion (aka "globbing") on file paths i.e. "test*" means all files starting with "test"
++ `glob2rx()`: This function changes wildcard patterns into the corresponding regular expression
++ `grep()`/`grepl()`/`regexpr()`/`gregexpr()`/`regexec()`: Search for matches to patterns within elements of a string
++ `agrep()`: Searches for approximate matches to patterns within elements of a string
++ `apropos()`: Returns a character vector giving the names of objects in the search list matching a regular expression (or approximately matching)
++ `sub()`/`gsub()`: Substitutes first or all values, respetively, within elements of character strings that match the specified pattern. Can be used with regular expressions
++ `capitalize()`/`decapitalize()`: Capitalise/decapitalise the first letter of each character string in a vector
++ `toCamelCase()`: Converts a string of words into a merged camel-cased word
++ `save*()`: There are multiple save functions (e.g. `saveObject()` or `savePlot()`) that save something to a specified file
++ `load*()`: There are multiple load functions (e.g. `load()` or `loadObject()`) that load something from a specified file
++ `Sys.sleep()`: Suspends execution of `R` expressions for a specified time interval
+
+## Closing Thoughts
+
+This is by no means an exhaustive list of functions to directly interact with files/directories in `R`, and I welcome suggestions of new functions, but I hope it serves as a reference for anyone facing the same issues I had.

@@ -1,0 +1,22 @@
+---
+title: "lodestar"
+subtitle: "A collection of guides and tutorials I've put together"
+author: "David Wilkinson"
+date: "`r Sys.Date()`"
+output: bookdown::gitbook
+css: lodestar.css
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: Doi90/lodestar
+---
+
+# What is *lodestar*?
+
+A lodestar is a star used as a guide for navigation by ship (like Polaris, the North Star), but I was just after a short, snappy name for the GitHub repository that somehow related to the guides/tutorials I put together over time. ¯\\_(ツ)_/¯
+
+The collection of guides and tutorials found in *lodestar* are things I've put together for various workshops/meetups or guides that I felt were lacking elsewhere. New guides will get added sporadically.
+
+*lodestar* is now living as a GitHub page via *bookdown* now that RawGit has been shut down.
+

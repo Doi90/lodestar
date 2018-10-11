@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>lodestar</title>
+  <meta name="description" content="lodestar">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="lodestar" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Doi90/lodestar" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="lodestar" />
+  
+  
+  
+
+<meta name="author" content="David Wilkinson">
+
+
+<meta name="date" content="2018-10-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="version-control-with-rstudio.html">
+<link rel="next" href="installing-r-packages-on-spartan.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="lodestar.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Lodestar Guides</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> What is <em>lodestar</em>?</a></li>
+<li class="chapter" data-level="2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html"><i class="fa fa-check"></i><b>2</b> Fitting occupancy models with <em>unmarked</em></a><ul>
+<li class="chapter" data-level="2.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#occupancy-modelling-with-imperfect-detection"><i class="fa fa-check"></i><b>2.1</b> Occupancy Modelling with Imperfect Detection</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#the-maths"><i class="fa fa-check"></i><b>2.1.1</b> The Maths</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#unmarked-models"><i class="fa fa-check"></i><b>2.2</b> unmarked Models</a></li>
+<li class="chapter" data-level="2.3" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#load-package"><i class="fa fa-check"></i><b>2.3</b> Load Package</a></li>
+<li class="chapter" data-level="2.4" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#load-data"><i class="fa fa-check"></i><b>2.4</b> Load Data</a></li>
+<li class="chapter" data-level="2.5" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#standardising-data"><i class="fa fa-check"></i><b>2.5</b> Standardising Data</a></li>
+<li class="chapter" data-level="2.6" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#missing-data-considerations"><i class="fa fa-check"></i><b>2.6</b> Missing Data Considerations</a></li>
+<li class="chapter" data-level="2.7" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#fitting-a-model"><i class="fa fa-check"></i><b>2.7</b> Fitting a Model</a></li>
+<li class="chapter" data-level="2.8" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#model-selection"><i class="fa fa-check"></i><b>2.8</b> Model Selection</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#unmarked"><i class="fa fa-check"></i><b>2.8.1</b> unmarked</a></li>
+<li class="chapter" data-level="2.8.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#mumin"><i class="fa fa-check"></i><b>2.8.2</b> MuMIn</a></li>
+<li class="chapter" data-level="2.8.3" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#missing-data"><i class="fa fa-check"></i><b>2.8.3</b> Missing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#proportion-of-area-occupied"><i class="fa fa-check"></i><b>2.9</b> Proportion of Area Occupied</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#assuming-perfect-detection"><i class="fa fa-check"></i><b>2.9.1</b> Assuming perfect detection</a></li>
+<li class="chapter" data-level="2.9.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#accounting-for-imperfect-detection"><i class="fa fa-check"></i><b>2.9.2</b> Accounting for Imperfect Detection</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#prediction"><i class="fa fa-check"></i><b>2.10</b> Prediction</a></li>
+<li class="chapter" data-level="2.11" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#model-evaluation"><i class="fa fa-check"></i><b>2.11</b> Model Evaluation</a></li>
+<li class="chapter" data-level="2.12" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#common-errors"><i class="fa fa-check"></i><b>2.12</b> Common Errors</a></li>
+<li class="chapter" data-level="2.13" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#additional-resources"><i class="fa fa-check"></i><b>2.13</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html"><i class="fa fa-check"></i><b>3</b> Version control with RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#requirements"><i class="fa fa-check"></i><b>3.2</b> Requirements</a></li>
+<li class="chapter" data-level="3.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudio-options"><i class="fa fa-check"></i><b>3.3</b> RStudio options</a></li>
+<li class="chapter" data-level="3.4" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudio-projects"><i class="fa fa-check"></i><b>3.4</b> RStudio Projects</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#new-directory"><i class="fa fa-check"></i><b>3.4.1</b> New Directory</a></li>
+<li class="chapter" data-level="3.4.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#existing-directory"><i class="fa fa-check"></i><b>3.4.2</b> Existing Directory</a></li>
+<li class="chapter" data-level="3.4.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#create-a-local-version-of-an-online-repository"><i class="fa fa-check"></i><b>3.4.3</b> Create a local version of an online repository</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudios-git-interface"><i class="fa fa-check"></i><b>3.5</b> RStudio’s Git Interface</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#staging-files"><i class="fa fa-check"></i><b>3.5.1</b> Staging Files</a></li>
+<li class="chapter" data-level="3.5.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#committing"><i class="fa fa-check"></i><b>3.5.2</b> Committing</a></li>
+<li class="chapter" data-level="3.5.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#pushpull"><i class="fa fa-check"></i><b>3.5.3</b> Push/Pull</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html"><i class="fa fa-check"></i><b>4</b> Introduction to Spartan</a><ul>
+<li class="chapter" data-level="4.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#what-is-spartan"><i class="fa fa-check"></i><b>4.1</b> What is Spartan?</a></li>
+<li class="chapter" data-level="4.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#accessing-spartan"><i class="fa fa-check"></i><b>4.2</b> Accessing Spartan</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#getting-an-account"><i class="fa fa-check"></i><b>4.2.1</b> Getting an Account</a></li>
+<li class="chapter" data-level="4.2.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#required-programs"><i class="fa fa-check"></i><b>4.2.2</b> Required Programs</a></li>
+<li class="chapter" data-level="4.2.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#log-in-to-spartan"><i class="fa fa-check"></i><b>4.2.3</b> Log in to Spartan</a></li>
+<li class="chapter" data-level="4.2.4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#help"><i class="fa fa-check"></i><b>4.2.4</b> Help</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#using-spartan"><i class="fa fa-check"></i><b>4.3</b> Using Spartan</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#sinteractive"><i class="fa fa-check"></i><b>4.3.1</b> sinteractive</a></li>
+<li class="chapter" data-level="4.3.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#sbatch"><i class="fa fa-check"></i><b>4.3.2</b> sbatch</a></li>
+<li class="chapter" data-level="4.3.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#useful-auxiliary-commands"><i class="fa fa-check"></i><b>4.3.3</b> Useful Auxiliary Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#additional-information-and-links"><i class="fa fa-check"></i><b>4.4</b> Additional information and links</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html"><i class="fa fa-check"></i><b>5</b> Installing R packages on Spartan</a><ul>
+<li class="chapter" data-level="5.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#set-up-a-user-specific-library"><i class="fa fa-check"></i><b>5.2</b> Set-up a user-specific library</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#create-the-library"><i class="fa fa-check"></i><b>5.2.1</b> Create the library</a></li>
+<li class="chapter" data-level="5.2.2" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#set-spartan-to-connect-to-this-new-library"><i class="fa fa-check"></i><b>5.2.2</b> Set Spartan to connect to this new library</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#install-r-packages-into-your-spartan-user-specific-library"><i class="fa fa-check"></i><b>5.3</b> Install R packages into your Spartan user-specific library</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#installing-packages-from-github"><i class="fa fa-check"></i><b>5.3.1</b> Installing packages from GitHub</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html"><i class="fa fa-check"></i><b>6</b> R File &amp; Directory Interface Commands</a><ul>
+<li class="chapter" data-level="6.1" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#information"><i class="fa fa-check"></i><b>6.2</b> Information</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#testing"><i class="fa fa-check"></i><b>6.2.1</b> Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#creation"><i class="fa fa-check"></i><b>6.3</b> Creation</a></li>
+<li class="chapter" data-level="6.4" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#modification"><i class="fa fa-check"></i><b>6.4</b> Modification</a></li>
+<li class="chapter" data-level="6.5" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#deletion"><i class="fa fa-check"></i><b>6.5</b> Deletion</a></li>
+<li class="chapter" data-level="6.6" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#miscellaneous"><i class="fa fa-check"></i><b>6.6</b> Miscellaneous</a></li>
+<li class="chapter" data-level="6.7" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#closing-thoughts"><i class="fa fa-check"></i><b>6.7</b> Closing Thoughts</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html"><i class="fa fa-check"></i><b>7</b> RStudio Tips and Tricks</a><ul>
+<li class="chapter" data-level="7.1" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#global-options"><i class="fa fa-check"></i><b>7.1</b> Global Options</a></li>
+<li class="chapter" data-level="7.2" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>7.2</b> Keyboard Shortcuts</a></li>
+<li class="chapter" data-level="7.3" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#code-folds"><i class="fa fa-check"></i><b>7.3</b> Code Folds</a></li>
+<li class="chapter" data-level="7.4" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#r-projects"><i class="fa fa-check"></i><b>7.4</b> R Projects</a></li>
+<li class="chapter" data-level="7.5" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#terminal"><i class="fa fa-check"></i><b>7.5</b> Terminal</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">lodestar</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-spartan" class="section level1">
+<h1><span class="header-section-number">4</span> Introduction to Spartan</h1>
+<p>(#label:IntroToSpartan)</p>
+<div id="what-is-spartan" class="section level2">
+<h2><span class="header-section-number">4.1</span> What is Spartan?</h2>
+<hr />
+<center>
+<img src="Images/spartanlogo.png" />
+</center>
+<hr />
+<p>Spartan is the University of Melbourne’s general purpose hybrid traditional high performance computing system (HPC) with cloud instances from the NeCTAR Research Cloud and attached Research Data Storage Services (RDSS).</p>
+<p>It is designed to suit the needs of researchers whose desktop/laptop is not up to the particular task. Models running slow, datasets are too big, not enough cores, application licensing issues, etc.</p>
+<p>Spartan consists of:</p>
+<ul>
+<li>a management node for system administrators,</li>
+<li>a log in node for users to connect to the system and submit jobs,</li>
+<li>a small number of ‘bare metal’ compute nodes for multinode tasks,</li>
+<li>any ‘bare metal’ user-procured hardware (e.g., departmental nodes),</li>
+<li>vHPC cloud compute nodes for overflow and GPGPU tasks, and</li>
+<li>general cloud compute nodes.</li>
+</ul>
+</div>
+<div id="accessing-spartan" class="section level2">
+<h2><span class="header-section-number">4.2</span> Accessing Spartan</h2>
+<div id="getting-an-account" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Getting an Account</h3>
+<p>To gain access to Spartan you need to create an account.</p>
+<ul>
+<li>Via Karaage at <a href="https://dashboard.hpc.unimelb.edu.au/karaage">link</a></li>
+<li>Need to create a project</li>
+<li>Need a project leader (you), and you can invite collaborators for joint projects</li>
+<li>Need a project title/description to demonstrate research goals and/or research support</li>
+<li>Takes ~2 days for approval</li>
+</ul>
+<hr />
+<center>
+<img src="Images/Karaage.png" />
+</center>
+<hr />
+</div>
+<div id="required-programs" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Required Programs</h3>
+<p>To connect to Spartan you will need a Secure Shell (SSH) and a Secure File Transfer Protocol (SFTP) client. The SSH client is your interface with Spartan while the SFTP client is used to transfer files from your local computer to your Spartan home directory.</p>
+<div id="windows-users" class="section level4">
+<h4><span class="header-section-number">4.2.2.1</span> Windows Users</h4>
+<p>Use PuTTY as your SSH client. This is an easy set-up with the following five steps:</p>
+<ol style="list-style-type: decimal">
+<li>Set your host name: spartan.hpc.unimelb.edu.au</li>
+<li>Set your port number: leave as default (whereas Boab users need a defined port)</li>
+<li>Set your connection type: SSH</li>
+<li>Name your session to make it easy for future log-ins: Whatever you like i.e. Spartan</li>
+<li>Save your session details</li>
+</ol>
+<hr />
+<center>
+<img src="Images/PuTTY_steps.png" />
+</center>
+<hr />
+<p>Your first log-in to Spartan via the SSH client creates your home directory on Spartan so it is important to do that before setting up your SFTP client.</p>
+<p>Use WinSCP as your SFTP client. This is an easy process with the following six steps:</p>
+<ol style="list-style-type: decimal">
+<li>Set your file protocol: SFTP</li>
+<li>Set your host name: spartan.hpc.unimelb.edu.au</li>
+<li>Set your port number: leave as default (whereas Boab users need a defined port)</li>
+<li>Enter your username</li>
+<li>Enter your password (note, this will show more characters than you entered when saved)</li>
+<li>Log-in</li>
+</ol>
+<hr />
+<center>
+<img src="Images/WinSCP_steps.png" />
+</center>
+<hr />
+<p>Inside a WinSCP session you will have dual file explorer windows: your local machine (left) and your Spartan home directory (right). If you have not made your initial log-in to Spartan via your SSH client you will have a blank white screen in the right-hand window. Transferring files between the two directories is achieved with a simple drag-and-drop interface.</p>
+<hr />
+<center>
+<img src="Images/WinSCP_home.png" />
+</center>
+<hr />
+<p>Your two clients are now set up and everything is ready to access Spartan. After set-up you don’t need to deal directly with PuTTY as a separate program anymore as there is a button in the WinSCP toolbar to open a session.</p>
+<hr />
+<center>
+<img src="Images/WinSCP_PuTTY.png" />
+</center>
+<hr />
+</div>
+<div id="maclinux-users" class="section level4">
+<h4><span class="header-section-number">4.2.2.2</span> Mac/Linux Users</h4>
+<p>Unlike for Windows, OSX and (most) linux operating systems already have SSH installed and have a fully functional terminal built in. So to SSH into the Spartan log-in node, you just need to open up a terminal (the <code>Terminal</code> application on a mac), and issue the command:</p>
+<pre><code>ssh myusername@spartan.hpc.unimelb.edu.au</code></pre>
+<p>Replacing <code>myusername</code> with your username. Then enter your password (no characters will show, that’s normal) and hit return. That should look something like this:</p>
+<hr />
+<center>
+<img src="Images/terminal_ssh_steps.png" />
+</center>
+<hr />
+<p>As for Windows, your first log-in to Spartan via the SSH client creates your home directory on Spartan so it is important to do that before setting up your SFTP client.</p>
+<p>SFTP is also installed on most OSX and linux versions, so you could transfer files to Spartan directly from the terminal (do <code>man sftp</code> in the terminal if you’re interested in that). However it’s normally easier to use a SFTP client with a graphical user interface. One nice option for OSX (that also works on Windows) is <a href="https://cyberduck.io">Cyberduck</a>. Once installed, you can add a new connection to Spartan with the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>Clicking on the <code>+</code> in the lower-left corner</li>
+<li>Set the connection type to SFTP</li>
+<li>Give the connection a name</li>
+<li>Set the server name: <code>spartan.hpc.unimelb.edu.au</code></li>
+<li>Set the port number to 22</li>
+<li>Enter your username</li>
+</ol>
+<hr />
+<center>
+<img src="Images/cyberduck_sftp_setup.png" />
+</center>
+<hr />
+<p>You can then close the connection details box, and double-click on the new connection to initiate it. This will pop up a file explorer like the image below, listing the files in your working directory on Spartan. You can drag and drop files between there and your computer.</p>
+<hr />
+<center>
+<img src="Images/cyberduck_session.png" />
+</center>
+<hr />
+</div>
+</div>
+<div id="log-in-to-spartan" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Log in to Spartan</h3>
+<p>Now that you have everything in place to access Spartan, open an SSH session (in PuTTY or Terminal). as before, this wont display characters as you type your password.</p>
+<hr />
+<center>
+<img src="Images/Spartan_log_in.png" />
+</center>
+<hr />
+<p>The text that loads at the beginning gives you the usual university IT policy spiel, a couple of getting started prompts, a warning about the log-in node, and the obligatory 300 reference.</p>
+<hr />
+<center>
+<img src="Images/Spartan_300.png" />
+</center>
+<hr />
+</div>
+<div id="help" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Help</h3>
+<p>Typing <code>man Spartan</code> loads the university’s Spartan FAQ. Rather than loading the entire document it loads it a screen at a time and you have to navigate by keyboard commands. For now, you will only need these:</p>
+<ul>
+<li><code>h</code>: help, shows you the keyboard shortcuts</li>
+<li><code>q</code>: quit the document and go back to the Spartan interface</li>
+<li><code>^</code> is used in place of the control/command button, so <code>^V</code> is Ctrl+V</li>
+<li><code>Enter/Return</code> will let you advance by one line</li>
+<li><code>^Y</code> will let you go back by one line</li>
+<li><code>^V</code> will let you advance by one window</li>
+<li><code>^B</code> will let you go back by one window</li>
+</ul>
+<hr />
+<center>
+<img src="Images/Spartan_key_shortcuts.png" />
+</center>
+<hr />
+<p>If you want help with a particular function in Spartan you can type <code>man &lt;function name&gt;</code> (without &lt; &gt;). This works like <code>?</code> in R.</p>
+</div>
+</div>
+<div id="using-spartan" class="section level2">
+<h2><span class="header-section-number">4.3</span> Using Spartan</h2>
+<p>The log-in node on Spartan is a shared resource between all users and is only allocated the memory to handle log-ins and job submission. Do not run jobs in the log-in node or the admins will get upset and kill the job. There are two ways to get out of the log-in node and into dedicated compute nodes: <code>sinteractive</code> and <code>sbatch</code>.</p>
+<div id="sinteractive" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> sinteractive</h3>
+<p>The <code>sinteractive</code> command will give you access to a compute node (as soon as available) where you can work interactively with your job. While you can submit an entire job in this method, that is better saved for <code>sbatch</code> and <code>sinteractive</code> used for testing/debugging. There are default settings for <code>sinteractive</code> which should be enough for most uses, but they can be modified if needed like so:</p>
+<pre><code>sinteractive --time=00:10:00 --nodes=1 --ntasks=1 --cpus-per-task=2</code></pre>
+<p>This will give you access to one node to perform one task with two processors for ten minutes (default values I think). Lets open a default node and explore some basic commands. Type <code>sinteractive</code>. This submits a request for a default compute node (1), and you have to wait for the resource to become available (2) before you can continue.</p>
+<hr />
+<center>
+<img src="Images/Spartan_sinteractive.png" />
+</center>
+<hr />
+<p>The <code>ls</code> command will show you everything in your current directory. Folders show up in blue.</p>
+<hr />
+<center>
+<img src="Images/Spartan_ls.png" />
+</center>
+<hr />
+<p>The <code>cd</code> command will let you change your current directory. As Spartan is Linux based it uses / not  for directories (unlike Windows). The  character is used to say that the preceding term is a special character. Lets change into a sub-folder and see what is inside. Spartan lets you pre-fill file paths/names using the tab key like R, but it will pre-fill everything until a choice needs to be made, and won’t provide options at that stage, but will complete everything once no more divergences exist.</p>
+<hr />
+<center>
+<img src="Images/Spartan_cd.png" />
+</center>
+<hr />
+<p>The programs available on Spartan as referred to as modules, and you can see a complete list using <code>module avail</code>.</p>
+<hr />
+<center>
+<img src="Images/Spartan_module_avail.png" />
+</center>
+<hr />
+<p>Loading a particular module requires two commands: <code>module load &lt;module name&gt;</code> (to load the module into the node’s environment) and <code>&lt;module name&gt;</code> (to start the program). To load R for example:</p>
+<hr />
+<center>
+<img src="Images/Spartan_module_load.png" />
+</center>
+<hr />
+</div>
+<div id="sbatch" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> sbatch</h3>
+<p>The <code>sbatch</code> command is used for direct job submission to Spartan using the batch system called SLURM (Simple Linux Utility for Resource Management).</p>
+<hr />
+<center>
+<img src="Images/slurm.jpg" />
+</center>
+<hr />
+<p>This system tracks resources throughout the cluster and builds a queue of jobs to run, and when resources are available the job scheduler will direct your job to a compute node to run.</p>
+<hr />
+<center>
+<img src="Images/Spartan_queue_example.png" />
+</center>
+<hr />
+<p>To submit a job using the <code>sbatch</code> command you need to write a slurm file that sets up your instance (amount of memory, number of processors, etc) and runs your model. Note for Windows users: write these in Notepad++ as Windows and Linux use different line break notation (/r/n vs /n) and standard text files written on Windows won’t run on Spartan.</p>
+<hr />
+<center>
+<img src="Images/Slurm_file_example.png" />
+</center>
+<hr />
+<p>Slurm files can be as simple or as complex as required depending on the job you want to run. Slurm files always need to begin with <code>#!/bin/bash</code> on the first line. Why? It tells the shell what kind of interpretor to run (in this case bash). On subsequent lines you set up your instance first using <code>#SBATCH &lt;your command here&gt;</code> and then the commands to run your job. Some useful <code>#SBATCH</code> commands to consider are:</p>
+<ul>
+<li><code>#SBATCH --job-name=&lt;name&gt;</code>: Lets you give your job a name alongside its job id. Useful if you’re running lots of jobs at once. By default it sets it to your file name, or replace <name> with your name of choice like this:</li>
+</ul>
+<pre><code>#SBATCH --job-name=MyJob</code></pre>
+<ul>
+<li><code>#SBATCH -p &lt;partition&gt;</code>: This is where you select which partition on Spartan your job will run. For most jobs you will set your partition as <code>cloud</code> which can run single node jobs of up to 8 CPUs and up to 50GB of memory. For multi-node jobs or &gt;50GB of memory set it as <code>physical</code> (up to 200GB), and if you have access to a dedicated partition then use <code>your partition name</code>. In most cases you will use the following:</li>
+</ul>
+<pre><code>#SBATCH -p cloud</code></pre>
+<ul>
+<li><code>#SBATCH --time=&lt;&gt;</code>: As Spartan is a communal resource and jobs are allocated a share from a queue you need to specify a maximum amount of walltime that you want your instance to remain open. As you aren’t likely to know how long your model will need to run for (outside of a rough guess) it is recommended that you give a conservative estimate. If necessary you can contact Spartan support and get your time extended. There are multiple formats for entering a time value depending on the scale of your job: “minutes”, “minutes:seconds”, “hours:minutes:seconds”, “days-hours”, “days-hours:minutes” and “days-hours:minutes:seconds”. Many SLURM documentations will list setting <code>--time=0</code> as a way to set an indefinite walltime but this will automatically be rejected by Spartan. For example, a one hour instance could be called with the following:</li>
+</ul>
+<pre><code>#SBATCH --time=01:00:00   # hours:minutes:seconds format</code></pre>
+<ul>
+<li><code>#SBATCH --nodes=&lt;number&gt;</code>: You need to request an allocation of compute nodes. Most jobs will be single node jobs, but there is the ability to run jobs over multiple nodes that talk to each other. It is not recommended to try running multiple communicating nodes via the cloud partition, use the physical partition instead. To call a single node use the following:</li>
+</ul>
+<pre><code>#SBATCH --nodes=1</code></pre>
+<ul>
+<li><code>#SBATCH --ntasks=&lt;number&gt;</code>: This line informs the SLURM controller that job steps within the allocation will launch a maximum of <em>number</em> tasks and to provide sufficient resources. Most jobs will need to a perform a single task which can be set as follows:</li>
+</ul>
+<pre><code>#SBATCH --ntasks=1</code></pre>
+<ul>
+<li><code>#SBATCH --cpus-per-task=&lt;number&gt;</code>: This informs the SLURM controller that each task will need <em>number</em> of processors per task. Cloud nodes have access to eight cores each. To allocate four processors (like on a quad-core desktop without multi-threading) you would set:</li>
+</ul>
+<pre><code>#SBATCH --cpus-per-task=4</code></pre>
+<ul>
+<li><code>#SBATCH --mem=&lt;number&gt;</code>: This is where you nominate the maximum amount of memory required per node (in megabytes). Cloud nodes have access to up to 50GB of memory, physical nodes are used for large jobs of up to 200GB. To request 10GB of memory (remembering that 1GB = 1024MB) you would use:</li>
+</ul>
+<pre><code>#SBATCH --mem=10240</code></pre>
+<ul>
+<li><code>#SBATCH --mail</code>: The final group of useful <code>sbatch</code> commands that you would regularly use sets up email notifications of various events during job submission/running. There are two separate commands here: <code>--mail-user=&lt;&gt;</code> to set who gets notified, and <code>--mail-type=&lt;&gt;</code> to chooses what you get notified about. Some useful mail options include:
+<ul>
+<li><code>BEGIN</code>: the model is out of the queue and started to run (includes start time and time in queue)</li>
+<li><code>END</code>: the model has completed (includes run-time)</li>
+<li><code>FAIL</code>: the model has failed (includes run-time)</li>
+<li><code>REQUEUE</code>: the model has been re-queued (i.e. someone with priority has had you booted off)</li>
+<li><code>ALL</code>: all of the above plus <code>STAGE_OUT</code></li>
+<li><code>TIME_LIMIT_50</code>: reached 50% of your allocated time</li>
+<li><code>TIME_LIMIT_80</code>: reached 80% of your allocated time</li>
+<li><code>TIME_LIMIT_90</code>: reached 90% of your allocated time</li>
+</ul></li>
+<li>You can string multiple notifications types together by separating them with commas, so you could do something like the following:</li>
+</ul>
+<pre><code>#SBATCH --mail-user=&lt;your email here&gt;
+#SBATCH --mail-type=ALL,TIME_LIMIT_90</code></pre>
+<p>After setting up your instance you then need to supply the instructions for what you want your job to do. This will often just be a change of directory, loading the module (program) you need, and calling the script you want to run. Calling the script you want to run follows a set format of commands: <module name> [options] [&lt; infile] [&gt; out-file].The first two of these are covered earlier, so lets look at complete example for R before looking at options in more details:</p>
+<pre><code>cd Coding\ Club/R/
+module load R
+R --vanilla &lt; tutorial.R</code></pre>
+<p>As you can see this merges the second command in loading a module with loading a script. You can see the different options available for calling an R script using <code>man R</code> (after loading the module into the environment). Some useful options include:</p>
+<ul>
+<li><code>--save</code>: Save workspace at the end of the session</li>
+<li><code>--no-save</code>: Don’t save workspace at the end of the session</li>
+<li><code>--vanilla</code>: A wrapper around <code>--no-save</code> and a few other commands useful for starting R as a blank slate (no loading pre-saved objects, etc)</li>
+</ul>
+<p><code>&lt; infile</code> is where you call the script you want to run e.g. <code>&lt; myFile.R</code>, and <code>&gt; outfile</code> presumably lets you set specific output files (it isn’t compulsory, and I’ve never had reason to use it).</p>
+<p>Now we can put all of this together to create our SLURM file:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#!/bin/bash</span>
+
+<span class="co">#SBATCH --job-name=Coding_Club_Example</span>
+<span class="co">#SBATCH -p cloud</span>
+
+<span class="co">#SBATCH --time=1:00:00</span>
+
+<span class="co">#SBATCH --nodes=1</span>
+<span class="co">#SBATCH --ntasks=1</span>
+<span class="co">#SBATCH --cpus-per-task=1</span>
+
+<span class="co">#SBATCH --mem=10240</span>
+
+<span class="co">#SBATCH --mail-user=&quot;davidpw@student.unimelb.edu.au&quot;</span>
+<span class="co">#SBATCH --mail-type=ALL</span>
+
+module load R
+
+R <span class="op">--</span>vanilla <span class="op">&lt;</span><span class="st"> </span>tutorial.R </code></pre></div>
+<p>Assuming this Slurm file is named “MyFile.slurm”, you can submit your job to the queue from the log-in node using the following command</p>
+<pre><code>sbatch MyFile.slurm</code></pre>
+<hr />
+<center>
+<img src="Images/Spartan_sbatch.png" />
+</center>
+<hr />
+</div>
+<div id="useful-auxiliary-commands" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> Useful Auxiliary Commands</h3>
+<p>Now that we know how to submit jobs to Spartan either through <code>sinteractive</code> or <code>sbatch</code>, lets look at some other useful commands in Spartan. Spartan uses a Unix-based operating system so a lot of Unix xommands work here. These commands range from help functions, in built text-editors, checking job status, or job control. Some of these may have been used earlier in this document but are important enough for another mention:</p>
+<ul>
+<li><code>man &lt;function name&gt;</code>: This is Spartan’s help function. For example, <code>man Spartan</code> will call the Spartan FAQ, <code>man sbatch</code> will call the help file for the <code>sbatch</code> command, and <code>man R</code> will call the help file for running R in Spartan.</li>
+</ul>
+<hr />
+<center>
+<img src="Images/Spartan_man.png" />
+</center>
+<hr />
+<ul>
+<li><p><code>pwd</code>: Print working directory</p></li>
+<li><p><code>ls</code>: List all files/directories in current directory</p></li>
+<li><p><code>cd &lt;file path&gt;</code>: Change current directory. <code>cd</code> sets you to your home directory, <code>cd -</code> goes to previous directory, <code>cd ..</code> goes back one step towards root</p></li>
+<li><p><code>rm &lt;filename&gt;</code>: Delete a file</p></li>
+<li><p><code>mkdir &lt;folder name&gt;</code>: Create a new folder in current directory</p></li>
+<li><p><code>rmdir &lt;folder name&gt;</code>: Delete a folder (must be empty)</p></li>
+<li><p><code>nano &lt;filename&gt;</code>: This is Spartan’s in-built text editor. This can be used for on the fly alterations to a file (i.e. increase memory limit), but I use it most often for reading the slurm output files for checking why a model run failed.</p></li>
+</ul>
+<hr />
+<center>
+<img src="Images/Spartan_nano.png" />
+</center>
+<hr />
+<ul>
+<li><p><code>head &lt;filename&gt;</code> and <code>tail &lt;filename&gt;</code>: Print the first/last ten lines of a file</p></li>
+<li><p><code>history</code>: List commands you’ve used previously. You can navigate previous commands in your current session using the up/down keys like in R, but this lists previous commands over previous sessions as well</p></li>
+<li><p><code>echo &lt;text&gt;</code>: Prints text. Useful for debugging</p></li>
+<li><code>squeue</code>: This command is used for checking on job status.
+<ul>
+<li><code>squeue</code>: This base command will show all jobs in the queue for all users</li>
+<li><code>squeue -u &lt;username&gt;</code>: This will show all jobs for a particular user</li>
+<li><code>squeue -u &lt;username&gt; -t RUNNING</code>: This will show all running jobs for a particular user (can also use <code>PENDING</code>)</li>
+</ul></li>
+</ul>
+<hr />
+<center>
+<img src="Images/Spartan_squeue.png" />
+</center>
+<hr />
+<ul>
+<li><code>scancel</code>: This command is used for cancelling jobs in the queue. For example:
+<ul>
+<li><code>scancel -u &lt;username&gt;</code>: cancels all jobs for that username</li>
+<li><code>scancel -u &lt;jobid&gt;</code>: cancels the job called by <jobid></li>
+<li><code>scancel --name &lt;JobName&gt;</code>: cancels jobs by name</li>
+<li><code>scancel -t PENDING -u &lt;username&gt;</code>: This cancels all pending jobs for a particular user</li>
+</ul></li>
+<li><code>sstat</code>: This command is used to show memory information of running jobs:
+<ul>
+<li>For non-admin users there is no need to specify a username as you are restricted to your own jobs only by default</li>
+<li>You can use the <code>--format</code> option to specify the details you want to see. You can list multiple comma-separated fields to view more details</li>
+<li><code>sstat --helpformat</code> will list the available fields to view</li>
+<li>Browsing <code>man sstat</code> will let you see descriptions for each field</li>
+<li>For example: <code>sstat -j &lt;jobid&gt; --format JobID,NTasks,Nodelist,MaxRSS,MaxVMSize,AveRSS,AveVMSize</code></li>
+</ul></li>
+<li><code>sacct</code>: This command is used to show memory information of completed jobs:
+<ul>
+<li>For non-admin users there is no need to specify a username as you are restricted to your own jobs only by default</li>
+<li>You can use the <code>--format</code> option to specify the details you want to see. You can list multiple comma-separated fields to view more details</li>
+<li><code>sacct --helpformat</code> will list the available fields to view (many more options that <code>sstat</code>)</li>
+<li>Browsing <code>man sacct</code> will let you see descriptions for each field</li>
+<li>For example: <code>sacct -j &lt;jobid&gt; --format JobID,jobname,NTasks,nodelist,MaxRSS,MaxVMSize,AveRSS,AveVMSize,ExitCode,CPUTime</code></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="additional-information-and-links" class="section level2">
+<h2><span class="header-section-number">4.4</span> Additional information and links</h2>
+<ul>
+<li>There are simple example slurm files for the most common modules at <code>/usr/local/common/</code> (including R, MATLAB, and Python)</li>
+<li><a href="https://dashboard.hpc.unimelb.edu.au/spartan-faq">Online Spartan FAQ</a>. Same as using <code>man spartan</code></li>
+<li><a href="http://www.ceci-hpc.be/slurm_faq.html">Online SLURM FAQ</a></li>
+<li><code>srun</code> and <code>salloc</code> functions are used for parallel jobs</li>
+<li><a href="https://slurm.schedmd.com/mc_support.html">Support for multi-core/multi-threaded architecture</a></li>
+<li><a href="https://cran.r-project.org/web/packages/rslurm/vignettes/rslurm-vignette.html">Running R in parallel using the rslurm package</a></li>
+</ul>
+<hr />
+<hr />
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="version-control-with-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="installing-r-packages-on-spartan.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true,
+"search": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

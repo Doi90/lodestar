@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>lodestar</title>
+  <meta name="description" content="lodestar">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="lodestar" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Doi90/lodestar" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="lodestar" />
+  
+  
+  
+
+<meta name="author" content="David Wilkinson">
+
+
+<meta name="date" content="2018-10-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="introduction-to-spartan.html">
+<link rel="next" href="r-file-directory-interface-commands.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="lodestar.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Lodestar Guides</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> What is <em>lodestar</em>?</a></li>
+<li class="chapter" data-level="2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html"><i class="fa fa-check"></i><b>2</b> Fitting occupancy models with <em>unmarked</em></a><ul>
+<li class="chapter" data-level="2.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#occupancy-modelling-with-imperfect-detection"><i class="fa fa-check"></i><b>2.1</b> Occupancy Modelling with Imperfect Detection</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#the-maths"><i class="fa fa-check"></i><b>2.1.1</b> The Maths</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#unmarked-models"><i class="fa fa-check"></i><b>2.2</b> unmarked Models</a></li>
+<li class="chapter" data-level="2.3" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#load-package"><i class="fa fa-check"></i><b>2.3</b> Load Package</a></li>
+<li class="chapter" data-level="2.4" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#load-data"><i class="fa fa-check"></i><b>2.4</b> Load Data</a></li>
+<li class="chapter" data-level="2.5" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#standardising-data"><i class="fa fa-check"></i><b>2.5</b> Standardising Data</a></li>
+<li class="chapter" data-level="2.6" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#missing-data-considerations"><i class="fa fa-check"></i><b>2.6</b> Missing Data Considerations</a></li>
+<li class="chapter" data-level="2.7" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#fitting-a-model"><i class="fa fa-check"></i><b>2.7</b> Fitting a Model</a></li>
+<li class="chapter" data-level="2.8" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#model-selection"><i class="fa fa-check"></i><b>2.8</b> Model Selection</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#unmarked"><i class="fa fa-check"></i><b>2.8.1</b> unmarked</a></li>
+<li class="chapter" data-level="2.8.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#mumin"><i class="fa fa-check"></i><b>2.8.2</b> MuMIn</a></li>
+<li class="chapter" data-level="2.8.3" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#missing-data"><i class="fa fa-check"></i><b>2.8.3</b> Missing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#proportion-of-area-occupied"><i class="fa fa-check"></i><b>2.9</b> Proportion of Area Occupied</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#assuming-perfect-detection"><i class="fa fa-check"></i><b>2.9.1</b> Assuming perfect detection</a></li>
+<li class="chapter" data-level="2.9.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#accounting-for-imperfect-detection"><i class="fa fa-check"></i><b>2.9.2</b> Accounting for Imperfect Detection</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#prediction"><i class="fa fa-check"></i><b>2.10</b> Prediction</a></li>
+<li class="chapter" data-level="2.11" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#model-evaluation"><i class="fa fa-check"></i><b>2.11</b> Model Evaluation</a></li>
+<li class="chapter" data-level="2.12" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#common-errors"><i class="fa fa-check"></i><b>2.12</b> Common Errors</a></li>
+<li class="chapter" data-level="2.13" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#additional-resources"><i class="fa fa-check"></i><b>2.13</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html"><i class="fa fa-check"></i><b>3</b> Version control with RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#requirements"><i class="fa fa-check"></i><b>3.2</b> Requirements</a></li>
+<li class="chapter" data-level="3.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudio-options"><i class="fa fa-check"></i><b>3.3</b> RStudio options</a></li>
+<li class="chapter" data-level="3.4" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudio-projects"><i class="fa fa-check"></i><b>3.4</b> RStudio Projects</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#new-directory"><i class="fa fa-check"></i><b>3.4.1</b> New Directory</a></li>
+<li class="chapter" data-level="3.4.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#existing-directory"><i class="fa fa-check"></i><b>3.4.2</b> Existing Directory</a></li>
+<li class="chapter" data-level="3.4.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#create-a-local-version-of-an-online-repository"><i class="fa fa-check"></i><b>3.4.3</b> Create a local version of an online repository</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudios-git-interface"><i class="fa fa-check"></i><b>3.5</b> RStudio’s Git Interface</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#staging-files"><i class="fa fa-check"></i><b>3.5.1</b> Staging Files</a></li>
+<li class="chapter" data-level="3.5.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#committing"><i class="fa fa-check"></i><b>3.5.2</b> Committing</a></li>
+<li class="chapter" data-level="3.5.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#pushpull"><i class="fa fa-check"></i><b>3.5.3</b> Push/Pull</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html"><i class="fa fa-check"></i><b>4</b> Introduction to Spartan</a><ul>
+<li class="chapter" data-level="4.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#what-is-spartan"><i class="fa fa-check"></i><b>4.1</b> What is Spartan?</a></li>
+<li class="chapter" data-level="4.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#accessing-spartan"><i class="fa fa-check"></i><b>4.2</b> Accessing Spartan</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#getting-an-account"><i class="fa fa-check"></i><b>4.2.1</b> Getting an Account</a></li>
+<li class="chapter" data-level="4.2.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#required-programs"><i class="fa fa-check"></i><b>4.2.2</b> Required Programs</a></li>
+<li class="chapter" data-level="4.2.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#log-in-to-spartan"><i class="fa fa-check"></i><b>4.2.3</b> Log in to Spartan</a></li>
+<li class="chapter" data-level="4.2.4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#help"><i class="fa fa-check"></i><b>4.2.4</b> Help</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#using-spartan"><i class="fa fa-check"></i><b>4.3</b> Using Spartan</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#sinteractive"><i class="fa fa-check"></i><b>4.3.1</b> sinteractive</a></li>
+<li class="chapter" data-level="4.3.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#sbatch"><i class="fa fa-check"></i><b>4.3.2</b> sbatch</a></li>
+<li class="chapter" data-level="4.3.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#useful-auxiliary-commands"><i class="fa fa-check"></i><b>4.3.3</b> Useful Auxiliary Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#additional-information-and-links"><i class="fa fa-check"></i><b>4.4</b> Additional information and links</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html"><i class="fa fa-check"></i><b>5</b> Installing R packages on Spartan</a><ul>
+<li class="chapter" data-level="5.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#set-up-a-user-specific-library"><i class="fa fa-check"></i><b>5.2</b> Set-up a user-specific library</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#create-the-library"><i class="fa fa-check"></i><b>5.2.1</b> Create the library</a></li>
+<li class="chapter" data-level="5.2.2" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#set-spartan-to-connect-to-this-new-library"><i class="fa fa-check"></i><b>5.2.2</b> Set Spartan to connect to this new library</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#install-r-packages-into-your-spartan-user-specific-library"><i class="fa fa-check"></i><b>5.3</b> Install R packages into your Spartan user-specific library</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#installing-packages-from-github"><i class="fa fa-check"></i><b>5.3.1</b> Installing packages from GitHub</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html"><i class="fa fa-check"></i><b>6</b> R File &amp; Directory Interface Commands</a><ul>
+<li class="chapter" data-level="6.1" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#information"><i class="fa fa-check"></i><b>6.2</b> Information</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#testing"><i class="fa fa-check"></i><b>6.2.1</b> Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#creation"><i class="fa fa-check"></i><b>6.3</b> Creation</a></li>
+<li class="chapter" data-level="6.4" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#modification"><i class="fa fa-check"></i><b>6.4</b> Modification</a></li>
+<li class="chapter" data-level="6.5" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#deletion"><i class="fa fa-check"></i><b>6.5</b> Deletion</a></li>
+<li class="chapter" data-level="6.6" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#miscellaneous"><i class="fa fa-check"></i><b>6.6</b> Miscellaneous</a></li>
+<li class="chapter" data-level="6.7" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#closing-thoughts"><i class="fa fa-check"></i><b>6.7</b> Closing Thoughts</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html"><i class="fa fa-check"></i><b>7</b> RStudio Tips and Tricks</a><ul>
+<li class="chapter" data-level="7.1" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#global-options"><i class="fa fa-check"></i><b>7.1</b> Global Options</a></li>
+<li class="chapter" data-level="7.2" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>7.2</b> Keyboard Shortcuts</a></li>
+<li class="chapter" data-level="7.3" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#code-folds"><i class="fa fa-check"></i><b>7.3</b> Code Folds</a></li>
+<li class="chapter" data-level="7.4" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#r-projects"><i class="fa fa-check"></i><b>7.4</b> R Projects</a></li>
+<li class="chapter" data-level="7.5" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#terminal"><i class="fa fa-check"></i><b>7.5</b> Terminal</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">lodestar</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="installing-r-packages-on-spartan" class="section level1">
+<h1><span class="header-section-number">5</span> Installing R packages on Spartan</h1>
+<div id="introduction-1" class="section level2">
+<h2><span class="header-section-number">5.1</span> Introduction</h2>
+<hr />
+<p>One of R’s strengths is the abundance of packages freely available to users (<a href="http://blog.revolutionanalytics.com/2017/01/cran-10000.html">over 10,000 as of 27/01/2017</a>). As such, everyone ultimately has their own suite of select packages that they use, and on a personal computer these are easily managed and stored within the user’s library. On a massive communal resource like The University of Melbourne’s Spartan high-performance computing (HPC) service things are not so simple. R is available as a module on Spartan that any user can load, however, its default package library is read-only for non-admin users. While the library is loaded with a suite of commonly used packages it is not exhaustive and many users will require additional packages. The system administrators can add additional packages (or update them to more recent versions) upon request, but the job gets added to a queue and could take days to be completed. Instead it is easier (for both users and administrators) if the users are able to install additional packages themselves.</p>
+<p>R has the ability to connect to multiple libraries and search them all when trying to load packages. This is a fairly straight-forward process on a personal computer, but more complex to set-up on HPC architecture where a user’s jobs could be run any on any of hundreds of different compute nodes with different environments. This guide will show you how to a) set-up a secondary, user-specific library on Spartan linked to your home directory, and b) install all of the packages already on your personal computer that <em>aren’t</em> in Spartan’s R library into this new user-specific library. This guide will make use of some specialised unix commands and SLURM scripts but does not require any previous knowledge of them from the user (the steps can be mostly followed by copy/pasting commands). You can find more information on basic Spartan usage in another <em>lodestar</em> guide [here][IntroToSpartan].</p>
+<hr />
+</div>
+<div id="set-up-a-user-specific-library" class="section level2">
+<h2><span class="header-section-number">5.2</span> Set-up a user-specific library</h2>
+<div id="create-the-library" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Create the library</h3>
+<p>A package library is just a folder/directory on a computer where R stores its installed packages. You can see the filepaths to the library/libraries connected to your R session using the <code>.libPaths()</code> command.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">.libPaths</span>()</code></pre></div>
+<pre><code>## [1] &quot;C:/Users/wilko/Documents/R/win-library/3.5&quot;
+## [2] &quot;C:/Program Files/R/R-3.5.1/library&quot;</code></pre>
+<p>In this case, you can see that my personal computer recognises two libraries.</p>
+<p>To create a user-specific library on Spartan we just need to create a folder for it. This can be done interactively through your SFTP client (like WinSCP for Windows users, or CyberDuck for Mac users) using the new folder button, or using the <code>mkdir</code> command in Spartan’s command line. For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mkdir <span class="op">-</span>p <span class="op">~</span><span class="er">/</span>R<span class="op">/</span>lib</code></pre></div>
+<p>This creates the <code>lib</code> directory inside the <code>R</code> directory in your home directory (refered to by ~). The rest of this guide assumes you have created this same directory, but if you select something else you can just modify the commands/files that follow.</p>
+<hr />
+</div>
+<div id="set-spartan-to-connect-to-this-new-library" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Set Spartan to connect to this new library</h3>
+<p>We have now created a user-specific library, but unless we tell R on Spartan to look here we still wont be able to install our own packages. There are two approaches to do this: one on a per-job basis (my preference) or fix it at the profile level.</p>
+<div id="setting-the-library-path-inside-your-r-script" class="section level4">
+<h4><span class="header-section-number">5.2.2.1</span> Setting the library path inside your R script</h4>
+<p>R has a <code>.libPaths()</code> function for viewing and setting your library paths. The easiest way to do this is to add a couple of lines at the top of your R script.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Set the library path
+
+<span class="kw">.libPaths</span>(<span class="st">&quot;Your library path here&quot;</span>)
+
+## If you need to install packages then save the desired
+## path as a variable
+
+lib =<span class="st"> </span><span class="kw">.libPaths</span>()[<span class="dv">1</span>]</code></pre></div>
+<p>This will set your personal library as the default option before Spartan’s library path. Saving the library path as a variable will make installing packages easier, but it isn’t required in a script that is just loading packages with <code>library()</code>.</p>
+<p>This is my preferred method as you can easily modify the library path on a per job basis if you have multiple personal libraries. This could be because you have different R version libraries (e.g. 3.4 and 3.5) required for different projects or if you have different libraries built with different compilers (e.g. GCC or intel) because of underlying dependencies.</p>
+</div>
+<div id="setting-the-library-path-in-your-bash-profile" class="section level4">
+<h4><span class="header-section-number">5.2.2.2</span> Setting the library path in your Bash Profile</h4>
+<p>Each time you open an <code>sinteractive</code> session or submit a job via <code>sbatch</code> R will open in a new environment and only register Spartan’s library unless we tell it otherwise. While we can tell R where to look after we open it by manually setting the <code>.libPaths()</code>, it will immediately forget each time it gets shut down. Instead we can modify our <code>.bash_profile</code> file once and it will automatically set R’s library paths each time it opens up which is far more convenient.</p>
+<p><code>.bash_profile</code> is a hidden file in your home directory, but you can print its contents to the screen with this command:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cat .bash_profile</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># .bash_profile</span>
+
+<span class="co"># Get the aliases and functions</span>
+<span class="cf">if</span> [ <span class="op">-</span>f <span class="op">~</span><span class="er">/</span>.bashrc ]; then
+        . <span class="op">~</span><span class="er">/</span>.bashrc
+fi
+
+<span class="co"># User specific environment and startup programs</span>
+
+PATH=<span class="er">$</span>PATH<span class="op">:</span><span class="er">$</span>HOME<span class="op">/</span>.local<span class="op">/</span>bin<span class="op">:</span><span class="er">$</span>HOME<span class="op">/</span>bin
+
+export PATH</code></pre></div>
+<p>This is the basic <code>.bash_profile</code> file found in every user’s home directory. We need to edit this to add a command telling R where our user-specific library is. To do this we can edit the file in the console with this command:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nano .bash_profile</code></pre></div>
+<p>We need to add in these lines of code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set the library path for R to include Spartan AND local directory</span>
+<span class="co"># Allows user to install packages to their home directory</span>
+
+export R_LIBS_USER=<span class="st">&quot;Personal library path here&quot;</span><span class="op">:</span><span class="st">&quot;/usr/local/easybuild/software/R/3.4.0-GCC-4.9.2/lib64/R/library&quot;</span></code></pre></div>
+<p>So that the <code>.bash_profile</code> file looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># .bash_profile</span>
+
+<span class="co"># Get the aliases and functions</span>
+<span class="cf">if</span> [ <span class="op">-</span>f <span class="op">~</span><span class="er">/</span>.bashrc ]; then
+        . <span class="op">~</span><span class="er">/</span>.bashrc
+fi
+
+<span class="co"># User specific environment and startup programs</span>
+
+PATH=<span class="er">$</span>PATH<span class="op">:</span><span class="er">$</span>HOME<span class="op">/</span>.local<span class="op">/</span>bin<span class="op">:</span><span class="er">$</span>HOME<span class="op">/</span>bin
+
+export PATH
+
+<span class="co"># Set the library path for R to include Spartan AND local directory</span>
+<span class="co"># Allows user to install packages to their home directory</span>
+
+export R_LIBS_USER=<span class="st">&quot;Personal library path here&quot;</span><span class="op">:</span><span class="st">&quot;/usr/local/easybuild/software/R/3.4.0-GCC-4.9.2/lib64/R/library&quot;</span></code></pre></div>
+<p>And follow the prompts to exit and save (<code>^X</code> means <code>Control + X</code> or <code>Command + X</code>).</p>
+<p>Now each time we open a new environment on Spartan we export the <code>R_LIBS_USER</code> variable (which sets R’s library paths) into the new environment automatically. We can supply any number of library paths to this variable as long as they are each within <code>&quot; &quot;</code> and separated from each other by <code>:</code>. In this example we set two library paths: our personal library path and then the default Spartan library (for a specifc R version module).</p>
+<p>Changes to the <code>.bash_profile</code> file don’t take effect until our next log-in to Spartan, so if we log-out and back in again our changes come into effect and we are now free to install and load packages to/from our user-specific library.</p>
+<p>The <code>.bash_profile</code> method is perfetly fine as long as you only need to have a single personal library. You will need to update it anytime you switch to a new R version module.</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="install-r-packages-into-your-spartan-user-specific-library" class="section level2">
+<h2><span class="header-section-number">5.3</span> Install R packages into your Spartan user-specific library</h2>
+<p>Just like in R on your personal computer you will install packages on Spartan using the <code>install.packages()</code> function. The only difference is that you will need to specify two additional arguments: <code>lib</code> and <code>repo</code>. We need to specify <code>lib</code> to tell R where our personal library path is and <code>repo</code> to specify a CRAN mirror for the installation. Once you fire up an <code>sinteractive</code> session and get into R you need to use the following commands:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Set the library path
+
+<span class="kw">.libPaths</span>(<span class="st">&quot;YOUR PATH HERE&quot;</span>)
+
+## Save personal library path as a variable
+
+lib =<span class="st"> </span><span class="kw">.libPaths</span>()[<span class="dv">1</span>]
+
+## Install a package
+
+<span class="kw">install.packages</span>(<span class="st">&quot;PACKAGE NAME&quot;</span>,
+                 <span class="dt">lib =</span> lib,
+                 <span class="dt">repos =</span> <span class="st">&quot;https://cran.ms.unimelb.edu.au/&quot;</span>)</code></pre></div>
+<p>NB: This can take longer than on your personal computer <em>AND</em> spit out a lot more gibberish looking messages to screen.</p>
+<p>NB: You could automate this process by saving a <code>.rds</code> file on your local computer that stores the names of all of your installed packages (extracted from the <code>installed.packages()</code> output), uploading it to Spartan, reading the RDS file into the session and then running <code>install.packages(&quot;package_names_vector&quot;)</code>.</p>
+<div id="installing-packages-from-github" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Installing packages from GitHub</h3>
+<p>By default a Spartan session will not have access to the world outside of Spartan so you can’t install packages from GitHub. If you need to install packages from GitHub (using devtools, for example) then you need to connect your Spartan session to the internet <em>before</em> opening R. This just requires running three lines of code before the R session opens (either before the <code>Rscript</code> command in an sbatch file or <code>R</code> in an <code>sinteractive</code> session).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sinteractive
+
+## Set up connection to outside world
+
+export http_proxy=http<span class="op">:</span><span class="er">//</span>wwwproxy.unimelb.edu.au<span class="op">:</span><span class="dv">8000</span>
+export https_proxy=<span class="er">$</span>http_proxy
+export ftp_proxy=<span class="er">$</span>http_proxy
+
+## Open R session
+
+module load R<span class="op">/</span><span class="fl">3.5</span>.<span class="dv">0</span><span class="op">-</span>GCC<span class="op">-</span><span class="fl">6.2</span>.<span class="dv">0</span>
+
+R</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
+
+<span class="kw">install_github</span>(<span class="st">&quot;AUTHOR/REPO&quot;</span>)</code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-spartan.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-file-directory-interface-commands.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true,
+"search": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

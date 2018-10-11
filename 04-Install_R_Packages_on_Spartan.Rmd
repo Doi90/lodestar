@@ -1,0 +1,181 @@
+# Installing R packages on Spartan
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+***
+
+One of R's strengths is the abundance of packages freely available to users ([over 10,000 as of 27/01/2017](http://blog.revolutionanalytics.com/2017/01/cran-10000.html)). As such, everyone ultimately has their own suite of select packages that they use, and on a personal computer these are easily managed and stored within the user's library. On a massive communal resource like The University of Melbourne's Spartan high-performance computing (HPC) service things are not so simple. R is available as a module on Spartan that any user can load, however, its default package library is read-only for non-admin users. While the library is loaded with a suite of commonly used packages it is not exhaustive and many users will require additional packages. The system administrators can add additional packages (or update them to more recent versions) upon request, but the job gets added to a queue and could take days to be completed. Instead it is easier (for both users and administrators) if the users are able to install additional packages themselves.
+
+R has the ability to connect to multiple libraries and search them all when trying to load packages. This is a fairly straight-forward process on a personal computer, but more complex to set-up on HPC architecture where a user's jobs could be run any on any of hundreds of different compute nodes with different environments. This guide will show you how to a) set-up a secondary, user-specific library on Spartan linked to your home directory, and b) install all of the packages already on your personal computer that  *aren't* in Spartan's R library into this new user-specific library. This guide will make use of some specialised unix commands and SLURM scripts but does not require any previous knowledge of them from the user (the steps can be mostly followed by copy/pasting commands). You can find more information on basic Spartan usage in another *lodestar* guide [here][IntroToSpartan].
+
+***
+
+## Set-up a user-specific library
+
+### Create the library
+
+A package library is just a folder/directory on a computer where R stores its installed packages. You can see the filepaths to the library/libraries connected to your R session using the `.libPaths()` command.
+
+```{r eval=TRUE, echo=TRUE}
+.libPaths()
+```
+
+In this case, you can see that my personal computer recognises two libraries.
+
+To create a user-specific library on Spartan we just need to create a folder for it. This can be done interactively through your SFTP client (like WinSCP for Windows users, or CyberDuck for Mac users) using the new folder button, or using the `mkdir` command in Spartan's command line. For example:
+
+```{r eval=FALSE, echo=TRUE}
+mkdir -p ~/R/lib
+```
+
+This creates the `lib` directory inside the `R` directory in your home directory (refered to by ~). The rest of this guide assumes you have created this same directory, but if you select something else you can just modify the commands/files that follow.
+
+***
+
+### Set Spartan to connect to this new library
+
+We have now created a user-specific library, but unless we tell R on Spartan to look here we still wont be able to install our own packages. There are two approaches to do this: one on a per-job basis (my preference) or fix it at the profile level.
+
+#### Setting the library path inside your R script
+
+R has a `.libPaths()` function for viewing and setting your library paths. The easiest way to do this is to add a couple of lines at the top of your R script.
+
+```{r, eval=FALSE}
+## Set the library path
+
+.libPaths("Your library path here")
+
+## If you need to install packages then save the desired
+## path as a variable
+
+lib = .libPaths()[1]
+```
+
+This will set your personal library as the default option before Spartan's library path. Saving the library path as a variable will make installing packages easier, but it isn't required in a script that is just loading packages with `library()`.
+
+This is my preferred method as you can easily modify the library path on a per job basis if you have multiple personal libraries. This could be because you have different R version libraries (e.g. 3.4 and 3.5) required for different projects or if you have different libraries built with different compilers (e.g. GCC or intel) because of underlying dependencies.
+
+#### Setting the library path in your Bash Profile
+
+Each time you open an `sinteractive` session or submit a job via `sbatch` R will open in a new environment and only register Spartan's library unless we tell it otherwise. While we can tell R where to look after we open it by manually setting the `.libPaths()`, it will immediately forget each time it gets shut down. Instead we can modify our `.bash_profile` file once and it will automatically set R's library paths each time it opens up which is far more convenient.
+
+`.bash_profile` is a hidden file in your home directory, but you can print its contents to the screen with this command:
+
+```{r eval = FALSE, echo = TRUE}
+cat .bash_profile
+```
+```{r eval = FALSE, echo = TRUE}
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
+```
+
+This is the basic `.bash_profile` file found in every user's home directory. We need to edit this to add a command telling R where our user-specific library is. To do this we can edit the file in the console with this command:
+
+```{r eval = FALSE, echo = TRUE}
+nano .bash_profile
+```
+
+We need to add in these lines of code:
+
+```{r eval = FALSE, echo = TRUE}
+# Set the library path for R to include Spartan AND local directory
+# Allows user to install packages to their home directory
+
+export R_LIBS_USER="Personal library path here":"/usr/local/easybuild/software/R/3.4.0-GCC-4.9.2/lib64/R/library"
+```
+
+So that the `.bash_profile` file looks like this:
+
+```{r eval = FALSE, echo = TRUE}
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
+
+# Set the library path for R to include Spartan AND local directory
+# Allows user to install packages to their home directory
+
+export R_LIBS_USER="Personal library path here":"/usr/local/easybuild/software/R/3.4.0-GCC-4.9.2/lib64/R/library"
+
+```
+
+And follow the prompts to exit and save (`^X` means `Control + X` or `Command + X`).
+
+Now each time we open a new environment on Spartan we export the `R_LIBS_USER` variable (which sets R's library paths) into the new environment automatically. We can supply any number of library paths to this variable as long as they are each within `" "` and separated from each other by `:`. In this example we set two library paths: our personal library path and then the default Spartan library (for a specifc R version module).
+
+Changes to the `.bash_profile` file don't take effect until our next log-in to Spartan, so if we log-out and back in again our changes come into effect and we are now free to install and load packages to/from our user-specific library.
+
+The `.bash_profile` method is perfetly fine as long as you only need to have a single personal library. You will need to update it anytime you switch to a new R version module. 
+
+***
+
+## Install R packages into your Spartan user-specific library
+
+Just like in R on your personal computer you will install packages on Spartan using the `install.packages()` function. The only difference is that you will need to specify two additional arguments: `lib` and `repo`. We need to specify `lib` to tell R where our personal library path is and `repo` to specify a CRAN mirror for the installation. Once you fire up an `sinteractive` session and get into R you need to use the following commands:
+
+```{r eval = FALSE}
+## Set the library path
+
+.libPaths("YOUR PATH HERE")
+
+## Save personal library path as a variable
+
+lib = .libPaths()[1]
+
+## Install a package
+
+install.packages("PACKAGE NAME",
+                 lib = lib,
+                 repos = "https://cran.ms.unimelb.edu.au/")
+```
+
+NB: This can take longer than on your personal computer *AND* spit out a lot more gibberish looking messages to screen.
+
+NB: You could automate this process by saving a `.rds` file on your local computer that stores the names of all of your installed packages (extracted from the `installed.packages()` output), uploading it to Spartan, reading the RDS file into the session and then running `install.packages("package_names_vector")`.
+
+### Installing packages from GitHub
+
+By default a Spartan session will not have access to the world outside of Spartan so you can't install packages from GitHub. If you need to install packages from GitHub (using devtools, for example) then you need to connect your Spartan session to the internet *before* opening R. This just requires running three lines of code before the R session opens (either before the `Rscript` command in an sbatch file or `R` in an `sinteractive` session).
+
+```{r eval = FALSE}
+sinteractive
+
+## Set up connection to outside world
+
+export http_proxy=http://wwwproxy.unimelb.edu.au:8000
+export https_proxy=$http_proxy
+export ftp_proxy=$http_proxy
+
+## Open R session
+
+module load R/3.5.0-GCC-6.2.0
+
+R
+```
+```{r, eval = FALSE}
+library(devtools)
+
+install_github("AUTHOR/REPO")
+```
+

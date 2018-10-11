@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>lodestar</title>
+  <meta name="description" content="lodestar">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="lodestar" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Doi90/lodestar" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="lodestar" />
+  
+  
+  
+
+<meta name="author" content="David Wilkinson">
+
+
+<meta name="date" content="2018-10-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="r-file-directory-interface-commands.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="lodestar.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Lodestar Guides</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> What is <em>lodestar</em>?</a></li>
+<li class="chapter" data-level="2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html"><i class="fa fa-check"></i><b>2</b> Fitting occupancy models with <em>unmarked</em></a><ul>
+<li class="chapter" data-level="2.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#occupancy-modelling-with-imperfect-detection"><i class="fa fa-check"></i><b>2.1</b> Occupancy Modelling with Imperfect Detection</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#the-maths"><i class="fa fa-check"></i><b>2.1.1</b> The Maths</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#unmarked-models"><i class="fa fa-check"></i><b>2.2</b> unmarked Models</a></li>
+<li class="chapter" data-level="2.3" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#load-package"><i class="fa fa-check"></i><b>2.3</b> Load Package</a></li>
+<li class="chapter" data-level="2.4" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#load-data"><i class="fa fa-check"></i><b>2.4</b> Load Data</a></li>
+<li class="chapter" data-level="2.5" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#standardising-data"><i class="fa fa-check"></i><b>2.5</b> Standardising Data</a></li>
+<li class="chapter" data-level="2.6" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#missing-data-considerations"><i class="fa fa-check"></i><b>2.6</b> Missing Data Considerations</a></li>
+<li class="chapter" data-level="2.7" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#fitting-a-model"><i class="fa fa-check"></i><b>2.7</b> Fitting a Model</a></li>
+<li class="chapter" data-level="2.8" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#model-selection"><i class="fa fa-check"></i><b>2.8</b> Model Selection</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#unmarked"><i class="fa fa-check"></i><b>2.8.1</b> unmarked</a></li>
+<li class="chapter" data-level="2.8.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#mumin"><i class="fa fa-check"></i><b>2.8.2</b> MuMIn</a></li>
+<li class="chapter" data-level="2.8.3" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#missing-data"><i class="fa fa-check"></i><b>2.8.3</b> Missing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#proportion-of-area-occupied"><i class="fa fa-check"></i><b>2.9</b> Proportion of Area Occupied</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#assuming-perfect-detection"><i class="fa fa-check"></i><b>2.9.1</b> Assuming perfect detection</a></li>
+<li class="chapter" data-level="2.9.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#accounting-for-imperfect-detection"><i class="fa fa-check"></i><b>2.9.2</b> Accounting for Imperfect Detection</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#prediction"><i class="fa fa-check"></i><b>2.10</b> Prediction</a></li>
+<li class="chapter" data-level="2.11" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#model-evaluation"><i class="fa fa-check"></i><b>2.11</b> Model Evaluation</a></li>
+<li class="chapter" data-level="2.12" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#common-errors"><i class="fa fa-check"></i><b>2.12</b> Common Errors</a></li>
+<li class="chapter" data-level="2.13" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#additional-resources"><i class="fa fa-check"></i><b>2.13</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html"><i class="fa fa-check"></i><b>3</b> Version control with RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#requirements"><i class="fa fa-check"></i><b>3.2</b> Requirements</a></li>
+<li class="chapter" data-level="3.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudio-options"><i class="fa fa-check"></i><b>3.3</b> RStudio options</a></li>
+<li class="chapter" data-level="3.4" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudio-projects"><i class="fa fa-check"></i><b>3.4</b> RStudio Projects</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#new-directory"><i class="fa fa-check"></i><b>3.4.1</b> New Directory</a></li>
+<li class="chapter" data-level="3.4.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#existing-directory"><i class="fa fa-check"></i><b>3.4.2</b> Existing Directory</a></li>
+<li class="chapter" data-level="3.4.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#create-a-local-version-of-an-online-repository"><i class="fa fa-check"></i><b>3.4.3</b> Create a local version of an online repository</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudios-git-interface"><i class="fa fa-check"></i><b>3.5</b> RStudio’s Git Interface</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#staging-files"><i class="fa fa-check"></i><b>3.5.1</b> Staging Files</a></li>
+<li class="chapter" data-level="3.5.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#committing"><i class="fa fa-check"></i><b>3.5.2</b> Committing</a></li>
+<li class="chapter" data-level="3.5.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#pushpull"><i class="fa fa-check"></i><b>3.5.3</b> Push/Pull</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html"><i class="fa fa-check"></i><b>4</b> Introduction to Spartan</a><ul>
+<li class="chapter" data-level="4.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#what-is-spartan"><i class="fa fa-check"></i><b>4.1</b> What is Spartan?</a></li>
+<li class="chapter" data-level="4.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#accessing-spartan"><i class="fa fa-check"></i><b>4.2</b> Accessing Spartan</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#getting-an-account"><i class="fa fa-check"></i><b>4.2.1</b> Getting an Account</a></li>
+<li class="chapter" data-level="4.2.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#required-programs"><i class="fa fa-check"></i><b>4.2.2</b> Required Programs</a></li>
+<li class="chapter" data-level="4.2.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#log-in-to-spartan"><i class="fa fa-check"></i><b>4.2.3</b> Log in to Spartan</a></li>
+<li class="chapter" data-level="4.2.4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#help"><i class="fa fa-check"></i><b>4.2.4</b> Help</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#using-spartan"><i class="fa fa-check"></i><b>4.3</b> Using Spartan</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#sinteractive"><i class="fa fa-check"></i><b>4.3.1</b> sinteractive</a></li>
+<li class="chapter" data-level="4.3.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#sbatch"><i class="fa fa-check"></i><b>4.3.2</b> sbatch</a></li>
+<li class="chapter" data-level="4.3.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#useful-auxiliary-commands"><i class="fa fa-check"></i><b>4.3.3</b> Useful Auxiliary Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#additional-information-and-links"><i class="fa fa-check"></i><b>4.4</b> Additional information and links</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html"><i class="fa fa-check"></i><b>5</b> Installing R packages on Spartan</a><ul>
+<li class="chapter" data-level="5.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#set-up-a-user-specific-library"><i class="fa fa-check"></i><b>5.2</b> Set-up a user-specific library</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#create-the-library"><i class="fa fa-check"></i><b>5.2.1</b> Create the library</a></li>
+<li class="chapter" data-level="5.2.2" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#set-spartan-to-connect-to-this-new-library"><i class="fa fa-check"></i><b>5.2.2</b> Set Spartan to connect to this new library</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#install-r-packages-into-your-spartan-user-specific-library"><i class="fa fa-check"></i><b>5.3</b> Install R packages into your Spartan user-specific library</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#installing-packages-from-github"><i class="fa fa-check"></i><b>5.3.1</b> Installing packages from GitHub</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html"><i class="fa fa-check"></i><b>6</b> R File &amp; Directory Interface Commands</a><ul>
+<li class="chapter" data-level="6.1" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#information"><i class="fa fa-check"></i><b>6.2</b> Information</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#testing"><i class="fa fa-check"></i><b>6.2.1</b> Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#creation"><i class="fa fa-check"></i><b>6.3</b> Creation</a></li>
+<li class="chapter" data-level="6.4" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#modification"><i class="fa fa-check"></i><b>6.4</b> Modification</a></li>
+<li class="chapter" data-level="6.5" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#deletion"><i class="fa fa-check"></i><b>6.5</b> Deletion</a></li>
+<li class="chapter" data-level="6.6" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#miscellaneous"><i class="fa fa-check"></i><b>6.6</b> Miscellaneous</a></li>
+<li class="chapter" data-level="6.7" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#closing-thoughts"><i class="fa fa-check"></i><b>6.7</b> Closing Thoughts</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html"><i class="fa fa-check"></i><b>7</b> RStudio Tips and Tricks</a><ul>
+<li class="chapter" data-level="7.1" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#global-options"><i class="fa fa-check"></i><b>7.1</b> Global Options</a></li>
+<li class="chapter" data-level="7.2" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>7.2</b> Keyboard Shortcuts</a></li>
+<li class="chapter" data-level="7.3" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#code-folds"><i class="fa fa-check"></i><b>7.3</b> Code Folds</a></li>
+<li class="chapter" data-level="7.4" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#r-projects"><i class="fa fa-check"></i><b>7.4</b> R Projects</a></li>
+<li class="chapter" data-level="7.5" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#terminal"><i class="fa fa-check"></i><b>7.5</b> Terminal</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">lodestar</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rstudio-tips-and-tricks" class="section level1">
+<h1><span class="header-section-number">7</span> RStudio Tips and Tricks</h1>
+<p><strong>NB: This guide assumes you are using RStudio v1.1 or later</strong></p>
+<div id="global-options" class="section level2">
+<h2><span class="header-section-number">7.1</span> Global Options</h2>
+<p>The <code>Global Options</code> menu (found in the <code>Tools</code> drop-down menu) allows you to customise the RStudio interface. This includes both aesthetic and functionality changes.</p>
+<ul>
+<li><code>Appearance</code> menu:
+<ul>
+<li>Change your IDE colour schemes with <code>RStudio themes</code></li>
+<li>Change your text colour schemes with <code>Editor themes</code></li>
+<li>Change your font with <code>Editor fonts</code>. Ligature-enabled fonts (none of the default fonts) let multi-character symbols like <code>&lt;-</code> be displayed as a single character</li>
+</ul></li>
+<li><code>Pane Layout</code> menu:
+<ul>
+<li>Lets you customise where each panel is displayed</li>
+<li>Lets you move tabs between panes</li>
+<li>Restricted to a 4x4 grid</li>
+</ul></li>
+<li><code>Code</code> menu:
+<ul>
+<li><code>Completion</code> tab:</li>
+<li><code>Use tab for multiline autocompletions</code>. Check this box to enable tab autocompletion of function calls over multiple lines</li>
+<li><code>Diagnostics</code> tab:</li>
+<li><code>Check arguments to R function calls</code>. Check this box and R will show warning/error messages for missing arguments with no default values, and missing/additional commas/brackets</li>
+<li><code>Warn if variable has no definition in scope</code>. Check this box and R will show warning messages if variable names supplied to a function aren’t defined anywhere. Picks up on spelling errors like <code>Variable1</code> instead of <code>variable1</code></li>
+<li><code>Warn if variable is defined but not used</code>. Check this box and R will show warning messages for defined variables that are never used</li>
+<li><code>Provide R style guide diagnostics</code>. Check this box and R will show warning messages where you don’t adhere to Hadley Wickham’s style guide</li>
+</ul></li>
+</ul>
+</div>
+<div id="keyboard-shortcuts" class="section level2">
+<h2><span class="header-section-number">7.2</span> Keyboard Shortcuts</h2>
+<p>RStudio has a slew of keyboard shortcuts to make life easier. <code>Alt+Shift+K</code> brings up the menu, or they are available under the <code>Tools</code> drop-down menu. Some useful ones:</p>
+<ul>
+<li><code>Ctrl+&lt;Number&gt;</code>: Move focus to pane/tab corresponding to <code>&lt;Number&gt;</code>. Most useful are <code>Ctrl+1</code> for Source and <code>Ctrl+2</code> for Console</li>
+<li><code>Ctrl+Shift+&lt;Number&gt;</code>: Maximise the pane/tab corresponding to <code>&lt;Number&gt;</code></li>
+<li><code>Ctrl+Ent</code>: Run selected line(s)</li>
+<li><code>Alt+Ent</code>: Run selected line(s) without moving cursor</li>
+<li><code>Ctrl+Shift+P</code>: Re-run previous line(s). Lets you change values between runs.</li>
+<li><code>Ctrl+I</code>: Re-indent selected lines</li>
+<li><code>Ctrl+Shift+C</code>: Comment/uncomment selected lines</li>
+<li><code>Alt+-</code>: Insert <code>&lt;-</code></li>
+<li><code>Ctrl+Shift+M</code>: Insert <code>%&gt;%</code></li>
+<li><code>Ctrl+L</code>: Clear console</li>
+<li><code>F1</code>: Bring up help file for selected function name</li>
+<li><code>F2</code>: Bring up source file for selected function name</li>
+</ul>
+</div>
+<div id="code-folds" class="section level2">
+<h2><span class="header-section-number">7.3</span> Code Folds</h2>
+<p>Code folds allow you to hide/show chunks of code in a script file to make navigating scripts easier. You might already be familiar with these since RStudio uses them automatically for braced regions like <code>for</code> loops/<code>if</code> statements/user-defined <code>functions</code>. They show up as small triangles next to the line numbers.</p>
+<p>You can manually add code folds with comment lines that include at least four trailing dashes <code>-</code>, equal signs <code>=</code>, or hashes <code>#</code>. This will then let you hide all code between two lines with code folds. There is no set structure to code folds beyond this so you can work them into section headers to create a neat document. Folded sections show up in the <code>Jump To</code> menu at the bottom of the script editor making it easy to navigate big documents. Example folds:</p>
+<ul>
+<li><code>#----</code></li>
+<li><code>#====</code></li>
+<li><code>#####</code></li>
+<li><code># Section 1 ----</code></li>
+<li><code>## Section 1a ----</code></li>
+<li><code># Load Data ===========================</code></li>
+<li><code>#### Plotting ####</code></li>
+</ul>
+</div>
+<div id="r-projects" class="section level2">
+<h2><span class="header-section-number">7.4</span> R Projects</h2>
+<p>R projects are a neat way of encompassing an entire set of work. Some of the benefits to this are:</p>
+<ul>
+<li>Relative filepaths. No more using <code>setwd()</code> or <code>read.csv(&quot;C:/Users/Person/Documents/Folder/Folder2/Folder3/Data/File.csv&quot;)</code>!</li>
+<li>When you re-open a project file the RStudio session is exactly as you ended it. The scripts you had open are still open, and <code>.RData</code> is loaded sothe variables are still stored in the environment (so you don’t have to re-run code). However, packages need to be reloaded and the <code>Plots</code> pane is emptied.</li>
+<li>Version control. R projects can be set up with version control software like <code>git</code>. RStudio has a two ways to interact with <code>git</code>: a Terminal (covered later) and a point and click GUI interface. We will probably cover this in a future Coding Club session.</li>
+</ul>
+</div>
+<div id="terminal" class="section level2">
+<h2><span class="header-section-number">7.5</span> Terminal</h2>
+<p>RStudio now has an in-built Terminal which allows access to the system shell within the RStudio IDE. For computers that don’t have a built-in Terminal (e.g. Windows), then you will need to install something like Git-Bash (might come with newer versions of RStudio). The Terminal can be used for things like version control with <code>git</code>, remote logins, compiling python code, etc.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="r-file-directory-interface-commands.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true,
+"search": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+book_filename: "lodestar.Rmd"
+author: "David Wilkinson"
+date: "`r Sys.Date()`"
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+repo: https://github.com/Doi90/lodestar
+link-citations: yes
+output_dir: "docs"
+delete_merged_file: true

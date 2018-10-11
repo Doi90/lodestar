@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>lodestar</title>
+  <meta name="description" content="lodestar">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="lodestar" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Doi90/lodestar" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="lodestar" />
+  
+  
+  
+
+<meta name="author" content="David Wilkinson">
+
+
+<meta name="date" content="2018-10-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="fitting-occupancy-models-with-unmarked.html">
+<link rel="next" href="introduction-to-spartan.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="lodestar.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Lodestar Guides</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> What is <em>lodestar</em>?</a></li>
+<li class="chapter" data-level="2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html"><i class="fa fa-check"></i><b>2</b> Fitting occupancy models with <em>unmarked</em></a><ul>
+<li class="chapter" data-level="2.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#occupancy-modelling-with-imperfect-detection"><i class="fa fa-check"></i><b>2.1</b> Occupancy Modelling with Imperfect Detection</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#the-maths"><i class="fa fa-check"></i><b>2.1.1</b> The Maths</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#unmarked-models"><i class="fa fa-check"></i><b>2.2</b> unmarked Models</a></li>
+<li class="chapter" data-level="2.3" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#load-package"><i class="fa fa-check"></i><b>2.3</b> Load Package</a></li>
+<li class="chapter" data-level="2.4" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#load-data"><i class="fa fa-check"></i><b>2.4</b> Load Data</a></li>
+<li class="chapter" data-level="2.5" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#standardising-data"><i class="fa fa-check"></i><b>2.5</b> Standardising Data</a></li>
+<li class="chapter" data-level="2.6" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#missing-data-considerations"><i class="fa fa-check"></i><b>2.6</b> Missing Data Considerations</a></li>
+<li class="chapter" data-level="2.7" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#fitting-a-model"><i class="fa fa-check"></i><b>2.7</b> Fitting a Model</a></li>
+<li class="chapter" data-level="2.8" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#model-selection"><i class="fa fa-check"></i><b>2.8</b> Model Selection</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#unmarked"><i class="fa fa-check"></i><b>2.8.1</b> unmarked</a></li>
+<li class="chapter" data-level="2.8.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#mumin"><i class="fa fa-check"></i><b>2.8.2</b> MuMIn</a></li>
+<li class="chapter" data-level="2.8.3" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#missing-data"><i class="fa fa-check"></i><b>2.8.3</b> Missing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#proportion-of-area-occupied"><i class="fa fa-check"></i><b>2.9</b> Proportion of Area Occupied</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#assuming-perfect-detection"><i class="fa fa-check"></i><b>2.9.1</b> Assuming perfect detection</a></li>
+<li class="chapter" data-level="2.9.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#accounting-for-imperfect-detection"><i class="fa fa-check"></i><b>2.9.2</b> Accounting for Imperfect Detection</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#prediction"><i class="fa fa-check"></i><b>2.10</b> Prediction</a></li>
+<li class="chapter" data-level="2.11" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#model-evaluation"><i class="fa fa-check"></i><b>2.11</b> Model Evaluation</a></li>
+<li class="chapter" data-level="2.12" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#common-errors"><i class="fa fa-check"></i><b>2.12</b> Common Errors</a></li>
+<li class="chapter" data-level="2.13" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#additional-resources"><i class="fa fa-check"></i><b>2.13</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html"><i class="fa fa-check"></i><b>3</b> Version control with RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#requirements"><i class="fa fa-check"></i><b>3.2</b> Requirements</a></li>
+<li class="chapter" data-level="3.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudio-options"><i class="fa fa-check"></i><b>3.3</b> RStudio options</a></li>
+<li class="chapter" data-level="3.4" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudio-projects"><i class="fa fa-check"></i><b>3.4</b> RStudio Projects</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#new-directory"><i class="fa fa-check"></i><b>3.4.1</b> New Directory</a></li>
+<li class="chapter" data-level="3.4.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#existing-directory"><i class="fa fa-check"></i><b>3.4.2</b> Existing Directory</a></li>
+<li class="chapter" data-level="3.4.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#create-a-local-version-of-an-online-repository"><i class="fa fa-check"></i><b>3.4.3</b> Create a local version of an online repository</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudios-git-interface"><i class="fa fa-check"></i><b>3.5</b> RStudio’s Git Interface</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#staging-files"><i class="fa fa-check"></i><b>3.5.1</b> Staging Files</a></li>
+<li class="chapter" data-level="3.5.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#committing"><i class="fa fa-check"></i><b>3.5.2</b> Committing</a></li>
+<li class="chapter" data-level="3.5.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#pushpull"><i class="fa fa-check"></i><b>3.5.3</b> Push/Pull</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html"><i class="fa fa-check"></i><b>4</b> Introduction to Spartan</a><ul>
+<li class="chapter" data-level="4.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#what-is-spartan"><i class="fa fa-check"></i><b>4.1</b> What is Spartan?</a></li>
+<li class="chapter" data-level="4.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#accessing-spartan"><i class="fa fa-check"></i><b>4.2</b> Accessing Spartan</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#getting-an-account"><i class="fa fa-check"></i><b>4.2.1</b> Getting an Account</a></li>
+<li class="chapter" data-level="4.2.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#required-programs"><i class="fa fa-check"></i><b>4.2.2</b> Required Programs</a></li>
+<li class="chapter" data-level="4.2.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#log-in-to-spartan"><i class="fa fa-check"></i><b>4.2.3</b> Log in to Spartan</a></li>
+<li class="chapter" data-level="4.2.4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#help"><i class="fa fa-check"></i><b>4.2.4</b> Help</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#using-spartan"><i class="fa fa-check"></i><b>4.3</b> Using Spartan</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#sinteractive"><i class="fa fa-check"></i><b>4.3.1</b> sinteractive</a></li>
+<li class="chapter" data-level="4.3.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#sbatch"><i class="fa fa-check"></i><b>4.3.2</b> sbatch</a></li>
+<li class="chapter" data-level="4.3.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#useful-auxiliary-commands"><i class="fa fa-check"></i><b>4.3.3</b> Useful Auxiliary Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#additional-information-and-links"><i class="fa fa-check"></i><b>4.4</b> Additional information and links</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html"><i class="fa fa-check"></i><b>5</b> Installing R packages on Spartan</a><ul>
+<li class="chapter" data-level="5.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#set-up-a-user-specific-library"><i class="fa fa-check"></i><b>5.2</b> Set-up a user-specific library</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#create-the-library"><i class="fa fa-check"></i><b>5.2.1</b> Create the library</a></li>
+<li class="chapter" data-level="5.2.2" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#set-spartan-to-connect-to-this-new-library"><i class="fa fa-check"></i><b>5.2.2</b> Set Spartan to connect to this new library</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#install-r-packages-into-your-spartan-user-specific-library"><i class="fa fa-check"></i><b>5.3</b> Install R packages into your Spartan user-specific library</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#installing-packages-from-github"><i class="fa fa-check"></i><b>5.3.1</b> Installing packages from GitHub</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html"><i class="fa fa-check"></i><b>6</b> R File &amp; Directory Interface Commands</a><ul>
+<li class="chapter" data-level="6.1" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#information"><i class="fa fa-check"></i><b>6.2</b> Information</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#testing"><i class="fa fa-check"></i><b>6.2.1</b> Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#creation"><i class="fa fa-check"></i><b>6.3</b> Creation</a></li>
+<li class="chapter" data-level="6.4" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#modification"><i class="fa fa-check"></i><b>6.4</b> Modification</a></li>
+<li class="chapter" data-level="6.5" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#deletion"><i class="fa fa-check"></i><b>6.5</b> Deletion</a></li>
+<li class="chapter" data-level="6.6" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#miscellaneous"><i class="fa fa-check"></i><b>6.6</b> Miscellaneous</a></li>
+<li class="chapter" data-level="6.7" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#closing-thoughts"><i class="fa fa-check"></i><b>6.7</b> Closing Thoughts</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html"><i class="fa fa-check"></i><b>7</b> RStudio Tips and Tricks</a><ul>
+<li class="chapter" data-level="7.1" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#global-options"><i class="fa fa-check"></i><b>7.1</b> Global Options</a></li>
+<li class="chapter" data-level="7.2" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>7.2</b> Keyboard Shortcuts</a></li>
+<li class="chapter" data-level="7.3" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#code-folds"><i class="fa fa-check"></i><b>7.3</b> Code Folds</a></li>
+<li class="chapter" data-level="7.4" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#r-projects"><i class="fa fa-check"></i><b>7.4</b> R Projects</a></li>
+<li class="chapter" data-level="7.5" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#terminal"><i class="fa fa-check"></i><b>7.5</b> Terminal</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">lodestar</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="version-control-with-rstudio" class="section level1">
+<h1><span class="header-section-number">3</span> Version control with RStudio</h1>
+<hr class="double">
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">3.1</span> Introduction</h2>
+<p>Version control is a really powerful tool in a researcher’s toolkit, but also one of the most intimidating. Using git directly through a terminal interface (inside or outside of RStudio) requires learning a new language (git) which can be really off-putting, but newer versions of RStudio have an in-built git interface to make this much more user-friendly.</p>
+<p>This guide will serve as a brief introduction to setting up version control with RStudio for new or existing projects without needing to use the terminal.</p>
+<hr class="double">
+</div>
+<div id="requirements" class="section level2">
+<h2><span class="header-section-number">3.2</span> Requirements</h2>
+<p>The minimum technical requirements:</p>
+<ul>
+<li>RStudio v1.1.383 or later</li>
+<li>Mac users:
+<ul>
+<li><a href="http://git-scm.com/downloads">Install git</a></li>
+</ul></li>
+<li>Windows users:
+<ul>
+<li><a href="https://gitforwindows.org/">Install git and Git BASH</a></li>
+<li>Windows doesn’t have a terminal by default. Git BASH serves as a terminal emulator.</li>
+</ul></li>
+</ul>
+<hr class="double">
+</div>
+<div id="rstudio-options" class="section level2">
+<h2><span class="header-section-number">3.3</span> RStudio options</h2>
+<p>By default, RStudio does not assume a user has a git installation. It also does not always automatically register that one has been installed so the connection must be made.</p>
+<p>Open RStudio’s <em>Global Options</em> menu by going to <strong>Tools &gt; Global Options</strong>. Under the <em>Git/SVN</em> tab you need to tick the <em>Enable version control interface for RStudio projects</em> box, and set the file path to your installed git executable.</p>
+<p><img src="Images/Git_Global_options.png" /> ***</p>
+<hr class="double">
+</div>
+<div id="rstudio-projects" class="section level2">
+<h2><span class="header-section-number">3.4</span> RStudio Projects</h2>
+<p>Version control in RStudio require you to be using <em>Projects</em>. On top of version control, <em>Projects</em> improve the RStudio experience in other ways and you should be using them anyway…</p>
+<p>To create a <em>Project</em> you can either go to <strong>File &gt; New Project</strong>:</p>
+<p><img src="Images/File_New_Project.png" /> ***</p>
+<p>Or use the project menu in the top-right corner:</p>
+<p><img src="Images/Project_New_Project.png" /> ***</p>
+<p>The <em>New Project</em> menu has three options: New Directory, Existing Directory, and Version Control. Each of these follow a different process.</p>
+<p><img src="Images/Project_Options.png" /> ***</p>
+<hr class="small">
+<div id="new-directory" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> New Directory</h3>
+<p>The new directory option is for when you’re starting from scratch. First, select <em>New Project</em> from the <em>Project Type</em> menu.</p>
+<p><img src="Images/New_Project_Options.png" /> ***</p>
+<p>Now give your project a name, set where you want it to be a subdirectory, and tick the <em>Create a git repository</em> box.</p>
+<p><img src="Images/New_Project_Setup.png" /> ***</p>
+<p>This creates the project, creates a directory for it, and does all of the leg work setting up a local git repository for the project.</p>
+<hr class="small">
+</div>
+<div id="existing-directory" class="section level3">
+<h3><span class="header-section-number">3.4.2</span> Existing Directory</h3>
+<p>The existing directory option is for adding version control to an existing directory. The first thing to do is select the directory you want to turn into a project.</p>
+<p><img src="Images/Existing_Project_Setup.png" /> ***</p>
+<p>You can’t set up a project in an existing directory <em>and</em> set up version control at the same time. This means that we need to manually set up version control after creating the project. Got to <strong>Tools &gt; Version Control &gt; Project Setup…</strong>.</p>
+<p><img src="Images/Existing_Project_Git_Setup1.png" /> ***</p>
+<p>Now set the <em>Version control system</em> to Git.</p>
+<p><img src="Images/Existing_Project_Git_Setup2.png" /> ***</p>
+<p>And now you can initialise a git repository for the project.</p>
+<p><img src="Images/Existing_Project_Git_Setup3.png" /> ***</p>
+<hr class="small">
+</div>
+<div id="create-a-local-version-of-an-online-repository" class="section level3">
+<h3><span class="header-section-number">3.4.3</span> Create a local version of an online repository</h3>
+<p>The final <em>Project</em> option, <em>Version Control</em>, is to create a project on your local machine that is a <em>clone</em> of an online git repository. The two most common uses for this option are 1) collaboration, and 2) you’ve created the repository on GitHub first.</p>
+<p>The first thing you need to do is select which version control system you are using (Git in our case).</p>
+<p><img src="Images/VC_Project_Setup1.png" /> ***</p>
+<p>Now you need to provide the URL for the repository you want to clone, set the name of the directory for your local version, and select where it will be a subdirectory of. The <em>test_git_repo</em> GitHub repository is one I set up for this guide, so feel free to clone it yourself (just change your directory path!).</p>
+<p><img src="Images/VC_Project_Setup2.png" /> ***</p>
+<hr class="double">
+</div>
+</div>
+<div id="rstudios-git-interface" class="section level2">
+<h2><span class="header-section-number">3.5</span> RStudio’s Git Interface</h2>
+<p>RStudio provides a Git interface that is a) only visible after you set up a version controlled project, and most importantly b) less intimidating that the terminal. Almost everything can now be done by point-and-click. A Git menu shows up in the toolbar at the top of the screen, but it is easier to keep everything in the Git pane.</p>
+<p><img src="Images/Git_Pane.png" /> ***</p>
+<p>The first thing you will notice is a list of files in your directory and some coloured squares. The most important thing to know is that these are not necessarily <em>all</em> of your files, but just those that have <em>changed</em> since the last Git “save state” (more on that to come).</p>
+<p>This is where you <em>stage</em> your files to be <em>committed</em> (saved) later. The <em>Status</em> column gives you coloured indicators about what has happened to the file since the last <em>commit</em>:</p>
+<ul>
+<li><strong>Blue</strong>: Modified (M) files. These files have <em>changed</em> since the alst <em>commit</em>.</li>
+<li><strong>Yellow</strong>: Untracked (?) files. Git has not yet been told you track changes in these files. These are usually new files.</li>
+<li><strong>Green</strong>: Added (A) files. These are files that have been created since the last commit. Most <strong>Yellow</strong> files turn <strong>Green</strong> when they are <em>staged</em> (i.e. Git now knows to track their changes)</li>
+<li><strong>Red</strong>: Deleted (D) files. These files have been deleted since the last commit.</li>
+</ul>
+<p>The <em>Status</em> column itself has two columns of these coloured icons. The left column is for <em>staged</em> files and the right column is for <em>unstaged</em> files. Untracked (yellow) files show up in both columns.</p>
+<hr class="small">
+<div id="staging-files" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> Staging Files</h3>
+<p>You might not always want to commit to the changes you’ve made in <em>all</em> of your files. This is what the <em>staging area</em> is for. You <em>stage</em> the files you want to commit by clicking the appropriate tick box. Thse files are now ready to be <em>committed</em>.</p>
+<p><img src="Images/Staging.png" /> ***</p>
+<hr class="small">
+</div>
+<div id="committing" class="section level3">
+<h3><span class="header-section-number">3.5.2</span> Committing</h3>
+<p>You <em>commit</em> files to generate a “save state” or “backup point”. After <em>staging</em> your files you can click the <em>Commit</em> button in the Git pane to open the a new window and proceed.</p>
+<p>This new windows has three panes:</p>
+<ul>
+<li><em>Staging Area</em>: The same as seen in the Git pane</li>
+<li><em>Commit Message</em>: You can add a commit message to each of your commits by adding text here. There are no set rules for what to put in a commit message, but something useful helps for tracking things down later. E.g. “Added file X”, “New version of files Y &amp; Z. Fixed model fitting bug”.</li>
+<li><em>Differences</em>: This pane shows you the differences in a file (whichever one is selected in the <em>Staging Area</em> pane) between the last commit and this pending one. Lines in <em>green</em> have been added, and lines in <em>red</em> removed. Changed lines will show up with both a <em>green</em> and <em>red</em> line.</li>
+</ul>
+<p><img src="Images/Commiting.png" /> ***</p>
+<p>When you have <em>staged</em> everything you want to <em>commit</em> and suppied a commit message you can then click <em>Commit</em> in the <em>Commit Message</em> pane. This will pop up a terminal window but you can ignore it if you wish. It will provide a summary of the commit, or show an error is someting went wrong. In this case, we changed 5 files which involved inserting a total of 23 new lines and creating four new files.</p>
+<p><img src="Images/Commiting2.png" /> ***</p>
+<p>If you are running with a local and online version of the repository then your Git pane will now show a message detailing how out of synch they are.</p>
+<p><img src="Images/Commiting3.png" /> ***</p>
+<hr class="small">
+</div>
+<div id="pushpull" class="section level3">
+<h3><span class="header-section-number">3.5.3</span> Push/Pull</h3>
+<p>If you are just using Git locally then you can ignore this section. If you are working with online repositories you will need to learn how to <em>push</em> and <em>pull</em>. The difference between the two is that you <em>push</em> your local changes to the online repository, and you <em>pull</em> changes on the online repository to your local version. You will only need <em>pull</em> if you are collaborating with other people or manually change the online files on GitHub.</p>
+<p>If we are ahead of the online repository because we have committed something new then a notification pops up in the Git pane.</p>
+<p><img src="Images/Commiting3.png" /> ***</p>
+<p>If we want to send our changes to the online repository then we need to be linked together. If you have created your <em>project</em> by cloning an online repository then this link is already in place, but if you created only a local repository using a new or existing repository then the link need to be created manually. So far this guide has done everything within RStudio’s Git interface, but setting up these links between local and remote (i.e. GitHub) repositories can’t be done with buttons. This means we need to use the terminal!</p>
+<p>You only need to run one command in the terminal and then you can run back to the safety of RStudio. The command is as follows, and you just replace <Account> and <Repository> with the account and repository ID of the GitHub repository:</p>
+<pre><code>git remote add origin https://github.com/&lt;Account&gt;/&lt;Repository&gt;.git</code></pre>
+<p>For example:</p>
+<pre><code>git remote add origin https://github.com/Doi90/test_git_repo.git</code></pre>
+<p>Now that the link is established you can <em>push</em> your changes to the online repository by cliking the <em>push</em> button (green up arrow) in the Git pane. Thsi will open a new window showing some Git messages you can ignore.</p>
+<p><img src="Images/Push3.png" /> ***</p>
+<p>If you need to <em>pull</em> changes then you just use the <em>pull</em> button (blue down arrow).</p>
+<hr class="double">
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="fitting-occupancy-models-with-unmarked.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-to-spartan.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true,
+"search": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

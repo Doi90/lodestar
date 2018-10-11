@@ -1,0 +1,68 @@
+# RStudio Tips and Tricks
+
+**NB: This guide assumes you are using RStudio v1.1 or later**
+
+## Global Options
+
+The `Global Options` menu (found in the `Tools` drop-down menu) allows you to customise the RStudio interface. This includes both aesthetic and functionality changes.
+
+  +  `Appearance` menu:
+    +  Change your IDE colour schemes with `RStudio themes`
+    +  Change your text colour schemes with `Editor themes`
+    +  Change your font with `Editor fonts`. Ligature-enabled fonts (none of the default fonts) let multi-character symbols like `<-` be displayed as a single character
+  +  `Pane Layout` menu:
+    +  Lets you customise where each panel is displayed
+    +  Lets you move tabs between panes
+    +  Restricted to a 4x4 grid
+  +  `Code` menu:
+    +  `Completion` tab:
+       +  `Use tab for multiline autocompletions`. Check this box to enable tab autocompletion of function calls over multiple lines
+    +  `Diagnostics` tab:
+       +  `Check arguments to R function calls`. Check this box and R will show warning/error messages for missing arguments with no default values, and missing/additional commas/brackets
+       +  `Warn if variable has no definition in scope`. Check this box and R will show warning messages if variable names supplied to a function aren't defined anywhere. Picks up on spelling errors like `Variable1` instead of `variable1`
+       +  `Warn if variable is defined but not used`. Check this box and R will show warning messages for defined variables that are never used
+       +  `Provide R style guide diagnostics`. Check this box and R will show warning messages where you don't adhere to Hadley Wickham's style guide
+
+## Keyboard Shortcuts
+
+RStudio has a slew of keyboard shortcuts to make life easier. `Alt+Shift+K` brings up the menu, or they are available under the `Tools` drop-down menu. Some useful ones:
+
+  +  `Ctrl+<Number>`: Move focus to pane/tab corresponding to `<Number>`. Most useful are `Ctrl+1` for Source and `Ctrl+2` for Console
+  +  `Ctrl+Shift+<Number>`: Maximise the pane/tab corresponding to `<Number>`
+  +  `Ctrl+Ent`: Run selected line(s)
+  +  `Alt+Ent`: Run selected line(s) without moving cursor
+  +  `Ctrl+Shift+P`: Re-run previous line(s). Lets you change values between runs.
+  +  `Ctrl+I`: Re-indent selected lines
+  +  `Ctrl+Shift+C`: Comment/uncomment selected lines
+  +  `Alt+-`: Insert `<-`
+  +  `Ctrl+Shift+M`: Insert ` %>% `
+  +  `Ctrl+L`: Clear console
+  +  `F1`: Bring up help file for selected function name
+  +  `F2`: Bring up source file for selected function name
+
+## Code Folds
+
+Code folds allow you to hide/show chunks of code in a script file to make navigating scripts easier. You might already be familiar with these since RStudio uses them automatically for braced regions like `for` loops/`if` statements/user-defined `functions`. They show up as small triangles next to the line numbers.
+
+You can manually add code folds with comment lines that include at least four trailing dashes `-`, equal signs `=`, or hashes `#`. This will then let you hide all code between two lines with code folds. There is no set structure to code folds beyond this so you can work them into section headers to create a neat document. Folded sections show up in the `Jump To` menu at the bottom of the script editor making it easy to navigate big documents. Example folds:
+
+  +  `#----`
+  +  `#====`
+  +  `#####`
+  +  `# Section 1 ----`
+  +  `## Section 1a ----`
+  +  `# Load Data ===========================`
+  +  `#### Plotting ####`
+
+## R Projects
+
+R projects are a neat way of encompassing an entire set of work. Some of the benefits to this are:
+
+  +  Relative filepaths. No more using `setwd()` or `read.csv("C:/Users/Person/Documents/Folder/Folder2/Folder3/Data/File.csv")`! 
+  +  When you re-open a project file the RStudio session is exactly as you ended it. The scripts you had open are still open, and `.RData` is loaded sothe variables are still stored in the environment (so you don't have to re-run code). However, packages need to be reloaded and the `Plots` pane is emptied.
+  +  Version control. R projects can be set up with version control software like `git`. RStudio has a two ways to interact with `git`: a Terminal (covered later) and a point and click GUI interface. We will probably cover this in a future Coding Club session.
+  
+## Terminal
+
+RStudio now has an in-built Terminal which allows access to the system shell within the RStudio IDE. For computers that don't have a built-in Terminal (e.g. Windows), then you will need to install something like Git-Bash (might come with newer versions of RStudio). The Terminal can be used for things like version control with `git`, remote logins, compiling python code, etc.
+
