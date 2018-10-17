@@ -10,4 +10,6 @@ bookdown::gitbook:
       collapse: subsection
       scroll_highlight: yes
       search: yes
+      depth: 2
+      float: TRUE
     sharing: null  
