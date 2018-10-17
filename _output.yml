@@ -7,9 +7,7 @@ bookdown::gitbook:
         <li><a href="./">Lodestar Guides</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-      collapse: subsection
+      collapse: section
       scroll_highlight: yes
       search: yes
-      depth: 2
-      float: TRUE
-    sharing: null  
+    sharing: null
