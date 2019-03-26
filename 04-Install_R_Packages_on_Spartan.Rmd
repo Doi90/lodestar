@@ -126,7 +126,7 @@ Now each time we open a new environment on Spartan we export the `R_LIBS_USER` v
 
 Changes to the `.bash_profile` file don't take effect until our next log-in to Spartan, so if we log-out and back in again our changes come into effect and we are now free to install and load packages to/from our user-specific library.
 
-The `.bash_profile` method is perfetly fine as long as you only need to have a single personal library. You will need to update it anytime you switch to a new R version module. 
+The `.bash_profile` method is perfectly fine as long as you only need to have a single personal library. You will need to update it anytime you switch to a new R version module. It is important to note that the `.bash_profile` method can cause you problems if the R module version you load is different from the library path in your `.bash_profile`. This is because the `.bash_profile` library path (say, 3.4) will get loaded even if incompatible with the loaded module (say, 3.5). This will cause problems even if you define a library path manually in the R session.
 
 ***
 
