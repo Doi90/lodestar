@@ -9,18 +9,17 @@
 
 ***
 
-Spartan is the University of Melbourne's general purpose hybrid traditional high performance computing system (HPC) with cloud instances from the NeCTAR Research Cloud and attached Research Data Storage Services (RDSS).
+Spartan is the University of Melbourne's high performance computing system (HPC). It combines high-performance bare-metal compute nodes (somewhere on campus) with cloud instances from the NeCTAR Research Cloud and attached Research Data Storage Services (RDSS).
 
 It is designed to suit the needs of researchers whose desktop/laptop is not up to the particular task. Models running slow, datasets are too big, not enough cores, application licensing issues, etc.
 
 Spartan consists of:
 
 *  a management node for system administrators,
-*  a log in node for users to connect to the system and submit jobs,
-*  a small number of 'bare metal' compute nodes for multinode tasks,
-*  any 'bare metal' user-procured hardware (e.g., departmental nodes),
-*  vHPC cloud compute nodes for overflow and GPGPU tasks, and
-*  general cloud compute nodes.
+*  two log in nodes for users to connect to the system and submit jobs,
+*  'bare metal' compute nodes,
+*  cloud compute nodes, and
+*  GPUGPU compute nodes.
 
 ## Accessing Spartan
 
@@ -32,7 +31,7 @@ To gain access to Spartan you need to create an account.
 *  Need to create a project
 +  Need a project leader (you), and you can invite collaborators for joint projects
 +  Need a project title/description to demonstrate research goals and/or research support 
-*  Takes ~2 days for approval
+*  Takes ~2 days for approval (as of 2017)
 
 ***
 <center>![](Images/Karaage.png)</center>
@@ -73,7 +72,7 @@ Use WinSCP as your SFTP client. This is an easy process with the following six s
 <center>![](Images/WinSCP_steps.png)</center>
 
 ***
-Inside a WinSCP session you will have dual file explorer windows: your local machine (left) and your Spartan home directory (right). If you have not made your initial log-in to Spartan via your SSH client you will have a blank white screen in the right-hand window. Transferring files between the two directories is achieved with a simple drag-and-drop interface.
+Inside a WinSCP session you will have dual file explorer windows: your local machine (left) and Spartan (right). If you have not made your initial log-in to Spartan via your SSH client you will have a blank white screen in the right-hand window. Transferring files between the two directories is achieved with a simple drag-and-drop interface.
 
 ***
 <center>![](Images/WinSCP_home.png)</center>
@@ -103,7 +102,7 @@ Replacing `myusername` with your username. Then enter your password (no characte
 
 ***
 
-As for Windows, your first log-in to Spartan via the SSH client creates your home directory on Spartan so it is important to do that before setting up your SFTP client.
+Same as for Windows, your first log-in to Spartan via the SSH client creates your home directory on Spartan so it is important to do that before setting up your SFTP client.
 
 SFTP is also installed on most OSX and linux versions, so you could transfer files to Spartan directly from the terminal (do `man sftp` in the terminal if you're interested in that). However it's normally easier to use a SFTP client with a graphical user interface. One nice option for OSX (that also works on Windows) is [Cyberduck](https://cyberduck.io). Once installed, you can add a new connection to Spartan with the following steps:
 
@@ -128,14 +127,14 @@ You can then close the connection details box, and double-click on the new conne
 
 ### Log in to Spartan
 
-Now that you have everything in place to access Spartan, open an SSH session (in PuTTY or Terminal). as before, this wont display characters as you type your password.
+Now that you have everything in place to access Spartan, open an SSH session (in PuTTY or Terminal). As before, this wont display characters as you type your password.
 
 ***
 <center>![](Images/Spartan_log_in.png)</center>
 
 ***
 
-The text that loads at the beginning gives you the usual university IT policy spiel, a couple of getting started prompts, a warning about the log-in node, and the obligatory 300 reference.
+The text that loads at the beginning gives you the usual university IT policy spiel, a couple of getting started prompts, a warning about the log-in node, and the obligatory 300 reference. It also has a *Daily Weather Report* updated each morning to show how busy Spartan is. As it is only updated once a day though it is only a rough indication and can vary wildly if lots of jobs start or finish.
 
 ***
 <center>![](Images/Spartan_300.png)</center>
@@ -148,7 +147,7 @@ Typing `man Spartan` loads the university's Spartan FAQ. Rather than loading the
 
 *  `h`: help, shows you the keyboard shortcuts
 *  `q`: quit the document and go back to the Spartan interface
-*  `^` is used in place of the control/command button, so `^V` is Ctrl+V
+*  `^` is shorthand for the control/command button, so `^V` is Ctrl+V / Cmd+V
 *  `Enter/Return` will let you advance by one line
 *  `^Y` will let you go back by one line
 *  `^V` will let you advance by one window
@@ -163,17 +162,17 @@ If you want help with a particular function in Spartan you can type `man <functi
 
 ## Using Spartan
 
-The log-in node on Spartan is a shared resource between all users and is only allocated the memory to handle log-ins and job submission. Do not run jobs in the log-in node or the admins will get upset and kill the job. There are two ways to get out of the log-in node and into dedicated compute nodes: `sinteractive` and `sbatch`.
+The log-in nodes on Spartan are a shared resource between all users and is only allocated the memory to handle log-ins and job submission. **Do not run jobs in the log-in node or the admins will get upset and kill the job**. There are two ways to get out of the log-in node and into dedicated compute nodes: `sinteractive` and `sbatch`.
 
 ### sinteractive
 
-The `sinteractive` command will give you access to a compute node (as soon as available) where you can work interactively with your job. While you can submit an entire job in this method, that is better saved for `sbatch` and `sinteractive` used for testing/debugging. There are default settings for `sinteractive` which should be enough for most uses, but they can be modified if needed like so:
+The `sinteractive` command will give you access to a compute node (as soon as available) where you can work interactively with your job. While you can submit an entire job in this method, that is better saved for `sbatch` while `sinteractive` is used for testing/debugging. There are default settings for `sinteractive` which should be enough for most uses, but they can be modified if needed like so:
 
 ```{}
 sinteractive --time=00:10:00 --nodes=1 --ntasks=1 --cpus-per-task=2
 ```
 
-This will give you access to one node to perform one task with two processors for ten minutes (default values I think). Lets open a default node and explore some basic commands. Type `sinteractive`. This submits a request for a default compute node (1), and you have to wait for the resource to become available (2) before you can continue.
+This will give you access to one node to perform one task with two processors for ten minutes (the default values). Lets open a default node and explore some basic commands. Type `sinteractive`. This submits a request for a default compute node (1), and you have to wait for the resource to become available (2) before you can continue.
 
 ***
 <center>![](Images/Spartan_sinteractive.png)</center>
@@ -187,7 +186,9 @@ The `ls` command will show you everything in your current directory. Folders sho
 
 ***
 
-The `cd` command will let you change your current directory. As Spartan is Linux based it uses / not \ for directories (unlike Windows). The \ character is used to say that the preceding term is a special character. Lets change into a sub-folder and see what is inside. Spartan lets you pre-fill file paths/names using the tab key like R, but it will pre-fill everything until a choice needs to be made, and won't provide options at that stage, but will complete everything once no more divergences exist.
+The `cd` command will let you change your current directory. As Spartan is Linux based it uses / not \\ for directories (unlike Windows). The \\ character is used to say that the preceding term is a special character. Lets change into a sub-folder and see what is inside. Spartan lets you pre-fill filepaths/names using the tab key like R but slightly differently. It will pre-fill everything until a choice needs to be made and then pressing the tab key twice will list some options. Once only one exist then it will finish the autocomplete.
+
+The `pwd` command prints your current working directory. Lets run a sequence of `pwd`, `cd`, and `ls` to see them in action.
 
 ***
 <center>![](Images/Spartan_cd.png)</center>
@@ -201,7 +202,17 @@ The programs available on Spartan as referred to as modules, and you can see a c
 
 ***
 
-Loading a particular module requires two commands: `module load <module name>` (to load the module into the node's environment) and `<module name>` (to start the program). To load R for example:
+A massive list of all modules isn't that useful! We can return more targetted lists either by adding a keyword to `module avail` or by using `module spider`. `module avail` searches for the keyword in the "full" module name so something like `module avail R` will return every module with the letter *r* in it so use something more specific like `module avail R/3.5` instead to return all versions of the R module that are version 3.5.*. `module spider` is a fuzzy match to the "actual" name of the module so `module spider R` will return all modules that are the closest match to the keyword, and a list of other module "actual" names that might also match.
+
+***
+<center>![](Images/Spartan_module_avail_R.png)</center>
+
+***
+<center>![](Images/Spartan_module_spider.png)</center>
+
+***
+
+There are two steps to loading a particular module. First, the `module load <module>` command to load the module into the compute node's environment, and then `<module name>` to start the program. If you don't specify the specific module version in `module load <module>` then it will load whichever version is set as the default (typically the newest one). For a variety of reasons it is best to always load a specific version! To load R for example:
 
 ***
 <center>![](Images/Spartan_module_load.png)</center>
@@ -217,21 +228,40 @@ The `sbatch` command is used for direct job submission to Spartan using the batc
 
 ***
 
-This system tracks resources throughout the cluster and builds a queue of jobs to run, and when resources are available the job scheduler will direct your job to a compute node to run.
+This system tracks resources throughout the cluster and manages a queue of jobs. When resources are available the job scheduler will direct your job to a compute node to run.
 
 ***
 <center>![](Images/Spartan_queue_example.png)</center>
 
 ***
 
-To submit a job using the `sbatch` command you need to write a slurm file that sets up your instance (amount of memory, number of processors, etc) and runs your model. Note for Windows users: write these in Notepad++ as Windows and Linux use different line break notation (/r/n vs /n) and standard text files written on Windows won't run on Spartan.
+To submit a job using the `sbatch` command you need to write a `slurm` script that sets up your instance (amount of memory, number of processors, etc) and runs your model. Note for Windows users: write these in Notepad++ as Windows and Linux use different line break notation (/r/n vs /n) and standard text files written on Windows won't run on Spartan. A basic `slurm` file for R might look like this (from Spartan's own examples):
 
-***
-<center>![](Images/Slurm_file_example.png)</center>
+```{bash eval = FALSE}
+#!/bin/bash
 
-***
+# To give your job a name, replace "MyJob" with an appropriate name
+#SBATCH --job-name=Rsample
+#SBATCH -p cloud
 
-Slurm files can be as simple or as complex as required depending on the job you want to run. Slurm files always need to begin with `#!/bin/bash` on the first line. Why? It tells the shell what kind of interpretor to run (in this case bash). On subsequent lines you set up your instance first using `#SBATCH <your command here>` and then the commands to run your job. Some useful `#SBATCH` commands to consider are:
+# For R need to run on single CPU
+#SBATCH --ntasks=1
+
+# set your minimum acceptable walltime=hours:minutes:seconds
+#SBATCH -t 0:15:00
+
+# Specify your email address to be notified of progress.
+#SBATCH --mail-user=youreamiladdress@unimelb.edu
+#SBATCH --mail-type=ALL
+
+# Load the environment variables for R
+module load R/3.5.0-spartan_gcc-6.2.0 
+
+# The command to actually run the job
+R --vanilla < tutorial.R 
+```
+
+`slurm` scripts can be as simple or as complex as required depending on the job you want to run. `slurm` scripts always need to begin with `#!/bin/bash` on the first line. Why? It tells the shell what kind of interpretor to run (in this case `bash`). Like `R`, anything following a `#` in `bash`/`slurm` is interpreted as a comment. However, `#SBATCH` is recognised as special syntax to control job parameters. You can mix commented lines, `#SBATCH` lines, and empty lines at the start of your script, but once the first "actual command" is run all subsequent `#SBATCH` lines are treated as comments only. Some useful `#SBATCH` commands to consider are:
 
 *  `#SBATCH --job-name=<name>`: Lets you give your job a name alongside its job id. Useful if you're running lots of jobs at once. By default it sets it to your file name, or replace <name> with your name of choice like this:
 
@@ -239,7 +269,7 @@ Slurm files can be as simple or as complex as required depending on the job you 
 #SBATCH --job-name=MyJob
 ```
 
-*  `#SBATCH -p <partition>`: This is where you select which partition on Spartan your job will run. For most jobs you will set your partition as `cloud` which can run single node jobs of up to 8 CPUs and up to 50GB of memory. For multi-node jobs or >50GB of memory set it as `physical` (up to 200GB), and if you have access to a dedicated partition then use `your partition name`. In most cases you will use the following:
+*  `#SBATCH -p <partition>`: This is where you select which partition on Spartan your job will run. The `cloud` partition can only run single node jobs of up to 12 CPUs and 100GB of memory. The `physical` partition can run single or multi-node jobs of up to 12CPUS and 250GB of memory. There are also other specialty partitions with larger requirements (up to 1500GB of memory) or GPUs as well. If you have access to a dedicated partition then use `your partition name`. In most cases you will use the following:
 
 ```{}
 #SBATCH -p cloud
@@ -251,7 +281,7 @@ Slurm files can be as simple or as complex as required depending on the job you 
 #SBATCH --time=01:00:00   # hours:minutes:seconds format
 ```
 
-*  `#SBATCH --nodes=<number>`: You need to request an allocation of compute nodes. Most jobs will be single node jobs, but there is the ability to run jobs over multiple nodes that talk to each other. It is not recommended to try running multiple communicating nodes via the cloud partition, use the physical partition instead. To call a single node use the following:
+*  `#SBATCH --nodes=<number>`: You need to request an allocation of compute nodes. Most jobs will be single node jobs, but there is the ability to run jobs over multiple nodes that talk to each other. It is not recommended to try running multiple communicating nodes via the cloud partition, use the physical partition instead. Multi-node jobs will require using `OpenMPI` to allow the different nodes to communicate. To call a single node use the following:
 
 ```{}
 #SBATCH --nodes=1
@@ -263,13 +293,13 @@ Slurm files can be as simple or as complex as required depending on the job you 
 #SBATCH --ntasks=1
 ```
 
-*  `#SBATCH --cpus-per-task=<number>`: This informs the SLURM controller that each task will need *number* of processors per task. Cloud nodes have access to eight cores each. To allocate four processors (like on a quad-core desktop without multi-threading) you would set:
+*  `#SBATCH --cpus-per-task=<number>`: This informs the SLURM controller that each task will need *number* of processors per task. To allocate four processors (like on a quad-core desktop without multi-threading) you would set:
 
 ```{}
 #SBATCH --cpus-per-task=4
 ```
 
-*  `#SBATCH --mem=<number>`: This is where you nominate the maximum amount of memory required per node (in megabytes). Cloud nodes have access to up to 50GB of memory, physical nodes are used for large jobs of up to 200GB. To request 10GB of memory (remembering that 1GB = 1024MB) you would use:
+*  `#SBATCH --mem=<number>`: This is where you nominate the maximum amount of memory required per node (in megabytes). Cloud nodes have access to up to 100GB of memory, standard physical nodes are used for large jobs of up to 250GB. Some physical nodes and other specialist partitions will have much larger limits (up to 1500GB). To request 10GB of memory (remembering that 1GB = 1024MB) you would use:
 
 ```{}
 #SBATCH --mem=10240
@@ -292,21 +322,13 @@ Slurm files can be as simple or as complex as required depending on the job you 
 #SBATCH --mail-type=ALL,TIME_LIMIT_90
 ```
 
-After setting up your instance you then need to supply the instructions for what you want your job to do. This will often just be a change of directory, loading the module (program) you need, and calling the script you want to run. Calling the script you want to run follows a set format of commands: <module name> [options] [< infile] [> out-file].The first two of these are covered earlier, so lets look at complete example for R before looking at options in more details:
+After setting up your instance you then need to supply the instructions for what you want your job to do. This will often just be a change of directory, loading the module (program) you need, and calling the script you want to run. TO run an `R` script you can either use `R --vanilla < file.R` or `Rscript --vanilla file.R`. The former echos your input statements in your output file while the second option (my preferred method) does not. Not all modules have two formats available (so check `man <modulename>`), but they all allow the former (from memory).
 
-```{}
-cd Coding\ Club/R/
-module load R
-R --vanilla < tutorial.R
-```
-
-As you can see this merges the second command in loading a module with loading a script. You can see the different options available for calling an R script using `man R` (after loading the module into the environment). Some useful options include:
+You can see the different options available for calling an R script using `man R` (after loading the module into the environment). Some useful options include:
 
 *  `--save`: Save workspace at the end of the session
 *  `--no-save`: Don't save workspace at the end of the session
 *  `--vanilla`: A wrapper around `--no-save` and a few other commands useful for starting R as a blank slate (no loading pre-saved objects, etc)
-
-`< infile` is where you call the script you want to run e.g. `< myFile.R`, and `> outfile` presumably lets you set specific output files (it isn't compulsory, and I've never had reason to use it).
 
 Now we can put all of this together to create our SLURM file:
 
@@ -327,9 +349,9 @@ Now we can put all of this together to create our SLURM file:
 #SBATCH --mail-user="davidpw@student.unimelb.edu.au"
 #SBATCH --mail-type=ALL
 
-module load R
+module load R/3.5.0-GCC-6.2.0
 
-R --vanilla < tutorial.R 
+Rscript --vanilla tutorial.R 
 ```
 
 Assuming this Slurm file is named "MyFile.slurm", you can submit your job to the queue from the log-in node using the following command
@@ -341,6 +363,7 @@ sbatch MyFile.slurm
 <center>![](Images/Spartan_sbatch.png)</center>
 
 ***
+
 ### Useful Auxiliary Commands
 
 Now that we know how to submit jobs to Spartan either through `sinteractive` or `sbatch`, lets look at some other useful commands in Spartan. Spartan uses a Unix-based operating system so a lot of Unix xommands work here. These commands range from help functions, in built text-editors, checking job status, or job control. Some of these may have been used earlier in this document but are important enough for another mention:
@@ -373,9 +396,9 @@ Now that we know how to submit jobs to Spartan either through `sinteractive` or 
 
 *  `head <filename>` and `tail <filename>`: Print the first/last ten lines of a file
 
-*  `history`: List commands you've used previously. You can navigate previous commands in your current session using the up/down keys like in R, but this lists previous commands over previous sessions as well
+*  `history`: List commands you've used previously. You can navigate previous commands in your current session using the up/down keys like in `R`, but this lists previous commands over previous sessions as well
 
-*  `echo <text>`: Prints text. Useful for debugging
+*  `echo <text>`: Prints text
 
 *  `squeue`: This command is used for checking on job status.
     +  `squeue`: This base command will show all jobs in the queue for all users
@@ -386,6 +409,12 @@ Now that we know how to submit jobs to Spartan either through `sinteractive` or 
 <center>![](Images/Spartan_squeue.png)</center>
 
 ***
+
+*  `showq`: This command displays the *actual* queue and splits it into `ACTIVE`, `WAITING`, and `BLOCKED` jobs. `ACTIVE` jobs are those currently running. `WAITING` jobs are those "next in line" pending resource availability, and no user can have more than five jobs here. `BLOCKED` jobs are those in the queue but not in the "priority" `WAITING` area.
+    + `showq`: This base command will show all jobs for all users in `ACTIVE` and `WAITING` but only a user's `BLOCKED` jobs
+    + `showq -u <username>`: This will show all jobs for a particular user
+    + `showq -p <partition>`: This will show all jobs running on a given partition, but more importantly provides more up to date information regarding the usage/availability of that partition than the Daily Weather Report
+    
 *  `scancel`: This command is used for cancelling jobs in the queue. For example:
     +  `scancel -u <username>`: cancels all jobs for that username
     +  `scancel -u <jobid>`: cancels the job called by <jobid>
@@ -411,6 +440,7 @@ Now that we know how to submit jobs to Spartan either through `sinteractive` or 
 *  There are simple example slurm files for the most common modules at `/usr/local/common/` (including R, MATLAB, and Python)
 *  [Online Spartan FAQ](https://dashboard.hpc.unimelb.edu.au/spartan-faq). Same as using `man spartan`
 *  [Online SLURM FAQ](http://www.ceci-hpc.be/slurm_faq.html)
+*  [Online SLURM script generator](https://dashboard.hpc.unimelb.edu.au/guides/script_generator/). Simple jobs only though!
 *  `srun` and `salloc` functions are used for parallel jobs
 *  [Support for multi-core/multi-threaded architecture](https://slurm.schedmd.com/mc_support.html)
 *  [Running R in parallel using the rslurm package](https://cran.r-project.org/web/packages/rslurm/vignettes/rslurm-vignette.html)
