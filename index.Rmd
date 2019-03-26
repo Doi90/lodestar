@@ -19,4 +19,3 @@ A lodestar is a star used as a guide for navigation by ship (like Polaris, the N
 The collection of guides and tutorials found in *lodestar* are things I've put together for various workshops/meetups or guides that I felt were lacking elsewhere. New guides will get added sporadically.
 
 *lodestar* is now living as a GitHub page via *bookdown* now that RawGit has been shut down.
-
