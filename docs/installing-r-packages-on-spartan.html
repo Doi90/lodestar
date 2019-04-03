@@ -25,7 +25,7 @@
 <meta name="author" content="David Wilkinson">
 
 
-<meta name="date" content="2018-10-17">
+<meta name="date" content="2019-04-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -292,7 +292,7 @@ export R_LIBS_USER=<span class="st">&quot;Personal library path here&quot;</span
 <p>And follow the prompts to exit and save (<code>^X</code> means <code>Control + X</code> or <code>Command + X</code>).</p>
 <p>Now each time we open a new environment on Spartan we export the <code>R_LIBS_USER</code> variable (which sets R’s library paths) into the new environment automatically. We can supply any number of library paths to this variable as long as they are each within <code>&quot; &quot;</code> and separated from each other by <code>:</code>. In this example we set two library paths: our personal library path and then the default Spartan library (for a specifc R version module).</p>
 <p>Changes to the <code>.bash_profile</code> file don’t take effect until our next log-in to Spartan, so if we log-out and back in again our changes come into effect and we are now free to install and load packages to/from our user-specific library.</p>
-<p>The <code>.bash_profile</code> method is perfetly fine as long as you only need to have a single personal library. You will need to update it anytime you switch to a new R version module.</p>
+<p>The <code>.bash_profile</code> method is perfectly fine as long as you only need to have a single personal library. You will need to update it anytime you switch to a new R version module. It is important to note that the <code>.bash_profile</code> method can cause you problems if the R module version you load is different from the library path in your <code>.bash_profile</code>. This is because the <code>.bash_profile</code> library path (say, 3.4) will get loaded even if incompatible with the loaded module (say, 3.5). This will cause problems even if you define a library path manually in the R session.</p>
 <hr />
 </div>
 </div>

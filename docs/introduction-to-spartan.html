@@ -25,7 +25,7 @@
 <meta name="author" content="David Wilkinson">
 
 
-<meta name="date" content="2018-10-17">
+<meta name="date" content="2019-04-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -217,16 +217,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <img src="Images/spartanlogo.png" />
 </center>
 <hr />
-<p>Spartan is the University of Melbourne’s general purpose hybrid traditional high performance computing system (HPC) with cloud instances from the NeCTAR Research Cloud and attached Research Data Storage Services (RDSS).</p>
+<p>Spartan is the University of Melbourne’s high performance computing system (HPC). It combines high-performance bare-metal compute nodes (somewhere on campus) with cloud instances from the NeCTAR Research Cloud and attached Research Data Storage Services (RDSS).</p>
 <p>It is designed to suit the needs of researchers whose desktop/laptop is not up to the particular task. Models running slow, datasets are too big, not enough cores, application licensing issues, etc.</p>
 <p>Spartan consists of:</p>
 <ul>
 <li>a management node for system administrators,</li>
-<li>a log in node for users to connect to the system and submit jobs,</li>
-<li>a small number of ‘bare metal’ compute nodes for multinode tasks,</li>
-<li>any ‘bare metal’ user-procured hardware (e.g., departmental nodes),</li>
-<li>vHPC cloud compute nodes for overflow and GPGPU tasks, and</li>
-<li>general cloud compute nodes.</li>
+<li>two log in nodes for users to connect to the system and submit jobs,</li>
+<li>‘bare metal’ compute nodes,</li>
+<li>cloud compute nodes, and</li>
+<li>GPUGPU compute nodes.</li>
 </ul>
 </div>
 <div id="accessing-spartan" class="section level2">
@@ -239,7 +238,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Need to create a project</li>
 <li>Need a project leader (you), and you can invite collaborators for joint projects</li>
 <li>Need a project title/description to demonstrate research goals and/or research support</li>
-<li>Takes ~2 days for approval</li>
+<li>Takes ~2 days for approval (as of 2017)</li>
 </ul>
 <hr />
 <center>
@@ -280,7 +279,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <img src="Images/WinSCP_steps.png" />
 </center>
 <hr />
-<p>Inside a WinSCP session you will have dual file explorer windows: your local machine (left) and your Spartan home directory (right). If you have not made your initial log-in to Spartan via your SSH client you will have a blank white screen in the right-hand window. Transferring files between the two directories is achieved with a simple drag-and-drop interface.</p>
+<p>Inside a WinSCP session you will have dual file explorer windows: your local machine (left) and Spartan (right). If you have not made your initial log-in to Spartan via your SSH client you will have a blank white screen in the right-hand window. Transferring files between the two directories is achieved with a simple drag-and-drop interface.</p>
 <hr />
 <center>
 <img src="Images/WinSCP_home.png" />
@@ -303,7 +302,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <img src="Images/terminal_ssh_steps.png" />
 </center>
 <hr />
-<p>As for Windows, your first log-in to Spartan via the SSH client creates your home directory on Spartan so it is important to do that before setting up your SFTP client.</p>
+<p>Same as for Windows, your first log-in to Spartan via the SSH client creates your home directory on Spartan so it is important to do that before setting up your SFTP client.</p>
 <p>SFTP is also installed on most OSX and linux versions, so you could transfer files to Spartan directly from the terminal (do <code>man sftp</code> in the terminal if you’re interested in that). However it’s normally easier to use a SFTP client with a graphical user interface. One nice option for OSX (that also works on Windows) is <a href="https://cyberduck.io">Cyberduck</a>. Once installed, you can add a new connection to Spartan with the following steps:</p>
 <ol style="list-style-type: decimal">
 <li>Clicking on the <code>+</code> in the lower-left corner</li>
@@ -328,13 +327,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="log-in-to-spartan" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> Log in to Spartan</h3>
-<p>Now that you have everything in place to access Spartan, open an SSH session (in PuTTY or Terminal). as before, this wont display characters as you type your password.</p>
+<p>Now that you have everything in place to access Spartan, open an SSH session (in PuTTY or Terminal). As before, this wont display characters as you type your password.</p>
 <hr />
 <center>
 <img src="Images/Spartan_log_in.png" />
 </center>
 <hr />
-<p>The text that loads at the beginning gives you the usual university IT policy spiel, a couple of getting started prompts, a warning about the log-in node, and the obligatory 300 reference.</p>
+<p>The text that loads at the beginning gives you the usual university IT policy spiel, a couple of getting started prompts, a warning about the log-in node, and the obligatory 300 reference. It also has a <em>Daily Weather Report</em> updated each morning to show how busy Spartan is. As it is only updated once a day though it is only a rough indication and can vary wildly if lots of jobs start or finish.</p>
 <hr />
 <center>
 <img src="Images/Spartan_300.png" />
@@ -347,7 +346,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li><code>h</code>: help, shows you the keyboard shortcuts</li>
 <li><code>q</code>: quit the document and go back to the Spartan interface</li>
-<li><code>^</code> is used in place of the control/command button, so <code>^V</code> is Ctrl+V</li>
+<li><code>^</code> is shorthand for the control/command button, so <code>^V</code> is Ctrl+V / Cmd+V</li>
 <li><code>Enter/Return</code> will let you advance by one line</li>
 <li><code>^Y</code> will let you go back by one line</li>
 <li><code>^V</code> will let you advance by one window</li>
@@ -363,12 +362,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="using-spartan" class="section level2">
 <h2><span class="header-section-number">4.3</span> Using Spartan</h2>
-<p>The log-in node on Spartan is a shared resource between all users and is only allocated the memory to handle log-ins and job submission. Do not run jobs in the log-in node or the admins will get upset and kill the job. There are two ways to get out of the log-in node and into dedicated compute nodes: <code>sinteractive</code> and <code>sbatch</code>.</p>
+<p>The log-in nodes on Spartan are a shared resource between all users and is only allocated the memory to handle log-ins and job submission. <strong>Do not run jobs in the log-in node or the admins will get upset and kill the job</strong>. There are two ways to get out of the log-in node and into dedicated compute nodes: <code>sinteractive</code> and <code>sbatch</code>.</p>
 <div id="sinteractive" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> sinteractive</h3>
-<p>The <code>sinteractive</code> command will give you access to a compute node (as soon as available) where you can work interactively with your job. While you can submit an entire job in this method, that is better saved for <code>sbatch</code> and <code>sinteractive</code> used for testing/debugging. There are default settings for <code>sinteractive</code> which should be enough for most uses, but they can be modified if needed like so:</p>
+<p>The <code>sinteractive</code> command will give you access to a compute node (as soon as available) where you can work interactively with your job. While you can submit an entire job in this method, that is better saved for <code>sbatch</code> while <code>sinteractive</code> is used for testing/debugging. There are default settings for <code>sinteractive</code> which should be enough for most uses, but they can be modified if needed like so:</p>
 <pre><code>sinteractive --time=00:10:00 --nodes=1 --ntasks=1 --cpus-per-task=2</code></pre>
-<p>This will give you access to one node to perform one task with two processors for ten minutes (default values I think). Lets open a default node and explore some basic commands. Type <code>sinteractive</code>. This submits a request for a default compute node (1), and you have to wait for the resource to become available (2) before you can continue.</p>
+<p>This will give you access to one node to perform one task with two processors for ten minutes (the default values). Lets open a default node and explore some basic commands. Type <code>sinteractive</code>. This submits a request for a default compute node (1), and you have to wait for the resource to become available (2) before you can continue.</p>
 <hr />
 <center>
 <img src="Images/Spartan_sinteractive.png" />
@@ -380,7 +379,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <img src="Images/Spartan_ls.png" />
 </center>
 <hr />
-<p>The <code>cd</code> command will let you change your current directory. As Spartan is Linux based it uses / not  for directories (unlike Windows). The  character is used to say that the preceding term is a special character. Lets change into a sub-folder and see what is inside. Spartan lets you pre-fill file paths/names using the tab key like R, but it will pre-fill everything until a choice needs to be made, and won’t provide options at that stage, but will complete everything once no more divergences exist.</p>
+<p>The <code>cd</code> command will let you change your current directory. As Spartan is Linux based it uses / not \ for directories (unlike Windows). The \ character is used to say that the preceding term is a special character. Lets change into a sub-folder and see what is inside. Spartan lets you pre-fill filepaths/names using the tab key like R but slightly differently. It will pre-fill everything until a choice needs to be made and then pressing the tab key twice will list some options. Once only one exist then it will finish the autocomplete.</p>
+<p>The <code>pwd</code> command prints your current working directory. Lets run a sequence of <code>pwd</code>, <code>cd</code>, and <code>ls</code> to see them in action.</p>
 <hr />
 <center>
 <img src="Images/Spartan_cd.png" />
@@ -392,7 +392,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <img src="Images/Spartan_module_avail.png" />
 </center>
 <hr />
-<p>Loading a particular module requires two commands: <code>module load &lt;module name&gt;</code> (to load the module into the node’s environment) and <code>&lt;module name&gt;</code> (to start the program). To load R for example:</p>
+<p>A massive list of all modules isn’t that useful! We can return more targetted lists either by adding a keyword to <code>module avail</code> or by using <code>module spider</code>. <code>module avail</code> searches for the keyword in the “full” module name so something like <code>module avail R</code> will return every module with the letter <em>r</em> in it so use something more specific like <code>module avail R/3.5</code> instead to return all versions of the R module that are version 3.5.*. <code>module spider</code> is a fuzzy match to the “actual” name of the module so <code>module spider R</code> will return all modules that are the closest match to the keyword, and a list of other module “actual” names that might also match.</p>
+<hr />
+<center>
+<img src="Images/Spartan_module_avail_R.png" />
+</center>
+<hr />
+<center>
+<img src="Images/Spartan_module_spider.png" />
+</center>
+<hr />
+<p>There are two steps to loading a particular module. First, the <code>module load &lt;module&gt;</code> command to load the module into the compute node’s environment, and then <code>&lt;module name&gt;</code> to start the program. If you don’t specify the specific module version in <code>module load &lt;module&gt;</code> then it will load whichever version is set as the default (typically the newest one). For a variety of reasons it is best to always load a specific version! To load R for example:</p>
 <hr />
 <center>
 <img src="Images/Spartan_module_load.png" />
@@ -407,25 +417,41 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <img src="Images/slurm.jpg" />
 </center>
 <hr />
-<p>This system tracks resources throughout the cluster and builds a queue of jobs to run, and when resources are available the job scheduler will direct your job to a compute node to run.</p>
+<p>This system tracks resources throughout the cluster and manages a queue of jobs. When resources are available the job scheduler will direct your job to a compute node to run.</p>
 <hr />
 <center>
 <img src="Images/Spartan_queue_example.png" />
 </center>
 <hr />
-<p>To submit a job using the <code>sbatch</code> command you need to write a slurm file that sets up your instance (amount of memory, number of processors, etc) and runs your model. Note for Windows users: write these in Notepad++ as Windows and Linux use different line break notation (/r/n vs /n) and standard text files written on Windows won’t run on Spartan.</p>
-<hr />
-<center>
-<img src="Images/Slurm_file_example.png" />
-</center>
-<hr />
-<p>Slurm files can be as simple or as complex as required depending on the job you want to run. Slurm files always need to begin with <code>#!/bin/bash</code> on the first line. Why? It tells the shell what kind of interpretor to run (in this case bash). On subsequent lines you set up your instance first using <code>#SBATCH &lt;your command here&gt;</code> and then the commands to run your job. Some useful <code>#SBATCH</code> commands to consider are:</p>
+<p>To submit a job using the <code>sbatch</code> command you need to write a <code>slurm</code> script that sets up your instance (amount of memory, number of processors, etc) and runs your model. Note for Windows users: write these in Notepad++ as Windows and Linux use different line break notation (/r/n vs /n) and standard text files written on Windows won’t run on Spartan. A basic <code>slurm</code> file for R might look like this (from Spartan’s own examples):</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="co"># To give your job a name, replace &quot;MyJob&quot; with an appropriate name</span>
+<span class="co">#SBATCH --job-name=Rsample</span>
+<span class="co">#SBATCH -p cloud</span>
+
+<span class="co"># For R need to run on single CPU</span>
+<span class="co">#SBATCH --ntasks=1</span>
+
+<span class="co"># set your minimum acceptable walltime=hours:minutes:seconds</span>
+<span class="co">#SBATCH -t 0:15:00</span>
+
+<span class="co"># Specify your email address to be notified of progress.</span>
+<span class="co">#SBATCH --mail-user=youreamiladdress@unimelb.edu</span>
+<span class="co">#SBATCH --mail-type=ALL</span>
+
+<span class="co"># Load the environment variables for R</span>
+<span class="ex">module</span> load R/3.5.0-spartan_gcc-6.2.0 
+
+<span class="co"># The command to actually run the job</span>
+<span class="ex">R</span> --vanilla <span class="op">&lt;</span> tutorial.R </code></pre></div>
+<p><code>slurm</code> scripts can be as simple or as complex as required depending on the job you want to run. <code>slurm</code> scripts always need to begin with <code>#!/bin/bash</code> on the first line. Why? It tells the shell what kind of interpretor to run (in this case <code>bash</code>). Like <code>R</code>, anything following a <code>#</code> in <code>bash</code>/<code>slurm</code> is interpreted as a comment. However, <code>#SBATCH</code> is recognised as special syntax to control job parameters. You can mix commented lines, <code>#SBATCH</code> lines, and empty lines at the start of your script, but once the first “actual command” is run all subsequent <code>#SBATCH</code> lines are treated as comments only. Some useful <code>#SBATCH</code> commands to consider are:</p>
 <ul>
 <li><code>#SBATCH --job-name=&lt;name&gt;</code>: Lets you give your job a name alongside its job id. Useful if you’re running lots of jobs at once. By default it sets it to your file name, or replace <name> with your name of choice like this:</li>
 </ul>
 <pre><code>#SBATCH --job-name=MyJob</code></pre>
 <ul>
-<li><code>#SBATCH -p &lt;partition&gt;</code>: This is where you select which partition on Spartan your job will run. For most jobs you will set your partition as <code>cloud</code> which can run single node jobs of up to 8 CPUs and up to 50GB of memory. For multi-node jobs or &gt;50GB of memory set it as <code>physical</code> (up to 200GB), and if you have access to a dedicated partition then use <code>your partition name</code>. In most cases you will use the following:</li>
+<li><code>#SBATCH -p &lt;partition&gt;</code>: This is where you select which partition on Spartan your job will run. The <code>cloud</code> partition can only run single node jobs of up to 12 CPUs and 100GB of memory. The <code>physical</code> partition can run single or multi-node jobs of up to 12CPUS and 250GB of memory. There are also other specialty partitions with larger requirements (up to 1500GB of memory) or GPUs as well. If you have access to a dedicated partition then use <code>your partition name</code>. In most cases you will use the following:</li>
 </ul>
 <pre><code>#SBATCH -p cloud</code></pre>
 <ul>
@@ -433,7 +459,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <pre><code>#SBATCH --time=01:00:00   # hours:minutes:seconds format</code></pre>
 <ul>
-<li><code>#SBATCH --nodes=&lt;number&gt;</code>: You need to request an allocation of compute nodes. Most jobs will be single node jobs, but there is the ability to run jobs over multiple nodes that talk to each other. It is not recommended to try running multiple communicating nodes via the cloud partition, use the physical partition instead. To call a single node use the following:</li>
+<li><code>#SBATCH --nodes=&lt;number&gt;</code>: You need to request an allocation of compute nodes. Most jobs will be single node jobs, but there is the ability to run jobs over multiple nodes that talk to each other. It is not recommended to try running multiple communicating nodes via the cloud partition, use the physical partition instead. Multi-node jobs will require using <code>OpenMPI</code> to allow the different nodes to communicate. To call a single node use the following:</li>
 </ul>
 <pre><code>#SBATCH --nodes=1</code></pre>
 <ul>
@@ -441,11 +467,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <pre><code>#SBATCH --ntasks=1</code></pre>
 <ul>
-<li><code>#SBATCH --cpus-per-task=&lt;number&gt;</code>: This informs the SLURM controller that each task will need <em>number</em> of processors per task. Cloud nodes have access to eight cores each. To allocate four processors (like on a quad-core desktop without multi-threading) you would set:</li>
+<li><code>#SBATCH --cpus-per-task=&lt;number&gt;</code>: This informs the SLURM controller that each task will need <em>number</em> of processors per task. To allocate four processors (like on a quad-core desktop without multi-threading) you would set:</li>
 </ul>
 <pre><code>#SBATCH --cpus-per-task=4</code></pre>
 <ul>
-<li><code>#SBATCH --mem=&lt;number&gt;</code>: This is where you nominate the maximum amount of memory required per node (in megabytes). Cloud nodes have access to up to 50GB of memory, physical nodes are used for large jobs of up to 200GB. To request 10GB of memory (remembering that 1GB = 1024MB) you would use:</li>
+<li><code>#SBATCH --mem=&lt;number&gt;</code>: This is where you nominate the maximum amount of memory required per node (in megabytes). Cloud nodes have access to up to 100GB of memory, standard physical nodes are used for large jobs of up to 250GB. Some physical nodes and other specialist partitions will have much larger limits (up to 1500GB). To request 10GB of memory (remembering that 1GB = 1024MB) you would use:</li>
 </ul>
 <pre><code>#SBATCH --mem=10240</code></pre>
 <ul>
@@ -464,17 +490,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <pre><code>#SBATCH --mail-user=&lt;your email here&gt;
 #SBATCH --mail-type=ALL,TIME_LIMIT_90</code></pre>
-<p>After setting up your instance you then need to supply the instructions for what you want your job to do. This will often just be a change of directory, loading the module (program) you need, and calling the script you want to run. Calling the script you want to run follows a set format of commands: <module name> [options] [&lt; infile] [&gt; out-file].The first two of these are covered earlier, so lets look at complete example for R before looking at options in more details:</p>
-<pre><code>cd Coding\ Club/R/
-module load R
-R --vanilla &lt; tutorial.R</code></pre>
-<p>As you can see this merges the second command in loading a module with loading a script. You can see the different options available for calling an R script using <code>man R</code> (after loading the module into the environment). Some useful options include:</p>
+<p>After setting up your instance you then need to supply the instructions for what you want your job to do. This will often just be a change of directory, loading the module (program) you need, and calling the script you want to run. TO run an <code>R</code> script you can either use <code>R --vanilla &lt; file.R</code> or <code>Rscript --vanilla file.R</code>. The former echos your input statements in your output file while the second option (my preferred method) does not. Not all modules have two formats available (so check <code>man &lt;modulename&gt;</code>), but they all allow the former (from memory).</p>
+<p>You can see the different options available for calling an R script using <code>man R</code> (after loading the module into the environment). Some useful options include:</p>
 <ul>
 <li><code>--save</code>: Save workspace at the end of the session</li>
 <li><code>--no-save</code>: Don’t save workspace at the end of the session</li>
 <li><code>--vanilla</code>: A wrapper around <code>--no-save</code> and a few other commands useful for starting R as a blank slate (no loading pre-saved objects, etc)</li>
 </ul>
-<p><code>&lt; infile</code> is where you call the script you want to run e.g. <code>&lt; myFile.R</code>, and <code>&gt; outfile</code> presumably lets you set specific output files (it isn’t compulsory, and I’ve never had reason to use it).</p>
 <p>Now we can put all of this together to create our SLURM file:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#!/bin/bash</span>
 
@@ -492,9 +514,9 @@ R --vanilla &lt; tutorial.R</code></pre>
 <span class="co">#SBATCH --mail-user=&quot;davidpw@student.unimelb.edu.au&quot;</span>
 <span class="co">#SBATCH --mail-type=ALL</span>
 
-module load R
+module load R<span class="op">/</span><span class="fl">3.5</span>.<span class="dv">0</span><span class="op">-</span>GCC<span class="op">-</span><span class="fl">6.2</span>.<span class="dv">0</span>
 
-R <span class="op">--</span>vanilla <span class="op">&lt;</span><span class="st"> </span>tutorial.R </code></pre></div>
+Rscript <span class="op">--</span>vanilla tutorial.R </code></pre></div>
 <p>Assuming this Slurm file is named “MyFile.slurm”, you can submit your job to the queue from the log-in node using the following command</p>
 <pre><code>sbatch MyFile.slurm</code></pre>
 <hr />
@@ -530,8 +552,8 @@ R <span class="op">--</span>vanilla <span class="op">&lt;</span><span class="st"
 <hr />
 <ul>
 <li><p><code>head &lt;filename&gt;</code> and <code>tail &lt;filename&gt;</code>: Print the first/last ten lines of a file</p></li>
-<li><p><code>history</code>: List commands you’ve used previously. You can navigate previous commands in your current session using the up/down keys like in R, but this lists previous commands over previous sessions as well</p></li>
-<li><p><code>echo &lt;text&gt;</code>: Prints text. Useful for debugging</p></li>
+<li><p><code>history</code>: List commands you’ve used previously. You can navigate previous commands in your current session using the up/down keys like in <code>R</code>, but this lists previous commands over previous sessions as well</p></li>
+<li><p><code>echo &lt;text&gt;</code>: Prints text</p></li>
 <li><code>squeue</code>: This command is used for checking on job status.
 <ul>
 <li><code>squeue</code>: This base command will show all jobs in the queue for all users</li>
@@ -545,6 +567,12 @@ R <span class="op">--</span>vanilla <span class="op">&lt;</span><span class="st"
 </center>
 <hr />
 <ul>
+<li><code>showq</code>: This command displays the <em>actual</em> queue and splits it into <code>ACTIVE</code>, <code>WAITING</code>, and <code>BLOCKED</code> jobs. <code>ACTIVE</code> jobs are those currently running. <code>WAITING</code> jobs are those “next in line” pending resource availability, and no user can have more than five jobs here. <code>BLOCKED</code> jobs are those in the queue but not in the “priority” <code>WAITING</code> area.
+<ul>
+<li><code>showq</code>: This base command will show all jobs for all users in <code>ACTIVE</code> and <code>WAITING</code> but only a user’s <code>BLOCKED</code> jobs</li>
+<li><code>showq -u &lt;username&gt;</code>: This will show all jobs for a particular user</li>
+<li><code>showq -p &lt;partition&gt;</code>: This will show all jobs running on a given partition, but more importantly provides more up to date information regarding the usage/availability of that partition than the Daily Weather Report</li>
+</ul></li>
 <li><code>scancel</code>: This command is used for cancelling jobs in the queue. For example:
 <ul>
 <li><code>scancel -u &lt;username&gt;</code>: cancels all jobs for that username</li>
@@ -577,6 +605,7 @@ R <span class="op">--</span>vanilla <span class="op">&lt;</span><span class="st"
 <li>There are simple example slurm files for the most common modules at <code>/usr/local/common/</code> (including R, MATLAB, and Python)</li>
 <li><a href="https://dashboard.hpc.unimelb.edu.au/spartan-faq">Online Spartan FAQ</a>. Same as using <code>man spartan</code></li>
 <li><a href="http://www.ceci-hpc.be/slurm_faq.html">Online SLURM FAQ</a></li>
+<li><a href="https://dashboard.hpc.unimelb.edu.au/guides/script_generator/">Online SLURM script generator</a>. Simple jobs only though!</li>
 <li><code>srun</code> and <code>salloc</code> functions are used for parallel jobs</li>
 <li><a href="https://slurm.schedmd.com/mc_support.html">Support for multi-core/multi-threaded architecture</a></li>
 <li><a href="https://cran.r-project.org/web/packages/rslurm/vignettes/rslurm-vignette.html">Running R in parallel using the rslurm package</a></li>
