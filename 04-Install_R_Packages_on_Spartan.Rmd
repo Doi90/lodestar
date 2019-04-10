@@ -7,7 +7,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Introduction
 ***
 
-One of R's strengths is the abundance of packages freely available to users ([over 10,000 as of 27/01/2017](http://blog.revolutionanalytics.com/2017/01/cran-10000.html)). As such, everyone ultimately has their own suite of select packages that they use, and on a personal computer these are easily managed and stored within the user's library. On a massive communal resource like The University of Melbourne's Spartan high-performance computing (HPC) service things are not so simple. R is available as a module on Spartan that any user can load, however, its default package library is read-only for non-admin users. While the library is loaded with a suite of commonly used packages it is not exhaustive and many users will require additional packages. The system administrators can add additional packages (or update them to more recent versions) upon request, but the job gets added to a queue and could take days to be completed. Instead it is easier (for both users and administrators) if the users are able to install additional packages themselves.
+One of R's strengths is the abundance of packages freely available to users ([over 10,000 as of 27/01/2017](http://blog.revolutionanalytics.com/2017/01/cran-10000.html)). As such, everyone ultimately has their own suite of select packages that they use, and on a personal computer these are easily managed and stored within the user's library. On a massive communal resource like The University of Melbourne's Spartan high-performance computing (HPC) service things are not so simple. R is available as a module on Spartan that any user can load, however, its default package library is read-only for non-admin users. While the default module library is loaded with a suite of commonly used packages it is not exhaustive and many users will require additional packages. The system administrators can add additional packages (or update them to more recent versions) upon request, but the job gets added to a queue and could take days to be completed. Instead it is easier (for both users and administrators) if the users are able to install additional packages themselves.
 
 R has the ability to connect to multiple libraries and search them all when trying to load packages. This is a fairly straight-forward process on a personal computer, but more complex to set-up on HPC architecture where a user's jobs could be run any on any of hundreds of different compute nodes with different environments. This guide will show you how to a) set-up a secondary, user-specific library on Spartan linked to your home directory, and b) install all of the packages already on your personal computer that  *aren't* in Spartan's R library into this new user-specific library. This guide will make use of some specialised unix commands and SLURM scripts but does not require any previous knowledge of them from the user (the steps can be mostly followed by copy/pasting commands). You can find more information on basic Spartan usage in another *lodestar* guide [here][IntroToSpartan].
 
@@ -31,7 +31,7 @@ To create a user-specific library on Spartan we just need to create a folder for
 mkdir -p ~/R/lib
 ```
 
-This creates the `lib` directory inside the `R` directory in your home directory (refered to by ~). The rest of this guide assumes you have created this same directory, but if you select something else you can just modify the commands/files that follow.
+This creates the `lib` directory inside the `R` directory in your home directory (refered to by `~`). The rest of this guide assumes you have created this same directory, but if you select something else you can just modify the commands/files that follow.
 
 ***
 
@@ -60,7 +60,7 @@ This is my preferred method as you can easily modify the library path on a per j
 
 #### Setting the library path in your Bash Profile
 
-Each time you open an `sinteractive` session or submit a job via `sbatch` R will open in a new environment and only register Spartan's library unless we tell it otherwise. While we can tell R where to look after we open it by manually setting the `.libPaths()`, it will immediately forget each time it gets shut down. Instead we can modify our `.bash_profile` file once and it will automatically set R's library paths each time it opens up which is far more convenient.
+Each time you open an `sinteractive` session or submit a job via `sbatch` R will open in a new environment and will only register Spartan's library unless we tell it otherwise. While we can tell R where to look after we open it by manually setting the `.libPaths()`, it will immediately forget each time it gets shut down. Instead we can modify our `.bash_profile` file once and it will automatically set R's library paths each time it opens up which is more convenient (but risks problems down the line).
 
 `.bash_profile` is a hidden file in your home directory, but you can print its contents to the screen with this command:
 
