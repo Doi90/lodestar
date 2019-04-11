@@ -29,7 +29,7 @@ The batch submission process makes use of command line arguments to control the 
 
 The *batch submission script* is where we define the different combinations of parameter inputs and the easiest way to do this is with for loops. You might already be familiar with writing for loops in `R`, but here we need to write them in `bash` which follows a different syntax. To highlight this, here are two examples of a for loop printing the numbers 1-10 to screen using `R` and `bash`:
 
-```{r eval = FALSE}
+```{r eval=FALSE}
 for(i in 1:10){
   
   print(i)
@@ -37,7 +37,7 @@ for(i in 1:10){
 }
 ```
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 for i in {1..10}
 do
 
@@ -48,7 +48,7 @@ done
 
 If you have more than one input parameter`bash` for loops can be nested in the same manner as `R` for loops:
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 for i in {1..10}
 do
   for j in {1..10}
@@ -68,7 +68,7 @@ So what does a *batch submission script* look like? Aside from the for loops, th
 
 If we want to submit the same job one hundred times then the *batch submission script* will look something like this:
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 #!/bin/bash
 
 for i in {1..100}
@@ -81,7 +81,7 @@ done
 
 If we need to do something more complex where we submit a job for each combination of multiple input parameters then we use nested for loops. If we have two input parameters it would look like this:
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 #!/bin/bash
 
 for i in {1..10}
@@ -105,20 +105,20 @@ The *job submission script* is built more or less the same way for batch submiss
 
 Addressing the first difference *can* be optional, as it can be done as part of the second, but for clarity it is best to handle it separately. The command line arguments are stored as variables names `1`, `2`, etc so we can re-define as variables like this:
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 i = $1
 j = $2
 ```
 
 Passing them onto the `R` script is done the same way as the passing them from the *bash submission script* to the *job_submission script*.
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 Rscript --vanilla file_path/file.R $i $j
 ```
 
 Putting it together the whole script will look something like this for an `R` script with no additional dependencies:
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 #!/bin/bash
 #
 #SBATCH --nodes=1
@@ -152,13 +152,13 @@ The final step in the process is using these command line arguments you pass int
 
 `commandArgs()` will provide you with a character vector of all of the command line arguments passed into the `R` session. `R` sessions will normally have some arguments passed in by default that were not defined by you, so you want to extract only what are known as *trailing arguments* (those defined by the user). This is done using the `trailingOnly` argument like this:
 
-```{r eval = FALSE}
+```{r eval=FALSE}
 command_args <- commandArgs(trailingOnly = TRUE)
 ```
 
 As noted above, this returns a character vector so you want to convert the individual arguments back to numerics when you define them:
 
-```{r eval = FALSE}
+```{r eval=FALSE}
 i <- as.numeric(command_args[1])
 j <- as.numeric(command_args[2])
 ```
@@ -169,7 +169,7 @@ Success!
 
 However, it is not always the case that your input parameters are numeric data (could be characters like dataset names). It is possible to use characters as command line arguments, but it is far easier to use numeric data in `bash` for loops than character data. To this end it is easier to use your command line arguments as an index variable and then use it to look up the correct value from a character vector in the `R` session. For example, if we want to fit the same model to five different datasets our *batch submission script* would look like this:
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 #!/bin/bash
 
 for i in {1..5}
@@ -182,7 +182,7 @@ done
 
 And then we would do this in our `R` script:
 
-```{r eval = FALSE}
+```{r eval=FALSE}
 command_args <- commandArgs(trailingOnly = TRUE)
 
 dataset_index <- as.numeric(command_args[1])
@@ -212,7 +212,7 @@ The below example represents a batch submission for 300 simulations of an analys
 
 Example *batch submission script*: `batch_submission.slurm`
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 for simulation in {1..300}
 do
 
@@ -223,7 +223,7 @@ done
 
 Example *job submission script*: `job_submission.slurm`
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 #!/bin/bash
 #
 #SBATCH --nodes=1
@@ -252,7 +252,7 @@ Rscript --vanilla scripts/R/script.R $simulation
 
 Example *`R` script*: `script.R`
 
-```{r eval = FALSE}
+```{r eval=FALSE}
 # Read the command line arguments
 
 command_args <- commandArgs(trailingOnly = TRUE)
@@ -284,7 +284,7 @@ The below example represents batch submission for all combinations of two differ
 
 Example *batch submission script*: `batch_submission.slurm`
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 for pop_start_size in {1..4}
 do
 
@@ -299,7 +299,7 @@ done
 
 Example *job submission script*: `job_submission.slurm`
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 #!/bin/bash
 #
 #SBATCH --nodes=1
@@ -329,7 +329,7 @@ Rscript --vanilla scripts/R/script.R $pop_start_size $growth_rate
 
 Example *`R` script*: `script.R`
 
-```{r eval = FALSE}
+```{r eval=FALSE}
 # Read the command line arguments
 
 command_args <- commandArgs(trailingOnly = TRUE)
@@ -409,7 +409,7 @@ The best way to approach this is by using `#SBATCH` to control parameters that n
 
 Our *batch submission script* uses for loops to control the input parameters to our *job submission script*, and we use that in conjunction with if statements to set computing requirement parameters for the `sbatch` command. Both the for loops and if statements will be written in `bash` so they will differ from `R`'s syntax but work in the same way. A simple example is the easiest way to explain this approach, so lets imagine a scenario where we are submitting just two jobs (same job, different dataset) and want different memory limits for each one. Our *batch submission script* might look like this
 
-```{bash eval = FALSE}
+```{bash eval=FALSE}
 #!/bin/bash
 
 for dataset in {1..2}
@@ -434,7 +434,7 @@ In this case we are only making the memory request job-specific and things like 
 
 We've seen how nested for loops can be used to more complex job submission processes and we can apply the same method here. This time we have two datasets that will determine memory limits, ten models that will determine partition, a third parameter called fold that will have no impact on computing requirements, and then use the three parameters together to both give our job a specific name and name our `slurm.out` file.
 
-```{bash}
+```{bash eval=FALSE}
 #!/bin/bash
 
 for dataset in {1..2}
@@ -499,7 +499,7 @@ Sometimes you have jobs that need to split up *after* they have run at least par
 
 As an example, lets pretend we have a `R` script to fit some sort of Bayesian regression model that results in 1000 posterior samples and we want to split up our post-processing into chunks of 10 samples each. After the model fitting portion of the script we can use the `system()` function to submit more jobs that are told to only process samples X through Y. What we do is create a for loop in `R` to handle creating the start and end sample IDs and pass them as command line arguments into a new job. Here we use the `sprintf()` function to build our `sbatch` command using these parameters but you could also use `paste()` if you prefer.
 
-```{r eval = FALSE}
+```{r eval=FALSE}
 ## Read command lnie arguments passed into main job
 
 command_args <- commandArgs(trailingOnly = TRUE)
