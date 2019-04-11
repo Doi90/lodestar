@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>lodestar</title>
+  <meta name="description" content="lodestar">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="lodestar" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Doi90/lodestar" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="lodestar" />
+  
+  
+  
+
+<meta name="author" content="David Wilkinson">
+
+
+<meta name="date" content="2019-04-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="rstudio-tips-and-tricks.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="lodestar.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Lodestar Guides</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> What is <em>lodestar</em>?</a></li>
+<li class="chapter" data-level="2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html"><i class="fa fa-check"></i><b>2</b> Fitting occupancy models with <em>unmarked</em></a><ul>
+<li class="chapter" data-level="2.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#occupancy-modelling-with-imperfect-detection"><i class="fa fa-check"></i><b>2.1</b> Occupancy Modelling with Imperfect Detection</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#the-maths"><i class="fa fa-check"></i><b>2.1.1</b> The Maths</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#unmarked-models"><i class="fa fa-check"></i><b>2.2</b> unmarked Models</a></li>
+<li class="chapter" data-level="2.3" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#load-package"><i class="fa fa-check"></i><b>2.3</b> Load Package</a></li>
+<li class="chapter" data-level="2.4" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#load-data"><i class="fa fa-check"></i><b>2.4</b> Load Data</a></li>
+<li class="chapter" data-level="2.5" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#standardising-data"><i class="fa fa-check"></i><b>2.5</b> Standardising Data</a></li>
+<li class="chapter" data-level="2.6" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#missing-data-considerations"><i class="fa fa-check"></i><b>2.6</b> Missing Data Considerations</a></li>
+<li class="chapter" data-level="2.7" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#fitting-a-model"><i class="fa fa-check"></i><b>2.7</b> Fitting a Model</a></li>
+<li class="chapter" data-level="2.8" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#model-selection"><i class="fa fa-check"></i><b>2.8</b> Model Selection</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#unmarked"><i class="fa fa-check"></i><b>2.8.1</b> unmarked</a></li>
+<li class="chapter" data-level="2.8.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#mumin"><i class="fa fa-check"></i><b>2.8.2</b> MuMIn</a></li>
+<li class="chapter" data-level="2.8.3" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#missing-data"><i class="fa fa-check"></i><b>2.8.3</b> Missing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#proportion-of-area-occupied"><i class="fa fa-check"></i><b>2.9</b> Proportion of Area Occupied</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#assuming-perfect-detection"><i class="fa fa-check"></i><b>2.9.1</b> Assuming perfect detection</a></li>
+<li class="chapter" data-level="2.9.2" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#accounting-for-imperfect-detection"><i class="fa fa-check"></i><b>2.9.2</b> Accounting for Imperfect Detection</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#prediction"><i class="fa fa-check"></i><b>2.10</b> Prediction</a></li>
+<li class="chapter" data-level="2.11" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#model-evaluation"><i class="fa fa-check"></i><b>2.11</b> Model Evaluation</a></li>
+<li class="chapter" data-level="2.12" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#common-errors"><i class="fa fa-check"></i><b>2.12</b> Common Errors</a></li>
+<li class="chapter" data-level="2.13" data-path="fitting-occupancy-models-with-unmarked.html"><a href="fitting-occupancy-models-with-unmarked.html#additional-resources"><i class="fa fa-check"></i><b>2.13</b> Additional resources</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html"><i class="fa fa-check"></i><b>3</b> Version control with RStudio</a><ul>
+<li class="chapter" data-level="3.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#requirements"><i class="fa fa-check"></i><b>3.2</b> Requirements</a></li>
+<li class="chapter" data-level="3.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudio-options"><i class="fa fa-check"></i><b>3.3</b> RStudio options</a></li>
+<li class="chapter" data-level="3.4" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudio-projects"><i class="fa fa-check"></i><b>3.4</b> RStudio Projects</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#new-directory"><i class="fa fa-check"></i><b>3.4.1</b> New Directory</a></li>
+<li class="chapter" data-level="3.4.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#existing-directory"><i class="fa fa-check"></i><b>3.4.2</b> Existing Directory</a></li>
+<li class="chapter" data-level="3.4.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#create-a-local-version-of-an-online-repository"><i class="fa fa-check"></i><b>3.4.3</b> Create a local version of an online repository</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#rstudios-git-interface"><i class="fa fa-check"></i><b>3.5</b> RStudio’s Git Interface</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#staging-files"><i class="fa fa-check"></i><b>3.5.1</b> Staging Files</a></li>
+<li class="chapter" data-level="3.5.2" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#committing"><i class="fa fa-check"></i><b>3.5.2</b> Committing</a></li>
+<li class="chapter" data-level="3.5.3" data-path="version-control-with-rstudio.html"><a href="version-control-with-rstudio.html#pushpull"><i class="fa fa-check"></i><b>3.5.3</b> Push/Pull</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html"><i class="fa fa-check"></i><b>4</b> Introduction to Spartan</a><ul>
+<li class="chapter" data-level="4.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#what-is-spartan"><i class="fa fa-check"></i><b>4.1</b> What is Spartan?</a></li>
+<li class="chapter" data-level="4.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#accessing-spartan"><i class="fa fa-check"></i><b>4.2</b> Accessing Spartan</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#getting-an-account"><i class="fa fa-check"></i><b>4.2.1</b> Getting an Account</a></li>
+<li class="chapter" data-level="4.2.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#required-programs"><i class="fa fa-check"></i><b>4.2.2</b> Required Programs</a></li>
+<li class="chapter" data-level="4.2.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#log-in-to-spartan"><i class="fa fa-check"></i><b>4.2.3</b> Log in to Spartan</a></li>
+<li class="chapter" data-level="4.2.4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#help"><i class="fa fa-check"></i><b>4.2.4</b> Help</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#using-spartan"><i class="fa fa-check"></i><b>4.3</b> Using Spartan</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#sinteractive"><i class="fa fa-check"></i><b>4.3.1</b> sinteractive</a></li>
+<li class="chapter" data-level="4.3.2" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#sbatch"><i class="fa fa-check"></i><b>4.3.2</b> sbatch</a></li>
+<li class="chapter" data-level="4.3.3" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#useful-auxiliary-commands"><i class="fa fa-check"></i><b>4.3.3</b> Useful Auxiliary Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="introduction-to-spartan.html"><a href="introduction-to-spartan.html#additional-information-and-links"><i class="fa fa-check"></i><b>4.4</b> Additional information and links</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html"><i class="fa fa-check"></i><b>5</b> Installing R packages on Spartan</a><ul>
+<li class="chapter" data-level="5.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#set-up-a-user-specific-library"><i class="fa fa-check"></i><b>5.2</b> Set-up a user-specific library</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#create-the-library"><i class="fa fa-check"></i><b>5.2.1</b> Create the library</a></li>
+<li class="chapter" data-level="5.2.2" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#set-spartan-to-connect-to-this-new-library"><i class="fa fa-check"></i><b>5.2.2</b> Set Spartan to connect to this new library</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#install-r-packages-into-your-spartan-user-specific-library"><i class="fa fa-check"></i><b>5.3</b> Install R packages into your Spartan user-specific library</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="installing-r-packages-on-spartan.html"><a href="installing-r-packages-on-spartan.html#installing-packages-from-github"><i class="fa fa-check"></i><b>5.3.1</b> Installing packages from GitHub</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html"><i class="fa fa-check"></i><b>6</b> R File &amp; Directory Interface Commands</a><ul>
+<li class="chapter" data-level="6.1" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#information"><i class="fa fa-check"></i><b>6.2</b> Information</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#testing"><i class="fa fa-check"></i><b>6.2.1</b> Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#creation"><i class="fa fa-check"></i><b>6.3</b> Creation</a></li>
+<li class="chapter" data-level="6.4" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#modification"><i class="fa fa-check"></i><b>6.4</b> Modification</a></li>
+<li class="chapter" data-level="6.5" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#deletion"><i class="fa fa-check"></i><b>6.5</b> Deletion</a></li>
+<li class="chapter" data-level="6.6" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#miscellaneous"><i class="fa fa-check"></i><b>6.6</b> Miscellaneous</a></li>
+<li class="chapter" data-level="6.7" data-path="r-file-directory-interface-commands.html"><a href="r-file-directory-interface-commands.html#closing-thoughts"><i class="fa fa-check"></i><b>6.7</b> Closing Thoughts</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html"><i class="fa fa-check"></i><b>7</b> RStudio Tips and Tricks</a><ul>
+<li class="chapter" data-level="7.1" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#global-options"><i class="fa fa-check"></i><b>7.1</b> Global Options</a></li>
+<li class="chapter" data-level="7.2" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>7.2</b> Keyboard Shortcuts</a></li>
+<li class="chapter" data-level="7.3" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#code-folds"><i class="fa fa-check"></i><b>7.3</b> Code Folds</a></li>
+<li class="chapter" data-level="7.4" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#r-projects"><i class="fa fa-check"></i><b>7.4</b> R Projects</a></li>
+<li class="chapter" data-level="7.5" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#terminal"><i class="fa fa-check"></i><b>7.5</b> Terminal</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html"><i class="fa fa-check"></i><b>8</b> Batch R job submission on Spartan</a><ul>
+<li class="chapter" data-level="8.1" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#introduction-3"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#batch-submission-using-spartans-slurm-files"><i class="fa fa-check"></i><b>8.2</b> Batch submission using Spartan’s <code>slurm</code> files</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#creating-the-batch-submission-script"><i class="fa fa-check"></i><b>8.2.1</b> Creating the <em>batch submission script</em></a></li>
+<li class="chapter" data-level="8.2.2" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#creating-the-job-submission-script"><i class="fa fa-check"></i><b>8.2.2</b> Creating the <em>job submission script</em></a></li>
+<li class="chapter" data-level="8.2.3" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#modifying-an-r-script-to-use-command-line-arguments"><i class="fa fa-check"></i><b>8.2.3</b> Modifying an <code>R</code> script to use command line arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#examples"><i class="fa fa-check"></i><b>8.3</b> Examples</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#one-input-variable"><i class="fa fa-check"></i><b>8.3.1</b> One input variable</a></li>
+<li class="chapter" data-level="8.3.2" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#two-or-more-input-variables"><i class="fa fa-check"></i><b>8.3.2</b> Two or more input variables</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#advanced-computational-requirements-dependant-on-input-parameters"><i class="fa fa-check"></i><b>8.4</b> Advanced: Computational requirements dependant on input parameters</a></li>
+<li class="chapter" data-level="8.5" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#advanced-jobception---submitting-jobs-that-submit-more-jobs"><i class="fa fa-check"></i><b>8.5</b> Advanced: Jobception - Submitting jobs that submit more jobs</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">lodestar</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="batch-r-job-submission-on-spartan" class="section level1">
+<h1><span class="header-section-number">8</span> Batch R job submission on Spartan</h1>
+<div id="introduction-3" class="section level2">
+<h2><span class="header-section-number">8.1</span> Introduction</h2>
+<p>One of the problems that researcher’s encounter when performing computational analyses is the potentially massive number of model runs to be completed. This could happen by repeating the same process hundreds or thousands of times, running simulations with different combinations of starting parameters, or model comparisons across multiple datasets. If each of these permutations takes a non-trivial amount of time to run (hours are common, but day- or week-long runs are not unreasonable for more complex analyses), then the total duration could be impractical. 100 simulations that take one day each will take three months to complete! There are several further downsides here as it can tie up a work computer for extended lengths of time, it risks failing if something goes wrong with the computer in that time (e.g. power outage), and potentially relies on manual inputs to ensure each permutation is run.</p>
+<p>My <strong>Spartan Introduction [needs a link]</strong> already shows us the benefits of high performance computing for getting past time and memory limits of single jobs, but this guide takes the next step and shows you how to automate the batch submission of multiple jobs. This guide is split into three sections:</p>
+<ol style="list-style-type: decimal">
+<li>Batch submission using Spartan’s <code>slurm</code> files</li>
+<li>Modifying your <code>R</code> scripts to account for batch submision</li>
+<li>Some simplified examples of different approaches to batch submission</li>
+</ol>
+</div>
+<div id="batch-submission-using-spartans-slurm-files" class="section level2">
+<h2><span class="header-section-number">8.2</span> Batch submission using Spartan’s <code>slurm</code> files</h2>
+<p>Submitting jobs to Spartan involves interfacing with the slurm workload manager. This is done by creating a <code>slurm</code> file that establishes the computational resource requirements of the job and contains the commands required to run the job (this is the <em>job submission script</em>). Batch submitting jobs to Spartan requires a second <code>slurm</code> file (the <em>batch submission script</em>) that handles the creation of the different permutations and then calls the first <code>slurm</code> file once per permutation.</p>
+<p>The batch submission process makes use of command line arguments to control the passing of parameters from script to script. Using command line arguments means we can define the overall process like this:</p>
+<ol style="list-style-type: decimal">
+<li>Define the combination of input parameters for each permutation in the <em>batch submission script</em></li>
+<li>For each permutation the <em>batch submission script</em> submits the <em>job submission script</em> with the input parameters defined as command line arguments</li>
+<li>The <em>job submission script</em> takes those input parameters and passes them as command line arguments to the <code>R</code> script</li>
+<li>The <code>R</code> script reads those command line arguments and uses them to define variables to control how the script operates</li>
+</ol>
+<div id="creating-the-batch-submission-script" class="section level3">
+<h3><span class="header-section-number">8.2.1</span> Creating the <em>batch submission script</em></h3>
+<p>The <em>batch submission script</em> is where we define the different combinations of parameter inputs and the easiest way to do this is with for loops. You might already be familiar with writing for loops in <code>R</code>, but here we need to write them in <code>bash</code> which follows a different syntax. To highlight this, here are two examples of a for loop printing the numbers 1-10 to screen using <code>R</code> and <code>bash</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){
+  
+  <span class="kw">print</span>(i)
+  
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">for</span> <span class="ex">i</span> in <span class="dt">{1..10}</span>
+<span class="kw">do</span>
+
+<span class="bu">echo</span> <span class="va">$i</span>
+
+<span class="kw">done</span></code></pre></div>
+<p>If you have more than one input parameter<code>bash</code> for loops can be nested in the same manner as <code>R</code> for loops:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">for</span> <span class="ex">i</span> in <span class="dt">{1..10}</span>
+<span class="kw">do</span>
+  <span class="kw">for</span> <span class="ex">j</span> in <span class="dt">{1..10}</span>
+  <span class="kw">do</span>
+  
+  <span class="bu">echo</span> <span class="va">$i</span>
+  <span class="bu">echo</span> <span class="va">$j</span>
+  
+  <span class="kw">done</span>
+<span class="kw">done</span></code></pre></div>
+<p>So what does a <em>batch submission script</em> look like? Aside from the for loops, there are two more components in the script:</p>
+<ul>
+<li>The <code>#!/bin/bash</code> required on the first line of the file to tell the shell what interpretor to run (in this case, bash)</li>
+<li>An <code>sbatch</code> command to call the <em>job submission script</em> for each parameter combination. This command submits the job to Spartan’s queue. This is also where we pass on the input parameters as command line arguments. The syntax broadly looks like this <code>sbatch file_path/file argument1 argument 2</code>. It is important to note the use of <code>$</code> to extract the value of the variable stored in the loop iterator. Command line arguments do not have names, they are just values, so you need to use the value of the iterator instead of the iterator itself.</li>
+</ul>
+<p>If we want to submit the same job one hundred times then the <em>batch submission script</em> will look something like this:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="kw">for</span> <span class="ex">i</span> in <span class="dt">{1..100}</span>
+<span class="kw">do</span>
+
+<span class="ex">sbatch</span> file_path/job_submission.slurm <span class="va">$i</span>
+
+<span class="kw">done</span></code></pre></div>
+<p>If we need to do something more complex where we submit a job for each combination of multiple input parameters then we use nested for loops. If we have two input parameters it would look like this:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="kw">for</span> <span class="ex">i</span> in <span class="dt">{1..10}</span>
+<span class="kw">do</span>
+
+  <span class="kw">for</span> <span class="ex">j</span> in <span class="dt">{1..10}</span>
+  <span class="kw">do</span>
+  
+  <span class="ex">sbatch</span> file_path/job_submission.slurm <span class="va">$i</span> <span class="va">$j</span>
+  
+  <span class="kw">done</span>
+<span class="kw">done</span></code></pre></div>
+</div>
+<div id="creating-the-job-submission-script" class="section level3">
+<h3><span class="header-section-number">8.2.2</span> Creating the <em>job submission script</em></h3>
+<p>The <em>job submission script</em> is built more or less the same way for batch submission as it is for single jobs. There are two main differences:</p>
+<ul>
+<li>Defining the command line arguments that are <em>recieved</em> by the <em>job submission script</em></li>
+<li>Passing the command line arguments that are <em>sent</em> to the <em><code>R</code> script</em></li>
+</ul>
+<p>Addressing the first difference <em>can</em> be optional, as it can be done as part of the second, but for clarity it is best to handle it separately. The command line arguments are stored as variables names <code>1</code>, <code>2</code>, etc so we can re-define as variables like this:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">i</span> = <span class="va">$1</span>
+<span class="ex">j</span> = <span class="va">$2</span></code></pre></div>
+<p>Passing them onto the <code>R</code> script is done the same way as the passing them from the <em>bash submission script</em> to the <em>job_submission script</em>.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">Rscript</span> --vanilla file_path/file.R <span class="va">$i</span> <span class="va">$j</span></code></pre></div>
+<p>Putting it together the whole script will look something like this for an <code>R</code> script with no additional dependencies:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --nodes=1</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --ntasks=1</span>
+<span class="co">#</span>
+<span class="co">#SBATCH -p cloud</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --mem=10000</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --time=1:00:00</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --mail-user=email_here</span>
+<span class="co">#SBATCH --mail-type=ALL,TIME_LIMIT_50,TIME_LIMIT_80,TIME_LIMIT_90</span>
+
+<span class="va">i=$1</span>
+<span class="va">j=$2</span>
+
+<span class="ex">module</span> purge
+
+<span class="ex">module</span> load R/3.5.0-GCC-6.2.0
+
+<span class="bu">cd</span> directory_path
+
+<span class="ex">Rscript</span> --vanilla file_path/file.R <span class="va">$i</span> <span class="va">$j</span></code></pre></div>
+</div>
+<div id="modifying-an-r-script-to-use-command-line-arguments" class="section level3">
+<h3><span class="header-section-number">8.2.3</span> Modifying an <code>R</code> script to use command line arguments</h3>
+<p>The final step in the process is using these command line arguments you pass into the <code>R</code> session. These arguments are not as readily accessible in <code>R</code> as they are in <code>bash</code>, but R does have a handy <code>commandArgs()</code> function to simplify the process.</p>
+<p><code>commandArgs()</code> will provide you with a character vector of all of the command line arguments passed into the <code>R</code> session. <code>R</code> sessions will normally have some arguments passed in by default that were not defined by you, so you want to extract only what are known as <em>trailing arguments</em> (those defined by the user). This is done using the <code>trailingOnly</code> argument like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">command_args &lt;-<span class="st"> </span><span class="kw">commandArgs</span>(<span class="dt">trailingOnly =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>As noted above, this returns a character vector so you want to convert the individual arguments back to numerics when you define them:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(command_args[<span class="dv">1</span>])
+j &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(command_args[<span class="dv">2</span>])</code></pre></div>
+<p>At this point, you’ve successfully passed the command line arguments into <code>R</code> and are free to run the rest of the script as normal.</p>
+<p>Success!</p>
+<p>However, it is not always the case that your input parameters are numeric data (could be characters like dataset names). It is possible to use characters as command line arguments, but it is far easier to use numeric data in <code>bash</code> for loops than character data. To this end it is easier to use your command line arguments as an index variable and then use it to look up the correct value from a character vector in the <code>R</code> session. For example, if we want to fit the same model to five different datasets our <em>batch submission script</em> would look like this:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="kw">for</span> <span class="ex">i</span> in <span class="dt">{1..5}</span>
+<span class="kw">do</span>
+
+<span class="ex">sbatch</span> file_path/job_submission.slurm <span class="va">$i</span>
+
+<span class="kw">done</span></code></pre></div>
+<p>And then we would do this in our <code>R</code> script:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">command_args &lt;-<span class="st"> </span><span class="kw">commandArgs</span>(<span class="dt">trailingOnly =</span> <span class="ot">TRUE</span>)
+
+dataset_index &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(command_args[<span class="dv">1</span>])
+
+dataset_options &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;birds&quot;</span>,
+                     <span class="st">&quot;fish&quot;</span>,
+                     <span class="st">&quot;frogs&quot;</span>,
+                     <span class="st">&quot;monkeys&quot;</span>,
+                     <span class="st">&quot;wolves&quot;</span>)
+
+dataset_id &lt;-<span class="st"> </span>dataset_options[dataset_index]</code></pre></div>
+<p>And now we can use the character variable <code>dataset_id</code> in the <code>R</code> session.</p>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2><span class="header-section-number">8.3</span> Examples</h2>
+<p>Here I provide some simplified examples of the most common batch submission approaches. To keep the examples succint the <code>R</code> code will be fairly simple but the important features will be there. It will be straight forward to adapt any of them to your own code.</p>
+<p>Since this guide is intended for Spartan users (although applicable to any <code>slurm</code> environment) all of the file paths will be based on Spartan’s directory structure. <code>[project_id]</code> in any file path refers to your personal project directory e.g. <code>punim123</code>.</p>
+<div id="one-input-variable" class="section level3">
+<h3><span class="header-section-number">8.3.1</span> One input variable</h3>
+<p>The simplest case of batch submission is to run the same process multiple times. The usual scenario for this approach is running independent simulations as separate jobs. The important word here is <em>independent</em>, as this wont work for simulations that are dependent on those completed before it.</p>
+<p>The below example represents a batch submission for 300 simulations of an analysis (here, generating a random number).</p>
+<p>Example <em>batch submission script</em>: <code>batch_submission.slurm</code></p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">for</span> <span class="ex">simulation</span> in <span class="dt">{1..300}</span>
+<span class="kw">do</span>
+
+<span class="ex">sbatch</span> /data/cephfs/[project_id]/scripts/slurm/job_submission.slurm <span class="va">$simulation</span>
+
+<span class="kw">done</span></code></pre></div>
+<p>Example <em>job submission script</em>: <code>job_submission.slurm</code></p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --nodes=1</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --ntasks=1</span>
+<span class="co">#</span>
+<span class="co">#SBATCH -p cloud</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --mem=10000</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --time=1:00:00</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --mail-user=email_here</span>
+<span class="co">#SBATCH --mail-type=ALL,TIME_LIMIT_50,TIME_LIMIT_80,TIME_LIMIT_90</span>
+
+<span class="va">simulation=$1</span>
+
+<span class="ex">module</span> purge
+
+<span class="ex">module</span> load R/3.5.0-GCC-6.2.0
+
+<span class="bu">cd</span> /data/cephfs/[project_id]
+
+<span class="ex">Rscript</span> --vanilla scripts/R/script.R <span class="va">$simulation</span></code></pre></div>
+<p>Example <em><code>R</code> script</em>: <code>script.R</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read the command line arguments</span>
+
+command_args &lt;-<span class="st"> </span><span class="kw">commandArgs</span>(<span class="dt">trailingOnly =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># Define command line arguments as a variable</span>
+
+simulation &lt;-<span class="st"> </span>command_args[<span class="dv">1</span>]
+
+<span class="co"># Perform analysis</span>
+
+<span class="kw">set.seed</span>(simulation)
+
+value &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)
+
+<span class="co"># Create job-specific output so we don&#39;t overwrite things!</span>
+
+filename &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">&quot;outputs/simulation_%s.rds&quot;</span>,
+                    simulation)
+
+<span class="kw">saveRDS</span>(<span class="dt">object =</span> value,
+        <span class="dt">file =</span> filename)</code></pre></div>
+</div>
+<div id="two-or-more-input-variables" class="section level3">
+<h3><span class="header-section-number">8.3.2</span> Two or more input variables</h3>
+<p>More complex batch submissions will have multiple input parameters. These could be dataset names and cross validation fold ID, different starting parameters for population dynamics simulations, a series of coordinates to split up a big spatial analsis into more manageable chunks, etc. Regardless of your scenario, the method is the same.</p>
+<p>The below example represents batch submission for all combinations of two different input values for a population dynamics simulation. Note that the actual values of these inputs are not defined until we reach the <code>R</code> script, instead we use the for loop iterators in the bash script to control the <em>index</em> of the input values. Here we assume four different population starting sizes and five different net growth rates. NB: This is a super abstract version of a population dynamics simulation that in reality are far more complex. This example just records the population each year assuming a stable net growth rate.</p>
+<p>Example <em>batch submission script</em>: <code>batch_submission.slurm</code></p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">for</span> <span class="ex">pop_start_size</span> in <span class="dt">{1..4}</span>
+<span class="kw">do</span>
+
+  <span class="kw">for</span> <span class="ex">growth_rate</span> in <span class="dt">{1..5}</span>
+  <span class="kw">do</span>
+  
+  <span class="ex">sbatch</span> /data/cephfs/[project_id]/scripts/slurm/job_submission.slurm <span class="va">$pop_start_size</span> <span class="va">$growth_rate</span>
+  
+  <span class="kw">done</span>
+<span class="kw">done</span></code></pre></div>
+<p>Example <em>job submission script</em>: <code>job_submission.slurm</code></p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --nodes=1</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --ntasks=1</span>
+<span class="co">#</span>
+<span class="co">#SBATCH -p cloud</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --mem=10000</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --time=1:00:00</span>
+<span class="co">#</span>
+<span class="co">#SBATCH --mail-user=email_here</span>
+<span class="co">#SBATCH --mail-type=ALL,TIME_LIMIT_50,TIME_LIMIT_80,TIME_LIMIT_90</span>
+
+<span class="va">pop_start_size=$1</span>
+<span class="va">growth_rate=$2</span>
+
+<span class="ex">module</span> purge
+
+<span class="ex">module</span> load R/3.5.0-GCC-6.2.0
+
+<span class="bu">cd</span> /data/cephfs/[project_id]
+
+<span class="ex">Rscript</span> --vanilla scripts/R/script.R <span class="va">$pop_start_size</span> <span class="va">$growth_rate</span></code></pre></div>
+<p>Example <em><code>R</code> script</em>: <code>script.R</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read the command line arguments</span>
+
+command_args &lt;-<span class="st"> </span><span class="kw">commandArgs</span>(<span class="dt">trailingOnly =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># Define command line arguments as a variable</span>
+
+## Define index
+
+pop_start_size_index &lt;-<span class="st"> </span>command_args[<span class="dv">1</span>]
+growth_rate_index &lt;-<span class="st"> </span>command_args[<span class="dv">2</span>]
+
+## Define options
+
+pop_start_size_options &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1000</span>,
+                            <span class="dv">2000</span>,
+                            <span class="dv">5000</span>,
+                            <span class="dv">10000</span>)
+
+growth_rate_options &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.001</span>,
+                         <span class="op">-</span><span class="fl">0.01</span>,
+                         <span class="fl">0.001</span>,
+                         <span class="fl">0.01</span>,
+                         <span class="fl">0.02</span>)
+
+## Extract parameter values
+
+pop_start_size &lt;-<span class="st"> </span>pop_start_size_options[pop_start_size_index]
+growth_rate &lt;-<span class="st"> </span>pop_start_size_options[pop_start_size_index]
+
+<span class="co"># Perform analysis</span>
+
+<span class="kw">set.seed</span>(<span class="dv">28041948</span>)
+
+## Create vector to store results
+
+pop_vector &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length =</span> <span class="dv">50</span>)
+
+## Simulate population trajectory
+
+<span class="cf">for</span>(year <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>){
+  
+  <span class="cf">if</span>(year <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){
+    
+    pop_size &lt;-<span class="st"> </span>pop_start_size
+    
+    pop_vector[year] &lt;-<span class="st"> </span>pop_size
+    
+  } <span class="cf">else</span> {
+    
+    pop_size &lt;-<span class="st"> </span>pop_size <span class="op">+</span><span class="st"> </span>(pop_size <span class="op">*</span><span class="st"> </span>growth_rate)
+    
+    pop_size &lt;-<span class="st"> </span><span class="kw">ifelse</span>(pop_size <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>, <span class="dv">0</span>, pop_size)
+    pop_vector[year] &lt;-<span class="st"> </span>pop_size
+    
+  }
+}
+
+<span class="co"># Create job-specific output so we don&#39;t overwrite things!</span>
+
+filename &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">&quot;outputs/simulation_%s_%s.rds&quot;</span>,
+                    pop_start_size,
+                    growth_rate)
+
+<span class="kw">saveRDS</span>(<span class="dt">object =</span> value,
+        <span class="dt">file =</span> filename)</code></pre></div>
+</div>
+</div>
+<div id="advanced-computational-requirements-dependant-on-input-parameters" class="section level2">
+<h2><span class="header-section-number">8.4</span> Advanced: Computational requirements dependant on input parameters</h2>
+<p>Depending on the nature of your batch submission jobs you might want the ability to set different computational requirements for each job. If you’re submitting identical jobs multiple times (a split up simulation for example) then you probably want consistent requirements. However, if you’re applying the same process but over multiple datasets/models of differing size and/or complexity then job-specific requirements are ideal.</p>
+<p>Jobs with larger resource requirements take longer to leave the queue on Spartan <em>and</em> you’re not going to be able to run as many jobs simultaneously. If you set consistent requirements then small jobs waste resources (and potentially take longer to start) <em>and/or</em> large jobs fail by exceeding memory limits or wall times.</p>
+<p>Thankfully we are able to set job-specific requirements by making use of the fact that there are <em>two</em> methods for setting these parameters. The usual method is by using <code>#SBATCH</code> commands in our <code>slurm</code> script (like <code>#SBATCH --time=1:00:00</code>). The other method is that we can use those same <code>slurm</code> command flags (the options following either <code>-</code> or <code>--</code>) directly in the <code>sbatch</code> command that submits the <code>slurm</code> sript. Conveniently we can use both simultaneously.</p>
+<p>The best way to approach this is by using <code>#SBATCH</code> to control parameters that never change (for example, setting the email address for progress emails) and <code>sbatch</code> to control parameters that do change (for example, memory limits or wall times). The <code>#SBATCH</code> approach has been covered earlier so we only focus on the <code>sbatch</code> approach here.</p>
+<p>Our <em>batch submission script</em> uses for loops to control the input parameters to our <em>job submission script</em>, and we use that in conjunction with if statements to set computing requirement parameters for the <code>sbatch</code> command. Both the for loops and if statements will be written in <code>bash</code> so they will differ from <code>R</code>’s syntax but work in the same way. A simple example is the easiest way to explain this approach, so lets imagine a scenario where we are submitting just two jobs (same job, different dataset) and want different memory limits for each one. Our <em>batch submission script</em> might look like this</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="kw">for</span> <span class="ex">dataset</span> in <span class="dt">{1..2}</span>
+<span class="kw">do</span>
+  
+  <span class="kw">if</span><span class="bu"> [</span> <span class="va">$dataset</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span><span class="bu"> ]</span>
+  <span class="kw">then</span>
+    <span class="va">MEMORY=</span>10000
+  <span class="kw">fi</span>
+  
+  <span class="kw">if</span><span class="bu"> [</span> <span class="va">$dataset</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span><span class="bu"> ]</span>
+  <span class="kw">then</span>
+    <span class="va">MEMORY=</span>20000
+  <span class="kw">fi</span>
+
+  <span class="ex">sbatch</span> --mem=<span class="va">$MEMORY</span> job_submission.slurm <span class="va">$dataset</span>
+  
+<span class="kw">done</span>  </code></pre></div>
+<p>In this case we are only making the memory request job-specific and things like the partition, wall time, number of CPUs, etc will be controlled inside <em>job_submission.slurm</em> using <code>#SBATCH</code> commands.</p>
+<p>We’ve seen how nested for loops can be used to more complex job submission processes and we can apply the same method here. This time we have two datasets that will determine memory limits, ten models that will determine partition, a third parameter called fold that will have no impact on computing requirements, and then use the three parameters together to both give our job a specific name and name our <code>slurm.out</code> file.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+
+<span class="kw">for</span> <span class="ex">dataset</span> in <span class="dt">{1..2}</span>
+<span class="kw">do</span>
+  
+  <span class="kw">for</span> <span class="ex">model</span> in <span class="dt">{1..10}</span>
+  <span class="kw">do</span>
+  
+    <span class="kw">for</span> <span class="ex">fold</span> in <span class="dt">{1..5}</span>
+    <span class="kw">do</span>
+
+      <span class="co">## Control memory requirements with the dataset parameter</span>
+      
+      <span class="kw">if</span><span class="bu"> [</span> <span class="va">$dataset</span> <span class="ot">=</span> <span class="st">&quot;1&quot;</span><span class="bu"> ]</span>
+      <span class="kw">then</span>
+      <span class="va">MEMORY=</span>10000
+      <span class="kw">fi</span>
+      
+      <span class="kw">if</span><span class="bu"> [</span> <span class="va">$dataset</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span><span class="bu"> ]</span>
+      <span class="kw">then</span>
+      <span class="va">MEMORY=</span>20000
+      <span class="kw">fi</span>
+    
+      <span class="co">## Control partition requests with the model parameter.</span>
+      <span class="co">## Lets set all models except 7 to run on the cloud.</span>
+      
+      <span class="kw">if</span><span class="bu"> [</span> <span class="va">$model</span> <span class="ot">=</span> <span class="st">&quot;7&quot;</span><span class="bu"> ]</span>
+      <span class="kw">then</span>
+      <span class="va">PARTITION=</span><span class="st">&quot;physical&quot;</span>
+      <span class="kw">else</span>
+      <span class="va">PARTITION=</span><span class="st">&quot;cloud&quot;</span>
+      <span class="kw">fi</span>
+      
+      <span class="co">## Create a job name based on the three input parameters</span>
+      <span class="co">## Use the format of &quot;Job_1_1_1&quot;</span>
+      <span class="co">## We need to use ${} and not just $ to call the variables names</span>
+      <span class="co">## because they re proceeded by a _</span>
+      
+      <span class="va">JOB_NAME=</span><span class="st">&quot;Job_</span><span class="va">${model}</span><span class="st">_</span><span class="va">${dataset}</span><span class="st">_</span><span class="va">${fold}</span><span class="st">&quot;</span>
+      
+      <span class="co">## Name our slurm.out file and put it in a specific place</span>
+      
+      <span class="va">OUT_NAME=</span><span class="st">&quot;outputs/slurm_outputs/Job_</span><span class="va">${model}</span><span class="st">_</span><span class="va">${dataset}</span><span class="st">_</span><span class="va">${fold}</span><span class="st">.out&quot;</span>
+      
+      <span class="co">## Now run sbatch to submit the job_submission.slurm script</span>
+      <span class="co">## 1. Set sbatch details using the flags/options</span>
+      <span class="co">## 2. Say which file to run</span>
+      <span class="co">## 3. Don&#39;t forget to also pass on the input parameters!</span>
+      
+      <span class="ex">sbatch</span> --mem=<span class="va">$MEMORY</span> -p=<span class="va">$PARTITION</span> --job-name=<span class="va">$JOB_NAME</span> --output=<span class="va">$OUT_NAME</span> scripts/job_submission.slurm <span class="va">$dataset</span> <span class="va">$model</span> <span class="va">$fold</span>
+      
+    <span class="kw">done</span>
+  <span class="kw">done</span>
+<span class="kw">done</span></code></pre></div>
+</div>
+<div id="advanced-jobception---submitting-jobs-that-submit-more-jobs" class="section level2">
+<h2><span class="header-section-number">8.5</span> Advanced: Jobception - Submitting jobs that submit more jobs</h2>
+<p>Sometimes you have jobs that need to split up <em>after</em> they have run at least partially in <code>R</code>. You might have a single job that loads the data and fits a model but then the post-processing is large and can be split into multiple jobs (for example, handling Bayesian posterior samples independently). While there is the functionality built in to <code>slurm</code> so that you can tell jobs not to run until <em>after</em> certain other jobs are finished, it is easier to handle this inside <code>R</code>.</p>
+<p><code>R</code> has the <code>system()</code> function that lets you run code on the command line from within your <code>R</code> session. This is the same command line that you interact with directly on Spartan for everything else! This means that you can run <code>sbatch</code> commands for job submission directly from your <code>R</code> script.</p>
+<p>As an example, lets pretend we have a <code>R</code> script to fit some sort of Bayesian regression model that results in 1000 posterior samples and we want to split up our post-processing into chunks of 10 samples each. After the model fitting portion of the script we can use the <code>system()</code> function to submit more jobs that are told to only process samples X through Y. What we do is create a for loop in <code>R</code> to handle creating the start and end sample IDs and pass them as command line arguments into a new job. Here we use the <code>sprintf()</code> function to build our <code>sbatch</code> command using these parameters but you could also use <code>paste()</code> if you prefer.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Read command lnie arguments passed into main job
+
+command_args &lt;-<span class="st"> </span><span class="kw">commandArgs</span>(<span class="dt">trailingOnly =</span> <span class="ot">TRUE</span>)
+
+## Define index
+
+parameter_<span class="dv">1</span> &lt;-<span class="st"> </span>command_args[<span class="dv">1</span>]
+parameter_<span class="dv">2</span> &lt;-<span class="st"> </span>command_args[<span class="dv">2</span>]
+
+## Pretend we load a dataset based on parameter_1
+
+data &lt;-<span class="st"> </span><span class="kw">load_data</span>(parameter_<span class="dv">1</span>)
+
+## Pretend we set a prior based on parameter_2
+
+prior &lt;-<span class="st"> </span><span class="kw">set_prior</span>(parameter_<span class="dv">2</span>)
+
+## Fit Model
+
+n_samples &lt;-<span class="st"> </span><span class="dv">1000</span>
+
+big_Bayes_model &lt;-<span class="st"> </span><span class="kw">big_Bayes_function</span>(data,
+                                      priors,
+                                      n_samples)
+
+## Save model to file
+
+<span class="kw">saveRDS</span>(big_Bayes_model,
+        <span class="st">&quot;filename_here&quot;</span>)
+
+## Submit new jobs
+
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">1</span>, n_samples, <span class="dv">10</span>)){
+    
+  ### Define start and end sample IDs for the sub jobs
+  
+  start_sample &lt;-<span class="st"> </span>i
+  
+  end_sample &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">9</span>
+  
+  ### Build a system command based on these values
+  
+  command &lt;-<span class="st"> </span><span class="kw">sprintf</span>(<span class="st">&quot;system(&#39;sbatch -p physical --cpus-per-task=1 --mem=51200 --time=10-00 --job-name=N_%1$s_%2$s scripts/sub_job_submission %1$s %2$s&#39;)&quot;</span>,
+                     start_sample,
+                     end_sample)
+  
+  ### Run this command
+  
+  <span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> command))
+    
+}</code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="rstudio-tips-and-tricks.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true,
+"search": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

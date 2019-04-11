@@ -25,7 +25,7 @@
 <meta name="author" content="David Wilkinson">
 
 
-<meta name="date" content="2019-04-03">
+<meta name="date" content="2019-04-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -187,6 +187,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.4" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#r-projects"><i class="fa fa-check"></i><b>7.4</b> R Projects</a></li>
 <li class="chapter" data-level="7.5" data-path="rstudio-tips-and-tricks.html"><a href="rstudio-tips-and-tricks.html#terminal"><i class="fa fa-check"></i><b>7.5</b> Terminal</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html"><i class="fa fa-check"></i><b>8</b> Batch R job submission on Spartan</a><ul>
+<li class="chapter" data-level="8.1" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#introduction-3"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#batch-submission-using-spartans-slurm-files"><i class="fa fa-check"></i><b>8.2</b> Batch submission using Spartan’s <code>slurm</code> files</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#creating-the-batch-submission-script"><i class="fa fa-check"></i><b>8.2.1</b> Creating the <em>batch submission script</em></a></li>
+<li class="chapter" data-level="8.2.2" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#creating-the-job-submission-script"><i class="fa fa-check"></i><b>8.2.2</b> Creating the <em>job submission script</em></a></li>
+<li class="chapter" data-level="8.2.3" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#modifying-an-r-script-to-use-command-line-arguments"><i class="fa fa-check"></i><b>8.2.3</b> Modifying an <code>R</code> script to use command line arguments</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#examples"><i class="fa fa-check"></i><b>8.3</b> Examples</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#one-input-variable"><i class="fa fa-check"></i><b>8.3.1</b> One input variable</a></li>
+<li class="chapter" data-level="8.3.2" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#two-or-more-input-variables"><i class="fa fa-check"></i><b>8.3.2</b> Two or more input variables</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#advanced-computational-requirements-dependant-on-input-parameters"><i class="fa fa-check"></i><b>8.4</b> Advanced: Computational requirements dependant on input parameters</a></li>
+<li class="chapter" data-level="8.5" data-path="batch-r-job-submission-on-spartan.html"><a href="batch-r-job-submission-on-spartan.html#advanced-jobception---submitting-jobs-that-submit-more-jobs"><i class="fa fa-check"></i><b>8.5</b> Advanced: Jobception - Submitting jobs that submit more jobs</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -212,7 +226,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="introduction-1" class="section level2">
 <h2><span class="header-section-number">5.1</span> Introduction</h2>
 <hr />
-<p>One of R’s strengths is the abundance of packages freely available to users (<a href="http://blog.revolutionanalytics.com/2017/01/cran-10000.html">over 10,000 as of 27/01/2017</a>). As such, everyone ultimately has their own suite of select packages that they use, and on a personal computer these are easily managed and stored within the user’s library. On a massive communal resource like The University of Melbourne’s Spartan high-performance computing (HPC) service things are not so simple. R is available as a module on Spartan that any user can load, however, its default package library is read-only for non-admin users. While the library is loaded with a suite of commonly used packages it is not exhaustive and many users will require additional packages. The system administrators can add additional packages (or update them to more recent versions) upon request, but the job gets added to a queue and could take days to be completed. Instead it is easier (for both users and administrators) if the users are able to install additional packages themselves.</p>
+<p>One of R’s strengths is the abundance of packages freely available to users (<a href="http://blog.revolutionanalytics.com/2017/01/cran-10000.html">over 10,000 as of 27/01/2017</a>). As such, everyone ultimately has their own suite of select packages that they use, and on a personal computer these are easily managed and stored within the user’s library. On a massive communal resource like The University of Melbourne’s Spartan high-performance computing (HPC) service things are not so simple. R is available as a module on Spartan that any user can load, however, its default package library is read-only for non-admin users. While the default module library is loaded with a suite of commonly used packages it is not exhaustive and many users will require additional packages. The system administrators can add additional packages (or update them to more recent versions) upon request, but the job gets added to a queue and could take days to be completed. Instead it is easier (for both users and administrators) if the users are able to install additional packages themselves.</p>
 <p>R has the ability to connect to multiple libraries and search them all when trying to load packages. This is a fairly straight-forward process on a personal computer, but more complex to set-up on HPC architecture where a user’s jobs could be run any on any of hundreds of different compute nodes with different environments. This guide will show you how to a) set-up a secondary, user-specific library on Spartan linked to your home directory, and b) install all of the packages already on your personal computer that <em>aren’t</em> in Spartan’s R library into this new user-specific library. This guide will make use of some specialised unix commands and SLURM scripts but does not require any previous knowledge of them from the user (the steps can be mostly followed by copy/pasting commands). You can find more information on basic Spartan usage in another <em>lodestar</em> guide [here][IntroToSpartan].</p>
 <hr />
 </div>
@@ -227,7 +241,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>In this case, you can see that my personal computer recognises two libraries.</p>
 <p>To create a user-specific library on Spartan we just need to create a folder for it. This can be done interactively through your SFTP client (like WinSCP for Windows users, or CyberDuck for Mac users) using the new folder button, or using the <code>mkdir</code> command in Spartan’s command line. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mkdir <span class="op">-</span>p <span class="op">~</span><span class="er">/</span>R<span class="op">/</span>lib</code></pre></div>
-<p>This creates the <code>lib</code> directory inside the <code>R</code> directory in your home directory (refered to by ~). The rest of this guide assumes you have created this same directory, but if you select something else you can just modify the commands/files that follow.</p>
+<p>This creates the <code>lib</code> directory inside the <code>R</code> directory in your home directory (refered to by <code>~</code>). The rest of this guide assumes you have created this same directory, but if you select something else you can just modify the commands/files that follow.</p>
 <hr />
 </div>
 <div id="set-spartan-to-connect-to-this-new-library" class="section level3">
@@ -249,7 +263,7 @@ lib =<span class="st"> </span><span class="kw">.libPaths</span>()[<span class="d
 </div>
 <div id="setting-the-library-path-in-your-bash-profile" class="section level4">
 <h4><span class="header-section-number">5.2.2.2</span> Setting the library path in your Bash Profile</h4>
-<p>Each time you open an <code>sinteractive</code> session or submit a job via <code>sbatch</code> R will open in a new environment and only register Spartan’s library unless we tell it otherwise. While we can tell R where to look after we open it by manually setting the <code>.libPaths()</code>, it will immediately forget each time it gets shut down. Instead we can modify our <code>.bash_profile</code> file once and it will automatically set R’s library paths each time it opens up which is far more convenient.</p>
+<p>Each time you open an <code>sinteractive</code> session or submit a job via <code>sbatch</code> R will open in a new environment and will only register Spartan’s library unless we tell it otherwise. While we can tell R where to look after we open it by manually setting the <code>.libPaths()</code>, it will immediately forget each time it gets shut down. Instead we can modify our <code>.bash_profile</code> file once and it will automatically set R’s library paths each time it opens up which is more convenient (but risks problems down the line).</p>
 <p><code>.bash_profile</code> is a hidden file in your home directory, but you can print its contents to the screen with this command:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cat .bash_profile</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># .bash_profile</span>
