@@ -1,0 +1,555 @@
+# Batch R job submission on Spartan
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+One of the problems that researcher's encounter when performing computational analyses is the potentially massive number of model runs to be completed. This could happen by repeating the same process hundreds or thousands of times, running simulations with different combinations of starting parameters, or model comparisons across multiple datasets. If each of these permutations takes a non-trivial amount of time to run (hours are common, but day- or week-long runs are not unreasonable for more complex analyses), then the total duration could be impractical. 100 simulations that take one day each will take three months to complete! There are several further downsides here as it can tie up a work computer for extended lengths of time, it risks failing if something goes wrong with the computer in that time (e.g. power outage), and potentially relies on manual inputs to ensure each permutation is run.
+
+My **Spartan Introduction [needs a link]** already shows us the benefits of high performance computing for getting past time and memory limits of single jobs, but this guide takes the next step and shows you how to automate the batch submission of multiple jobs. This guide is split into three sections:
+
+1.  Batch submission using Spartan's `slurm` files
+2.  Modifying your `R` scripts to account for batch submision
+3.  Some simplified examples of different approaches to batch submission
+
+## Batch submission using Spartan's `slurm` files
+
+Submitting jobs to Spartan involves interfacing with the slurm workload manager. This is done by creating a `slurm` file that establishes the computational resource requirements of the job and contains the commands required to run the job (this is the *job submission script*). Batch submitting jobs to Spartan requires a second `slurm` file (the *batch submission script*) that handles the creation of the different permutations and then calls the first `slurm` file once per permutation.
+
+The batch submission process makes use of command line arguments to control the passing of parameters from script to script. Using command line arguments means we can define the overall process like this:
+
+1.  Define the combination of input parameters for each permutation in the *batch submission script*
+2.  For each permutation the *batch submission script* submits the *job submission script* with the input parameters defined as command line arguments
+3.  The *job submission script* takes those input parameters and passes them as command line arguments to the `R` script
+4.  The `R` script reads those command line arguments and uses them to define variables to control how the script operates
+
+### Creating the *batch submission script*
+
+The *batch submission script* is where we define the different combinations of parameter inputs and the easiest way to do this is with for loops. You might already be familiar with writing for loops in `R`, but here we need to write them in `bash` which follows a different syntax. To highlight this, here are two examples of a for loop printing the numbers 1-10 to screen using `R` and `bash`:
+
+```{r eval = FALSE}
+for(i in 1:10){
+  
+  print(i)
+  
+}
+```
+
+```{bash eval = FALSE}
+for i in {1..10}
+do
+
+echo $i
+
+done
+```
+
+If you have more than one input parameter`bash` for loops can be nested in the same manner as `R` for loops:
+
+```{bash eval = FALSE}
+for i in {1..10}
+do
+  for j in {1..10}
+  do
+  
+  echo $i
+  echo $j
+  
+  done
+done
+```
+
+So what does a *batch submission script* look like? Aside from the for loops, there are two more components in the script:
+
++  The `#!/bin/bash` required on the first line of the file to tell the shell what interpretor to run (in this case, bash)
++  An `sbatch` command to call the *job submission script* for each parameter combination. This command submits the job to Spartan's queue. This is also where we pass on the input parameters as command line arguments. The syntax broadly looks like this `sbatch file_path/file argument1 argument 2`. It is important to note the use of `$` to extract the value of the variable stored in the loop iterator. Command line arguments do not have names, they are just values, so you need to use the value of the iterator instead of the iterator itself.
+
+If we want to submit the same job one hundred times then the *batch submission script* will look something like this:
+
+```{bash eval = FALSE}
+#!/bin/bash
+
+for i in {1..100}
+do
+
+sbatch file_path/job_submission.slurm $i
+
+done
+```
+
+If we need to do something more complex where we submit a job for each combination of multiple input parameters then we use nested for loops. If we have two input parameters it would look like this:
+
+```{bash eval = FALSE}
+#!/bin/bash
+
+for i in {1..10}
+do
+
+  for j in {1..10}
+  do
+  
+  sbatch file_path/job_submission.slurm $i $j
+  
+  done
+done
+```
+
+### Creating the *job submission script*
+
+The *job submission script* is built more or less the same way for batch submission as it is for single jobs. There are two main differences:
+
++  Defining the command line arguments that are *recieved* by the *job submission script*
++  Passing the command line arguments that are *sent* to the *`R` script*
+
+Addressing the first difference *can* be optional, as it can be done as part of the second, but for clarity it is best to handle it separately. The command line arguments are stored as variables names `1`, `2`, etc so we can re-define as variables like this:
+
+```{bash eval = FALSE}
+i = $1
+j = $2
+```
+
+Passing them onto the `R` script is done the same way as the passing them from the *bash submission script* to the *job_submission script*.
+
+```{bash eval = FALSE}
+Rscript --vanilla file_path/file.R $i $j
+```
+
+Putting it together the whole script will look something like this for an `R` script with no additional dependencies:
+
+```{bash eval = FALSE}
+#!/bin/bash
+#
+#SBATCH --nodes=1
+#
+#SBATCH --ntasks=1
+#
+#SBATCH -p cloud
+#
+#SBATCH --mem=10000
+#
+#SBATCH --time=1:00:00
+#
+#SBATCH --mail-user=email_here
+#SBATCH --mail-type=ALL,TIME_LIMIT_50,TIME_LIMIT_80,TIME_LIMIT_90
+
+i=$1
+j=$2
+
+module purge
+
+module load R/3.5.0-GCC-6.2.0
+
+cd directory_path
+
+Rscript --vanilla file_path/file.R $i $j
+```
+
+### Modifying an `R` script to use command line arguments
+
+The final step in the process is using these command line arguments you pass into the `R` session. These arguments are not as readily accessible in `R` as they are in `bash`, but R does have a handy `commandArgs()` function to simplify the process.
+
+`commandArgs()` will provide you with a character vector of all of the command line arguments passed into the `R` session. `R` sessions will normally have some arguments passed in by default that were not defined by you, so you want to extract only what are known as *trailing arguments* (those defined by the user). This is done using the `trailingOnly` argument like this:
+
+```{r eval = FALSE}
+command_args <- commandArgs(trailingOnly = TRUE)
+```
+
+As noted above, this returns a character vector so you want to convert the individual arguments back to numerics when you define them:
+
+```{r eval = FALSE}
+i <- as.numeric(command_args[1])
+j <- as.numeric(command_args[2])
+```
+
+At this point, you've successfully passed the command line arguments into `R` and are free to run the rest of the script as normal.
+
+Success!
+
+However, it is not always the case that your input parameters are numeric data (could be characters like dataset names). It is possible to use characters as command line arguments, but it is far easier to use numeric data in `bash` for loops than character data. To this end it is easier to use your command line arguments as an index variable and then use it to look up the correct value from a character vector in the `R` session. For example, if we want to fit the same model to five different datasets our *batch submission script* would look like this:
+
+```{bash eval = FALSE}
+#!/bin/bash
+
+for i in {1..5}
+do
+
+sbatch file_path/job_submission.slurm $i
+
+done
+```
+
+And then we would do this in our `R` script:
+
+```{r eval = FALSE}
+command_args <- commandArgs(trailingOnly = TRUE)
+
+dataset_index <- as.numeric(command_args[1])
+
+dataset_options <- c("birds",
+                     "fish",
+                     "frogs",
+                     "monkeys",
+                     "wolves")
+
+dataset_id <- dataset_options[dataset_index]
+```
+
+And now we can use the character variable `dataset_id` in the `R` session.
+
+## Examples
+
+Here I provide some simplified examples of the most common batch submission approaches. To keep the examples succint the `R` code will be fairly simple but the important features will be there. It will be straight forward to adapt any of them to your own code.
+
+Since this guide is intended for Spartan users (although applicable to any `slurm` environment) all of the file paths will be based on Spartan's directory structure. `[project_id]` in any file path refers to your personal project directory e.g. `punim123`.
+
+### One input variable
+
+The simplest case of batch submission is to run the same process multiple times. The usual scenario for this approach is running independent simulations as separate jobs. The important word here is *independent*, as this wont work for simulations that are dependent on those completed before it.
+
+The below example represents a batch submission for 300 simulations of an analysis (here, generating a random number).
+
+Example *batch submission script*: `batch_submission.slurm`
+
+```{bash eval = FALSE}
+for simulation in {1..300}
+do
+
+sbatch /data/cephfs/[project_id]/scripts/slurm/job_submission.slurm $simulation
+
+done
+```
+
+Example *job submission script*: `job_submission.slurm`
+
+```{bash eval = FALSE}
+#!/bin/bash
+#
+#SBATCH --nodes=1
+#
+#SBATCH --ntasks=1
+#
+#SBATCH -p cloud
+#
+#SBATCH --mem=10000
+#
+#SBATCH --time=1:00:00
+#
+#SBATCH --mail-user=email_here
+#SBATCH --mail-type=ALL,TIME_LIMIT_50,TIME_LIMIT_80,TIME_LIMIT_90
+
+simulation=$1
+
+module purge
+
+module load R/3.5.0-GCC-6.2.0
+
+cd /data/cephfs/[project_id]
+
+Rscript --vanilla scripts/R/script.R $simulation
+```
+
+Example *`R` script*: `script.R`
+
+```{r eval = FALSE}
+# Read the command line arguments
+
+command_args <- commandArgs(trailingOnly = TRUE)
+
+# Define command line arguments as a variable
+
+simulation <- command_args[1]
+
+# Perform analysis
+
+set.seed(simulation)
+
+value <- rnorm(1)
+
+# Create job-specific output so we don't overwrite things!
+
+filename <- sprintf("outputs/simulation_%s.rds",
+                    simulation)
+
+saveRDS(object = value,
+        file = filename)
+```
+
+### Two or more input variables
+
+More complex batch submissions will have multiple input parameters. These could be dataset names and cross validation fold ID, different starting parameters for population dynamics simulations, a series of coordinates to split up a big spatial analsis into more manageable chunks, etc. Regardless of your scenario, the method is the same.
+
+The below example represents batch submission for all combinations of two different input values for a population dynamics simulation. Note that the actual values of these inputs are not defined until we reach the `R` script, instead we use the for loop iterators in the bash script to control the *index* of the input values. Here we assume four different population starting sizes and five different net growth rates. NB: This is a super abstract version of a population dynamics simulation that in reality are far more complex. This example just records the population each year assuming a stable net growth rate.
+
+Example *batch submission script*: `batch_submission.slurm`
+
+```{bash eval = FALSE}
+for pop_start_size in {1..4}
+do
+
+  for growth_rate in {1..5}
+  do
+  
+  sbatch /data/cephfs/[project_id]/scripts/slurm/job_submission.slurm $pop_start_size $growth_rate
+  
+  done
+done
+```
+
+Example *job submission script*: `job_submission.slurm`
+
+```{bash eval = FALSE}
+#!/bin/bash
+#
+#SBATCH --nodes=1
+#
+#SBATCH --ntasks=1
+#
+#SBATCH -p cloud
+#
+#SBATCH --mem=10000
+#
+#SBATCH --time=1:00:00
+#
+#SBATCH --mail-user=email_here
+#SBATCH --mail-type=ALL,TIME_LIMIT_50,TIME_LIMIT_80,TIME_LIMIT_90
+
+pop_start_size=$1
+growth_rate=$2
+
+module purge
+
+module load R/3.5.0-GCC-6.2.0
+
+cd /data/cephfs/[project_id]
+
+Rscript --vanilla scripts/R/script.R $pop_start_size $growth_rate
+```
+
+Example *`R` script*: `script.R`
+
+```{r eval = FALSE}
+# Read the command line arguments
+
+command_args <- commandArgs(trailingOnly = TRUE)
+
+# Define command line arguments as a variable
+
+## Define index
+
+pop_start_size_index <- command_args[1]
+growth_rate_index <- command_args[2]
+
+## Define options
+
+pop_start_size_options <- c(1000,
+                            2000,
+                            5000,
+                            10000)
+
+growth_rate_options <- c(-0.001,
+                         -0.01,
+                         0.001,
+                         0.01,
+                         0.02)
+
+## Extract parameter values
+
+pop_start_size <- pop_start_size_options[pop_start_size_index]
+growth_rate <- pop_start_size_options[pop_start_size_index]
+
+# Perform analysis
+
+set.seed(28041948)
+
+## Create vector to store results
+
+pop_vector <- vector(length = 50)
+
+## Simulate population trajectory
+
+for(year in 1:50){
+  
+  if(year == 1){
+    
+    pop_size <- pop_start_size
+    
+    pop_vector[year] <- pop_size
+    
+  } else {
+    
+    pop_size <- pop_size + (pop_size * growth_rate)
+    
+    pop_size <- ifelse(pop_size < 0, 0, pop_size)
+    pop_vector[year] <- pop_size
+    
+  }
+}
+
+# Create job-specific output so we don't overwrite things!
+
+filename <- sprintf("outputs/simulation_%s_%s.rds",
+                    pop_start_size,
+                    growth_rate)
+
+saveRDS(object = value,
+        file = filename)
+```
+
+## Advanced: Computational requirements dependant on input parameters
+
+Depending on the nature of your batch submission jobs you might want the ability to set different computational requirements for each job. If you're submitting identical jobs multiple times (a split up simulation for example) then you probably want consistent requirements. However, if you're applying the same process but over multiple datasets/models of differing size and/or complexity then job-specific requirements are ideal.
+
+Jobs with larger resource requirements take longer to leave the queue on Spartan *and* you're not going to be able to run as many jobs simultaneously. If you set consistent requirements then small jobs waste resources (and potentially take longer to start) *and/or* large jobs fail by exceeding memory limits or wall times.
+
+Thankfully we are able to set job-specific requirements by making use of the fact that there are *two* methods for setting these parameters. The usual method is by using `#SBATCH` commands in our `slurm` script (like `#SBATCH --time=1:00:00`). The other method is that we can use those same `slurm` command flags (the options following either `-` or `--`) directly in the `sbatch` command that submits the `slurm` sript. Conveniently we can use both simultaneously.
+
+The best way to approach this is by using `#SBATCH` to control parameters that never change (for example, setting the email address for progress emails) and `sbatch` to control parameters that do change (for example, memory limits or wall times). The `#SBATCH` approach has been covered earlier so we only focus on the `sbatch` approach here.
+
+Our *batch submission script* uses for loops to control the input parameters to our *job submission script*, and we use that in conjunction with if statements to set computing requirement parameters for the `sbatch` command. Both the for loops and if statements will be written in `bash` so they will differ from `R`'s syntax but work in the same way. A simple example is the easiest way to explain this approach, so lets imagine a scenario where we are submitting just two jobs (same job, different dataset) and want different memory limits for each one. Our *batch submission script* might look like this
+
+```{bash eval = FALSE}
+#!/bin/bash
+
+for dataset in {1..2}
+do
+  
+  if [ $dataset = "1" ]
+  then
+    MEMORY=10000
+  fi
+  
+  if [ $dataset = "2" ]
+  then
+    MEMORY=20000
+  fi
+
+  sbatch --mem=$MEMORY job_submission.slurm $dataset
+  
+done  
+```
+
+In this case we are only making the memory request job-specific and things like the partition, wall time, number of CPUs, etc will be controlled inside *job_submission.slurm* using `#SBATCH` commands.
+
+We've seen how nested for loops can be used to more complex job submission processes and we can apply the same method here. This time we have two datasets that will determine memory limits, ten models that will determine partition, a third parameter called fold that will have no impact on computing requirements, and then use the three parameters together to both give our job a specific name and name our `slurm.out` file.
+
+```{bash}
+#!/bin/bash
+
+for dataset in {1..2}
+do
+  
+  for model in {1..10}
+  do
+  
+    for fold in {1..5}
+    do
+
+      ## Control memory requirements with the dataset parameter
+      
+      if [ $dataset = "1" ]
+      then
+      MEMORY=10000
+      fi
+      
+      if [ $dataset = "2" ]
+      then
+      MEMORY=20000
+      fi
+    
+      ## Control partition requests with the model parameter.
+      ## Lets set all models except 7 to run on the cloud.
+      
+      if [ $model = "7" ]
+      then
+      PARTITION="physical"
+      else
+      PARTITION="cloud"
+      fi
+      
+      ## Create a job name based on the three input parameters
+      ## Use the format of "Job_1_1_1"
+      ## We need to use ${} and not just $ to call the variables names
+      ## because they re proceeded by a _
+      
+      JOB_NAME="Job_${model}_${dataset}_${fold}"
+      
+      ## Name our slurm.out file and put it in a specific place
+      
+      OUT_NAME="outputs/slurm_outputs/Job_${model}_${dataset}_${fold}.out"
+      
+      ## Now run sbatch to submit the job_submission.slurm script
+      ## 1. Set sbatch details using the flags/options
+      ## 2. Say which file to run
+      ## 3. Don't forget to also pass on the input parameters!
+      
+      sbatch --mem=$MEMORY -p=$PARTITION --job-name=$JOB_NAME --output=$OUT_NAME scripts/job_submission.slurm $dataset $model $fold
+      
+    done
+  done
+done
+```
+
+## Advanced: Jobception - Submitting jobs that submit more jobs
+
+Sometimes you have jobs that need to split up *after* they have run at least partially in `R`. You might have a single job that loads the data and fits a model but then the post-processing is large and can be split into multiple jobs (for example, handling Bayesian posterior samples independently). While there is the functionality built in to `slurm` so that you can tell jobs not to run until *after* certain other jobs are finished, it is easier to handle this inside `R`.
+
+`R` has the `system()` function that lets you run code on the command line from within your `R` session. This is the same command line that you interact with directly on Spartan for everything else! This means that you can run `sbatch` commands for job submission directly from your `R` script. 
+
+As an example, lets pretend we have a `R` script to fit some sort of Bayesian regression model that results in 1000 posterior samples and we want to split up our post-processing into chunks of 10 samples each. After the model fitting portion of the script we can use the `system()` function to submit more jobs that are told to only process samples X through Y. What we do is create a for loop in `R` to handle creating the start and end sample IDs and pass them as command line arguments into a new job. Here we use the `sprintf()` function to build our `sbatch` command using these parameters but you could also use `paste()` if you prefer.
+
+```{r eval = FALSE}
+## Read command lnie arguments passed into main job
+
+command_args <- commandArgs(trailingOnly = TRUE)
+
+## Define index
+
+parameter_1 <- command_args[1]
+parameter_2 <- command_args[2]
+
+## Pretend we load a dataset based on parameter_1
+
+data <- load_data(parameter_1)
+
+## Pretend we set a prior based on parameter_2
+
+prior <- set_prior(parameter_2)
+
+## Fit Model
+
+n_samples <- 1000
+
+big_Bayes_model <- big_Bayes_function(data,
+                                      priors,
+                                      n_samples)
+
+## Save model to file
+
+saveRDS(big_Bayes_model,
+        "filename_here")
+
+## Submit new jobs
+
+for(i in seq(1, n_samples, 10)){
+    
+  ### Define start and end sample IDs for the sub jobs
+  
+  start_sample <- i
+  
+  end_sample <- i + 9
+  
+  ### Build a system command based on these values
+  
+  command <- sprintf("system('sbatch -p physical --cpus-per-task=1 --mem=51200 --time=10-00 --job-name=N_%1$s_%2$s scripts/sub_job_submission %1$s %2$s')",
+                     start_sample,
+                     end_sample)
+  
+  ### Run this command
+  
+  eval(parse(text = command))
+    
+}
+```
+
