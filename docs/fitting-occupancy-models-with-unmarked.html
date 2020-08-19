@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>lodestar</title>
-  <meta name="description" content="lodestar">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Fitting occupancy models with unmarked | lodestar</title>
+  <meta name="description" content="2 Fitting occupancy models with unmarked | lodestar" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="lodestar" />
+  <meta property="og:title" content="2 Fitting occupancy models with unmarked | lodestar" />
   <meta property="og:type" content="book" />
   
   
@@ -17,29 +16,33 @@
   <meta name="github-repo" content="Doi90/lodestar" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="lodestar" />
+  <meta name="twitter:title" content="2 Fitting occupancy models with unmarked | lodestar" />
   
   
   
 
-<meta name="author" content="David Wilkinson">
+<meta name="author" content="David Wilkinson" />
 
 
-<meta name="date" content="2019-04-11">
+<meta name="date" content="2020-08-19" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="version-control-with-rstudio.html">
+<link rel="prev" href="index.html"/>
+<link rel="next" href="version-control-with-rstudio.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -51,41 +54,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="lodestar.css" type="text/css" />
@@ -242,7 +270,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[y_{ij} | z_i \sim Bernoulli(z_i * p_{ij})\]</span></p>
 <p>where <span class="math inline">\(y_{ij}\)</span> is our detection data site <span class="math inline">\(i\)</span> and sampling repeat <span class="math inline">\(j\)</span>, and <span class="math inline">\(p_{ij}\)</span> is the probability of detecting the species given it is present.</p>
 <p>As written, these equations effectively assume the probabilities of occupancy and detection are constant across all sites, when in reality sites are heterogeneous. Covariates can be incorporated into the model using a logit-link function (like in generalised linear regression), such that the occupancy and/or detectability at site <span class="math inline">\(i\)</span> can be modelled as a function of a series of covariates <span class="math inline">\(\{x_{i1}, ..., x_{ik}\}\)</span>.</p>
-<p><span class="math display">\[logit(\psi_i) = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} ... \beta_kx_{ik}\]</span> <span class="math display">\[logit(p_i) = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} ... \beta_kx_{ik}\]</span></p>
+<p><span class="math display">\[logit(\psi_i) = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} ... \beta_kx_{ik}\]</span>
+<span class="math display">\[logit(p_i) = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} ... \beta_kx_{ik}\]</span></p>
 <p>The four main assumptions of this model are:</p>
 <ul>
 <li>A site is closed to changes in occupancy over the survey season</li>
@@ -399,54 +428,54 @@ unmarkedFrameGMM
 </div>
 <div id="load-package" class="section level2">
 <h2><span class="header-section-number">2.3</span> Load Package</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(unmarked)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(unmarked)</a></code></pre></div>
 <hr class="big">
 </div>
 <div id="load-data" class="section level2">
 <h2><span class="header-section-number">2.4</span> Load Data</h2>
 <p>For this guide we will use a sample dataset supplied with the package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;csv&quot;</span>, <span class="st">&quot;widewt.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;unmarked&quot;</span>))</code></pre></div>
-<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:400px; overflow-x: scroll; width:800px; ">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;csv&quot;</span>, <span class="st">&quot;widewt.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;unmarked&quot;</span>))</a></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:800px; ">
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 site
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 y.1
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 y.2
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 y.3
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 elev
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 forest
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 length
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 date.1
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 date.2
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 date.3
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 ivel.1
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 ivel.2
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 ivel.3
 </th>
 </tr>
@@ -10174,20 +10203,22 @@ NA
 </div>
 <p>Data needs to be formatted for use with a specific model fitting function, and this is accomplished with a call to an appropriate <code>unmarkedFrame</code>. <code>unmarkedFrame</code>’s are a special class of object used in this package for organising our data. These are built using <code>R</code>’s <code>S4</code> reference class system instead of the more common <code>S3</code> (like a linear model object <code>lm</code>). The benefit of this is a formal definition and validity checking to prevent accidentally breaking it, but the consequence is a slightly different syntax for examining it (covered later). In our case, to fit an <code>occu()</code> model we need to use the <code>unmarkedFrameOccu()</code>. This requires two <code>data.frame</code>s and a <code>list</code> of <code>data.frame</code>s:</p>
 <ul>
-<li><code>y</code>: A <code>data.frame</code> of presence-absence records. Rows are sites, columns are repeat visits.</li>
+<li><code>y</code>: A <code>data.frame</code> of presence-absence records. Rows are sites, columns are repeat visits.
+<ul>
 <li><code>siteCovs</code>: A <code>data.frame</code> of the site-level covariates. These are things that <em>don’t</em> change between visits like elevation, annual rainfall, distance from roads, etc.. One column per covariate</li>
 <li><code>obsCovs</code>: A <code>list</code> of <code>data.frame</code>s for the observation-level covariates. Each covariate is its own <code>data.frame</code> with rows as sites and columns as repeat visits. These are things that <em>can</em> change between visits. Could be environmental conditions like daily temperature or cloud cover, or methodological variables like survey method (spotlighting, pitfall traps, ink cards etc.) or an observer ID.</li>
+</ul></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span>data[ ,<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]
-
-siteCovs &lt;-<span class="st">  </span>data[ ,<span class="dv">5</span><span class="op">:</span><span class="dv">7</span>]
-
-obsCovs &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">date =</span> data[ ,<span class="dv">8</span><span class="op">:</span><span class="dv">10</span>],
-                <span class="dt">ivel =</span> data[ ,<span class="dv">11</span><span class="op">:</span><span class="dv">13</span>])
-
-umf &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<span class="dt">y =</span> y, <span class="dt">siteCovs =</span> siteCovs, <span class="dt">obsCovs =</span> obsCovs)
-
-<span class="kw">summary</span>(umf)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">y &lt;-<span class="st"> </span>data[ ,<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3">siteCovs &lt;-<span class="st">  </span>data[ ,<span class="dv">5</span><span class="op">:</span><span class="dv">7</span>]</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5">obsCovs &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">date =</span> data[ ,<span class="dv">8</span><span class="op">:</span><span class="dv">10</span>],</a>
+<a class="sourceLine" id="cb3-6" title="6">                <span class="dt">ivel =</span> data[ ,<span class="dv">11</span><span class="op">:</span><span class="dv">13</span>])</a>
+<a class="sourceLine" id="cb3-7" title="7"></a>
+<a class="sourceLine" id="cb3-8" title="8">umf &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<span class="dt">y =</span> y, <span class="dt">siteCovs =</span> siteCovs, <span class="dt">obsCovs =</span> obsCovs)</a>
+<a class="sourceLine" id="cb3-9" title="9"></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="kw">summary</span>(umf)</a></code></pre></div>
 <pre><code>## unmarkedFrame Object
 ## 
 ## 237 sites
@@ -10200,13 +10231,20 @@ umf &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<spa
 ##  483  182   46 
 ## 
 ## Site-level covariates:
-##       elev               forest              length      
-##  Min.   :-1.436125   Min.   :-1.265352   Min.   :0.1823  
-##  1st Qu.:-0.940726   1st Qu.:-0.974355   1st Qu.:1.4351  
-##  Median :-0.166666   Median :-0.064987   Median :1.6094  
-##  Mean   : 0.007612   Mean   : 0.000088   Mean   :1.5924  
-##  3rd Qu.: 0.994425   3rd Qu.: 0.808005   3rd Qu.:1.7750  
-##  Max.   : 2.434177   Max.   : 2.299367   Max.   :2.2407  
+##       elev               forest         
+##  Min.   :-1.436125   Min.   :-1.265352  
+##  1st Qu.:-0.940726   1st Qu.:-0.974355  
+##  Median :-0.166666   Median :-0.064987  
+##  Mean   : 0.007612   Mean   : 0.000088  
+##  3rd Qu.: 0.994425   3rd Qu.: 0.808005  
+##  Max.   : 2.434177   Max.   : 2.299367  
+##      length      
+##  Min.   :0.1823  
+##  1st Qu.:1.4351  
+##  Median :1.6094  
+##  Mean   :1.5924  
+##  3rd Qu.:1.7750  
+##  Max.   :2.2407  
 ## 
 ## Observation-level covariates:
 ##       date               ivel        
@@ -10222,12 +10260,12 @@ umf &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<spa
 <div id="standardising-data" class="section level2">
 <h2><span class="header-section-number">2.5</span> Standardising Data</h2>
 <p>If you haven’t done this before creating the <code>unmarkedFrame</code> object the syntax for subsetting changes slightly since an <code>unmarkedFrame</code> is an S4 class. The first <code>$</code> subset is replaced with an <code>@</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">umf<span class="op">@</span>siteCovs<span class="op">$</span>elev &lt;-<span class="st"> </span><span class="kw">scale</span>(umf<span class="op">@</span>siteCovs<span class="op">$</span>elev)
-umf<span class="op">@</span>siteCovs<span class="op">$</span>forest &lt;-<span class="st"> </span><span class="kw">scale</span>(umf<span class="op">@</span>siteCovs<span class="op">$</span>forest)
-umf<span class="op">@</span>siteCovs<span class="op">$</span>length &lt;-<span class="st"> </span><span class="kw">scale</span>(umf<span class="op">@</span>siteCovs<span class="op">$</span>length)
-
-umf<span class="op">@</span>obsCovs<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">scale</span>(umf<span class="op">@</span>obsCovs<span class="op">$</span>date)
-umf<span class="op">@</span>obsCovs<span class="op">$</span>ivel &lt;-<span class="st"> </span><span class="kw">scale</span>(umf<span class="op">@</span>obsCovs<span class="op">$</span>ivel)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">umf<span class="op">@</span>siteCovs<span class="op">$</span>elev &lt;-<span class="st"> </span><span class="kw">scale</span>(umf<span class="op">@</span>siteCovs<span class="op">$</span>elev)</a>
+<a class="sourceLine" id="cb5-2" title="2">umf<span class="op">@</span>siteCovs<span class="op">$</span>forest &lt;-<span class="st"> </span><span class="kw">scale</span>(umf<span class="op">@</span>siteCovs<span class="op">$</span>forest)</a>
+<a class="sourceLine" id="cb5-3" title="3">umf<span class="op">@</span>siteCovs<span class="op">$</span>length &lt;-<span class="st"> </span><span class="kw">scale</span>(umf<span class="op">@</span>siteCovs<span class="op">$</span>length)</a>
+<a class="sourceLine" id="cb5-4" title="4"></a>
+<a class="sourceLine" id="cb5-5" title="5">umf<span class="op">@</span>obsCovs<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">scale</span>(umf<span class="op">@</span>obsCovs<span class="op">$</span>date)</a>
+<a class="sourceLine" id="cb5-6" title="6">umf<span class="op">@</span>obsCovs<span class="op">$</span>ivel &lt;-<span class="st"> </span><span class="kw">scale</span>(umf<span class="op">@</span>obsCovs<span class="op">$</span>ivel)</a></code></pre></div>
 <hr class="big">
 </div>
 <div id="missing-data-considerations" class="section level2">
@@ -10242,11 +10280,11 @@ umf<span class="op">@</span>obsCovs<span class="op">$</span>ivel &lt;-<span clas
 <div id="fitting-a-model" class="section level2">
 <h2><span class="header-section-number">2.7</span> Fitting a Model</h2>
 <p>Fitting a model with <code>unmarked</code> uses a similar syntax to fitting a linear model with the <code>lm()</code> function. The main difference is that the way a formula is defined varies. In the case of <code>occu()</code> it requires a double right-hand side formula for detection and occupancy covariates in that order. Essentially <code>~ detection formula ~ occupancy formula</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fm &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> 
-                     <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,
-           <span class="dt">data =</span> umf)
-
-fm</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">fm &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> </a>
+<a class="sourceLine" id="cb6-2" title="2">                     <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb6-3" title="3">           <span class="dt">data =</span> umf)</a>
+<a class="sourceLine" id="cb6-4" title="4"></a>
+<a class="sourceLine" id="cb6-5" title="5">fm</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## occu(formula = ~1 ~ 1, data = umf)
@@ -10261,14 +10299,14 @@ fm</code></pre></div>
 ## 
 ## AIC: 528.987</code></pre>
 <p><code>unmarked</code> estimates are on the link-scale (logit for <code>occu()</code> since it uses a logit-link), and the <code>backTransform()</code> function coverts them back to the original scale. You need to specify a type of <code>state</code> or <code>det</code> for occupancy or detection covariates. If you have fit a model with covariates then you need to specify values for them (i.e. what is the probability of occupancy when CovA = X and CovB = Y)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">backTransform</span>(fm, <span class="dt">type =</span> <span class="st">&quot;state&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">backTransform</span>(fm, <span class="dt">type =</span> <span class="st">&quot;state&quot;</span>)</a></code></pre></div>
 <pre><code>## Backtransformed linear combination(s) of Occupancy estimate(s)
 ## 
 ##  Estimate     SE LinComb (Intercept)
 ##      0.34 0.0313  -0.665           1
 ## 
 ## Transformation: logistic</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">backTransform</span>(fm, <span class="dt">type =</span> <span class="st">&quot;det&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">backTransform</span>(fm, <span class="dt">type =</span> <span class="st">&quot;det&quot;</span>)</a></code></pre></div>
 <pre><code>## Backtransformed linear combination(s) of Detection estimate(s)
 ## 
 ##  Estimate     SE LinComb (Intercept)
@@ -10276,17 +10314,17 @@ fm</code></pre></div>
 ## 
 ## Transformation: logistic</code></pre>
 <p>Alternatively, you can define an antilogit function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">antilogit &lt;-<span class="st"> </span><span class="cf">function</span>(x) { <span class="kw">exp</span>(x) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(x) ) }</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">antilogit</span>(<span class="op">-</span><span class="fl">0.665</span>)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">antilogit &lt;-<span class="st"> </span><span class="cf">function</span>(x) { <span class="kw">exp</span>(x) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(x) ) }</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">antilogit</span>(<span class="op">-</span><span class="fl">0.665</span>)</a></code></pre></div>
 <pre><code>## [1] 0.3396173</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">antilogit</span>(<span class="fl">1.32</span>)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">antilogit</span>(<span class="fl">1.32</span>)</a></code></pre></div>
 <pre><code>## [1] 0.7891817</code></pre>
 <p>Now, to add some covariates. First, assuming constant detection:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fm1 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> 
-                      <span class="op">~</span><span class="st"> </span>forest <span class="op">+</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>length,
-            <span class="dt">data =</span> umf)
-
-fm1</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">fm1 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span> </a>
+<a class="sourceLine" id="cb17-2" title="2">                      <span class="op">~</span><span class="st"> </span>forest <span class="op">+</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>length,</a>
+<a class="sourceLine" id="cb17-3" title="3">            <span class="dt">data =</span> umf)</a>
+<a class="sourceLine" id="cb17-4" title="4"></a>
+<a class="sourceLine" id="cb17-5" title="5">fm1</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## occu(formula = ~1 ~ forest + elev + length, data = umf)
@@ -10304,10 +10342,10 @@ fm1</code></pre></div>
 ## 
 ## AIC: 453.6822</code></pre>
 <p>And some more:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fm2 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span>date <span class="op">+</span><span class="st"> </span>ivel <span class="op">+</span><span class="st"> </span>forest 
-                      <span class="op">~</span><span class="st"> </span>forest <span class="op">+</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>length,
-            <span class="dt">data =</span> umf)
-fm2</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">fm2 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span>date <span class="op">+</span><span class="st"> </span>ivel <span class="op">+</span><span class="st"> </span>forest </a>
+<a class="sourceLine" id="cb19-2" title="2">                      <span class="op">~</span><span class="st"> </span>forest <span class="op">+</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>length,</a>
+<a class="sourceLine" id="cb19-3" title="3">            <span class="dt">data =</span> umf)</a>
+<a class="sourceLine" id="cb19-4" title="4">fm2</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## occu(formula = ~date + ivel + forest ~ forest + elev + length, 
@@ -10335,74 +10373,86 @@ fm2</code></pre></div>
 <div id="unmarked" class="section level3">
 <h3><span class="header-section-number">2.8.1</span> unmarked</h3>
 <p>The is an in-built model selection method using <code>fitList()</code> and <code>modSel()</code>. You can name the models whatever you like, but the convention used here is common online (even if awkward to type out, especially for large numbers of covariates).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit &lt;-<span class="st"> </span><span class="kw">fitList</span>(<span class="st">&#39;psi(.)p(.)&#39;</span> =<span class="st"> </span>fm,
-               <span class="st">&#39;psi(forest + elev + length)p(.)&#39;</span> =<span class="st"> </span>fm1,
-               <span class="st">&#39;psi(forest + elev + length)p(date + ivel + forest)&#39;</span> =<span class="st"> </span>fm2)
-
-<span class="kw">modSel</span>(fit)</code></pre></div>
-<pre><code>##                                                    nPars    AIC delta
-## psi(forest + elev + length)p(date + ivel + forest)     8 433.60  0.00
-## psi(forest + elev + length)p(.)                        5 453.68 20.08
-## psi(.)p(.)                                             2 528.99 95.39
-##                                                      AICwt cumltvWt
-## psi(forest + elev + length)p(date + ivel + forest) 1.0e+00     1.00
-## psi(forest + elev + length)p(.)                    4.4e-05     1.00
-## psi(.)p(.)                                         1.9e-21     1.00</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">fitList</span>(<span class="st">&#39;psi(.)p(.)&#39;</span> =<span class="st"> </span>fm,</a>
+<a class="sourceLine" id="cb21-2" title="2">               <span class="st">&#39;psi(forest + elev + length)p(.)&#39;</span> =<span class="st"> </span>fm1,</a>
+<a class="sourceLine" id="cb21-3" title="3">               <span class="st">&#39;psi(forest + elev + length)p(date + ivel + forest)&#39;</span> =<span class="st"> </span>fm2)</a>
+<a class="sourceLine" id="cb21-4" title="4"></a>
+<a class="sourceLine" id="cb21-5" title="5"><span class="kw">modSel</span>(fit)</a></code></pre></div>
+<pre><code>##                                                    nPars
+## psi(forest + elev + length)p(date + ivel + forest)     8
+## psi(forest + elev + length)p(.)                        5
+## psi(.)p(.)                                             2
+##                                                       AIC
+## psi(forest + elev + length)p(date + ivel + forest) 433.60
+## psi(forest + elev + length)p(.)                    453.68
+## psi(.)p(.)                                         528.99
+##                                                    delta
+## psi(forest + elev + length)p(date + ivel + forest)  0.00
+## psi(forest + elev + length)p(.)                    20.08
+## psi(.)p(.)                                         95.39
+##                                                      AICwt
+## psi(forest + elev + length)p(date + ivel + forest) 1.0e+00
+## psi(forest + elev + length)p(.)                    4.4e-05
+## psi(.)p(.)                                         1.9e-21
+##                                                    cumltvWt
+## psi(forest + elev + length)p(date + ivel + forest)     1.00
+## psi(forest + elev + length)p(.)                        1.00
+## psi(.)p(.)                                             1.00</code></pre>
 <hr class="small">
 </div>
 <div id="mumin" class="section level3">
 <h3><span class="header-section-number">2.8.2</span> MuMIn</h3>
 <p>All <code>unmarked</code> models are compatible with the functions in the <code>MuMIn</code> package. For example, the <code>dredge()</code> and <code>pdredge()</code> functions perform dredge-based model selection that takes a ‘full’ or ‘global’ model and fits every possible combination of covariates and ranks them by some information criteria (AIC, BIC, etc.).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span>date <span class="op">+</span><span class="st"> </span>ivel <span class="op">+</span><span class="st"> </span>forest 
-                       <span class="op">~</span><span class="st"> </span>forest <span class="op">+</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>length,
-             <span class="dt">data =</span> umf)
-
-modelList &lt;-<span class="st"> </span><span class="kw">dredge</span>(full,
-                    <span class="dt">rank =</span> <span class="st">&quot;AIC&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">full &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span>date <span class="op">+</span><span class="st"> </span>ivel <span class="op">+</span><span class="st"> </span>forest </a>
+<a class="sourceLine" id="cb23-2" title="2">                       <span class="op">~</span><span class="st"> </span>forest <span class="op">+</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>length,</a>
+<a class="sourceLine" id="cb23-3" title="3">             <span class="dt">data =</span> umf)</a>
+<a class="sourceLine" id="cb23-4" title="4"></a>
+<a class="sourceLine" id="cb23-5" title="5">modelList &lt;-<span class="st"> </span><span class="kw">dredge</span>(full,</a>
+<a class="sourceLine" id="cb23-6" title="6">                    <span class="dt">rank =</span> <span class="st">&quot;AIC&quot;</span>)</a></code></pre></div>
 <pre><code>## Fixed terms are &quot;p(Int)&quot; and &quot;psi(Int)&quot;</code></pre>
-<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:400px; overflow-x: scroll; width:800px; ">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:800px; ">
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="text-align:left;">
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 p(Int)
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 psi(Int)
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 p(date)
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 p(forest)
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 p(ivel)
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 psi(elev)
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 psi(forest)
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 psi(length)
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 df
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 logLik
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 AIC
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 delta
 </th>
-<th style="text-align:right;">
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
 weight
 </th>
 </tr>
@@ -13243,11 +13293,11 @@ NA
 <div id="assuming-perfect-detection" class="section level3">
 <h3><span class="header-section-number">2.9.1</span> Assuming perfect detection</h3>
 <p>If we naively assumed perfect detection the proportion of area occupied by a species is simply the proportion of occupied sites: number of sites where the species was observed divided by the total number of sites.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">siteValue &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> data[,<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>],
-                   <span class="dt">MARGIN =</span> <span class="dv">1</span>,
-                   <span class="dt">FUN =</span> <span class="st">&quot;max&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
-
-<span class="kw">mean</span>(siteValue)</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">siteValue &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> data[,<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>],</a>
+<a class="sourceLine" id="cb25-2" title="2">                   <span class="dt">MARGIN =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb25-3" title="3">                   <span class="dt">FUN =</span> <span class="st">&quot;max&quot;</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb25-4" title="4"></a>
+<a class="sourceLine" id="cb25-5" title="5"><span class="kw">mean</span>(siteValue)</a></code></pre></div>
 <pre><code>## [1] 0.3333333</code></pre>
 <hr class="small">
 </div>
@@ -13255,14 +13305,14 @@ NA
 <h3><span class="header-section-number">2.9.2</span> Accounting for Imperfect Detection</h3>
 <p>In reality we wouldn’t assume perfect detection, so we need to account for it otherwise we will end up with a biased <em>underestimate</em> of the proportion of area occupied. <code>unmarked</code> utilises empirical Bayes methods to estimate the posterior distributions of the random variables (here, latent occurrence state, <span class="math inline">\(z_i\)</span>).</p>
 <p><span class="math display">\[Pr(z_i = 1 | y_{ij}, \psi_i, p_{ij})\]</span></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">AICbest &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span>forest <span class="op">+</span><span class="st"> </span>ivel
-                          <span class="op">~</span><span class="st"> </span>elev,
-                <span class="dt">data =</span> umf)
-
-re &lt;-<span class="st"> </span><span class="kw">ranef</span>(AICbest)
-EBUP &lt;-<span class="st"> </span><span class="kw">bup</span>(re, <span class="dt">stat=</span><span class="st">&quot;mean&quot;</span>)
-CI &lt;-<span class="st"> </span><span class="kw">confint</span>(re, <span class="dt">level=</span><span class="fl">0.9</span>)
-<span class="kw">rbind</span>(<span class="dt">PAO =</span> <span class="kw">c</span>(<span class="dt">Estimate =</span> <span class="kw">sum</span>(EBUP), <span class="kw">colSums</span>(CI)) <span class="op">/</span><span class="st"> </span><span class="dv">237</span>)</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">AICbest &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span>forest <span class="op">+</span><span class="st"> </span>ivel</a>
+<a class="sourceLine" id="cb27-2" title="2">                          <span class="op">~</span><span class="st"> </span>elev,</a>
+<a class="sourceLine" id="cb27-3" title="3">                <span class="dt">data =</span> umf)</a>
+<a class="sourceLine" id="cb27-4" title="4"></a>
+<a class="sourceLine" id="cb27-5" title="5">re &lt;-<span class="st"> </span><span class="kw">ranef</span>(AICbest)</a>
+<a class="sourceLine" id="cb27-6" title="6">EBUP &lt;-<span class="st"> </span><span class="kw">bup</span>(re, <span class="dt">stat=</span><span class="st">&quot;mean&quot;</span>)</a>
+<a class="sourceLine" id="cb27-7" title="7">CI &lt;-<span class="st"> </span><span class="kw">confint</span>(re, <span class="dt">level=</span><span class="fl">0.9</span>)</a>
+<a class="sourceLine" id="cb27-8" title="8"><span class="kw">rbind</span>(<span class="dt">PAO =</span> <span class="kw">c</span>(<span class="dt">Estimate =</span> <span class="kw">sum</span>(EBUP), <span class="kw">colSums</span>(CI)) <span class="op">/</span><span class="st"> </span><span class="dv">237</span>)</a></code></pre></div>
 <pre><code>##      Estimate        5%       95%
 ## PAO 0.4858397 0.4219409 0.5949367</code></pre>
 <p>A difference in the proportion of area occupied of over 15%! Depending on how hard a species can be to detect with a given survey method this difference can potentially be much higher!</p>
@@ -13272,33 +13322,34 @@ CI &lt;-<span class="st"> </span><span class="kw">confint</span>(re, <span class
 <div id="prediction" class="section level2">
 <h2><span class="header-section-number">2.10</span> Prediction</h2>
 <p>Lets load in a bigger dataset for this one. This is a dataset for ink card surveys for the giant gecko, <em>Cyrtodactylus sadleiri</em>, on Christmas Island.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gg &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Data/GG.csv&quot;</span>)
-
-umfGG &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<span class="dt">y =</span> gg[ ,<span class="dv">2</span><span class="op">:</span><span class="dv">11</span>],
-                           <span class="dt">siteCovs =</span> gg[ ,<span class="dv">52</span><span class="op">:</span><span class="dv">55</span>],
-                           <span class="dt">obsCovs =</span> <span class="kw">list</span>(<span class="dt">BHG =</span> gg[ ,<span class="dv">12</span><span class="op">:</span><span class="dv">21</span>],
-                                          <span class="dt">Rat =</span> gg[ ,<span class="dv">22</span><span class="op">:</span><span class="dv">31</span>],
-                                          <span class="dt">Height =</span> gg[ ,<span class="dv">32</span><span class="op">:</span><span class="dv">41</span>],
-                                          <span class="dt">Orientation =</span> gg[ ,<span class="dv">42</span><span class="op">:</span><span class="dv">51</span>]))</code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">gg &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Data/GG.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb29-2" title="2"></a>
+<a class="sourceLine" id="cb29-3" title="3">umfGG &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<span class="dt">y =</span> gg[ ,<span class="dv">2</span><span class="op">:</span><span class="dv">11</span>],</a>
+<a class="sourceLine" id="cb29-4" title="4">                           <span class="dt">siteCovs =</span> gg[ ,<span class="dv">52</span><span class="op">:</span><span class="dv">55</span>],</a>
+<a class="sourceLine" id="cb29-5" title="5">                           <span class="dt">obsCovs =</span> <span class="kw">list</span>(<span class="dt">BHG =</span> gg[ ,<span class="dv">12</span><span class="op">:</span><span class="dv">21</span>],</a>
+<a class="sourceLine" id="cb29-6" title="6">                                          <span class="dt">Rat =</span> gg[ ,<span class="dv">22</span><span class="op">:</span><span class="dv">31</span>],</a>
+<a class="sourceLine" id="cb29-7" title="7">                                          <span class="dt">Height =</span> gg[ ,<span class="dv">32</span><span class="op">:</span><span class="dv">41</span>],</a>
+<a class="sourceLine" id="cb29-8" title="8">                                          <span class="dt">Orientation =</span> gg[ ,<span class="dv">42</span><span class="op">:</span><span class="dv">51</span>]))</a></code></pre></div>
 <p>Now lets fit a model with a larger amount of covariates. We can also alter some additional model parameters. <code>method</code> sets to optimisation method used by <code>optim</code> under the hood to estimate the maximum likelihood, <code>control</code> here sets the maximum number of iterations allowed for the model to converge (the default value is rather small so this is useful for more complex models), and <code>engine</code> gives you the choice to run the optimisation in native <code>R</code> code or fast <code>C++</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occuGG &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span>BHG <span class="op">+</span><span class="st"> </span>Rat <span class="op">+</span><span class="st"> </span>Height <span class="op">+</span><span class="st"> </span>Orientation <span class="op">+</span><span class="st"> </span>
-<span class="st">                           </span>DistRoad.S <span class="op">+</span><span class="st"> </span>Slope.S <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Slope.S<span class="op">^</span><span class="dv">2</span>)
-                         <span class="op">~</span><span class="st"> </span>YCASC <span class="op">+</span><span class="st"> </span>CHM.S <span class="op">+</span><span class="st"> </span>DistRoad.S,
-               <span class="dt">data =</span> umfGG,
-               <span class="dt">method =</span> <span class="st">&quot;BFGS&quot;</span>,
-               <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxit =</span> <span class="dv">10000</span>),
-               <span class="dt">engine =</span> <span class="st">&quot;C&quot;</span>)</code></pre></div>
-<pre><code>## Warning: Some observations have been discarded because corresponding
-## covariates were missing.</code></pre>
-<pre><code>## Warning: 100 sites have been discarded because of missing data.</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">occuGG &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="dt">formula =</span> <span class="op">~</span><span class="st"> </span>BHG <span class="op">+</span><span class="st"> </span>Rat <span class="op">+</span><span class="st"> </span>Height <span class="op">+</span><span class="st"> </span>Orientation <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="st">                           </span>DistRoad.S <span class="op">+</span><span class="st"> </span>Slope.S <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(Slope.S<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb30-3" title="3">                         <span class="op">~</span><span class="st"> </span>YCASC <span class="op">+</span><span class="st"> </span>CHM.S <span class="op">+</span><span class="st"> </span>DistRoad.S,</a>
+<a class="sourceLine" id="cb30-4" title="4">               <span class="dt">data =</span> umfGG,</a>
+<a class="sourceLine" id="cb30-5" title="5">               <span class="dt">method =</span> <span class="st">&quot;BFGS&quot;</span>,</a>
+<a class="sourceLine" id="cb30-6" title="6">               <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxit =</span> <span class="dv">10000</span>),</a>
+<a class="sourceLine" id="cb30-7" title="7">               <span class="dt">engine =</span> <span class="st">&quot;C&quot;</span>)</a></code></pre></div>
+<pre><code>## Warning: Some observations have been discarded
+## because corresponding covariates were missing.</code></pre>
+<pre><code>## Warning: 100 sites have been discarded because of
+## missing data.</code></pre>
 <p>Now we load in the data we want to predict occupancy for. This dataset needs to have two columns for longitude and latitude values for each site/pixel, and a column for each covariate (each row is one site/pixel). Categorical variables need to have a single level specified per site. This is straight forward for something like vegetation class, but for methodological variables like survey method(ink cards, spotlighting, etc.) you need to select one <em>a priori</em>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ggPred &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Data/SiteValues.csv&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">ggPred &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Data/SiteValues.csv&quot;</span>)</a></code></pre></div>
 <p>And predict.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occuPred &lt;-<span class="st"> </span><span class="kw">predict</span>(occuGG,
-                    <span class="dt">type =</span> <span class="st">&quot;state&quot;</span>,
-                    <span class="dt">newdata =</span> ggPred,
-                    <span class="dt">na.rm =</span> <span class="ot">TRUE</span>,
-                    <span class="dt">inf.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">occuPred &lt;-<span class="st"> </span><span class="kw">predict</span>(occuGG,</a>
+<a class="sourceLine" id="cb34-2" title="2">                    <span class="dt">type =</span> <span class="st">&quot;state&quot;</span>,</a>
+<a class="sourceLine" id="cb34-3" title="3">                    <span class="dt">newdata =</span> ggPred,</a>
+<a class="sourceLine" id="cb34-4" title="4">                    <span class="dt">na.rm =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb34-5" title="5">                    <span class="dt">inf.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>##   doing row 1000 of 27593 
 ##   doing row 2000 of 27593 
 ##   doing row 3000 of 27593 
@@ -13326,10 +13377,10 @@ umfGG &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<s
 ##   doing row 25000 of 27593 
 ##   doing row 26000 of 27593 
 ##   doing row 27000 of 27593</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levelplot</span>(Predicted <span class="op">~</span><span class="st"> </span>ggPred<span class="op">$</span>x <span class="op">+</span><span class="st"> </span>ggPred<span class="op">$</span>y,
-          <span class="dt">data =</span> occuPred,
-          <span class="dt">col.regions =</span> <span class="kw">rev</span>(<span class="kw">terrain.colors</span>(<span class="dv">100</span>)),
-          <span class="dt">at =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">length.out=</span><span class="dv">101</span>))</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw">levelplot</span>(Predicted <span class="op">~</span><span class="st"> </span>ggPred<span class="op">$</span>x <span class="op">+</span><span class="st"> </span>ggPred<span class="op">$</span>y,</a>
+<a class="sourceLine" id="cb36-2" title="2">          <span class="dt">data =</span> occuPred,</a>
+<a class="sourceLine" id="cb36-3" title="3">          <span class="dt">col.regions =</span> <span class="kw">rev</span>(<span class="kw">terrain.colors</span>(<span class="dv">100</span>)),</a>
+<a class="sourceLine" id="cb36-4" title="4">          <span class="dt">at =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">length.out=</span><span class="dv">101</span>))</a></code></pre></div>
 <p><img src="lodestar_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <hr class="big">
 </div>
@@ -13338,45 +13389,45 @@ umfGG &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<s
 <p>A vital step in modelling is evaluating the accuracy of model predictions. Model evaluation usually involves testing how well our model can predict data <em>not</em> used in the model fitting process. Does our model predict high probability of occupancy for sites with observed presences in our hold-out data? Does it predict low probability of ocurrence for the sites with observed absences? The Area Under the Receiver Operating Curve (AUC) is a popular metric for this evaluation.</p>
 <p>The problem with this type of model evaluation for models accounting for imperfect detection is that we don’t know the <em>true</em> occupancy state of a site. Is the species actually absent from the site in our hold-out data, or did we just fail to detect it? As such this type of model evaluation is not appropriate for our modelling method.</p>
 <p>Instead we can use several goodness-of-fit tests to perform model evaluation. Here we use three tests: sum of squared errors, Pearson’s Chi-squared, and Freeman-Tukey Chi-squared. We create a new function called <code>fitstats</code> (where <em>model.name</em> should be replaced with your own), and then use it when fitting our model to bootsrapped samples of our data to assess model fit. Even though these are called goodness-of-fit tests they are looking for significant lack-of-fit evidence (which sounds too pessimistic), so a p-value of &lt;0.05 is actually a poorly fit model. A “good” model should return a value &gt;&gt; 0.05 for each test. Yet the issue of imperfect detection can still impact these tests. It is possible to fail one test but pass the others on the basis of poor prediction at a small subset of sites (even one). For example, an observed presence at a really low probability of detection site can dramatically inflate the test statistic. In these scenarios it is important to assess the input of each site to the test statistic to determine if the “lack-of-fit” can be disregarded as over-penalising the mismatch in a very low proportion of sites.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fitstats &lt;-<span class="st"> </span><span class="cf">function</span>(model.name, 
-                     <span class="dt">method =</span> <span class="st">&quot;nonparboot&quot;</span>) {
-  
-  observed &lt;-<span class="st"> </span><span class="kw">getY</span>(model.name<span class="op">@</span>data)
-  expected &lt;-<span class="st"> </span><span class="kw">fitted</span>(model.name)
-  
-  resids &lt;-<span class="st"> </span><span class="kw">residuals</span>(model.name,
-                      <span class="dt">method =</span> <span class="st">&quot;nonparboot&quot;</span>)
-  
-  sse &lt;-<span class="st"> </span><span class="kw">sum</span>(resids<span class="op">^</span><span class="dv">2</span>,
-             <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
-  
-  chisq &lt;-<span class="st"> </span><span class="kw">sum</span>((observed <span class="op">-</span><span class="st"> </span>expected)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>expected,
-               <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
-  
-  freeTuke &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="kw">sqrt</span>(observed) <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(expected))<span class="op">^</span><span class="dv">2</span>, 
-                  <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
-  
-  out &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">SSE =</span> sse,
-           <span class="dt">Chisq =</span> chisq,
-           <span class="dt">freemanTukey =</span> freeTuke)
-  
-  <span class="kw">return</span>(out)
-  
-}
-
-pb &lt;-<span class="st"> </span><span class="kw">parboot</span>(model.name,
-              fitstats,
-              <span class="dt">nsim =</span> <span class="dv">1000</span>,
-              <span class="dt">report =</span> <span class="ot">TRUE</span>,
-              <span class="dt">method =</span> <span class="st">&quot;nonparboot&quot;</span>)
-
-pb
-
-<span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))
-
-<span class="kw">plot</span>(pb,
-     <span class="dt">main =</span> <span class="st">&quot;&quot;</span>,
-     <span class="dt">xlab =</span> <span class="kw">c</span>(<span class="st">&quot;SSE&quot;</span>, <span class="st">&quot;Chisq&quot;</span>, <span class="st">&quot;FT&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">fitstats &lt;-<span class="st"> </span><span class="cf">function</span>(model.name, </a>
+<a class="sourceLine" id="cb37-2" title="2">                     <span class="dt">method =</span> <span class="st">&quot;nonparboot&quot;</span>) {</a>
+<a class="sourceLine" id="cb37-3" title="3">  </a>
+<a class="sourceLine" id="cb37-4" title="4">  observed &lt;-<span class="st"> </span><span class="kw">getY</span>(model.name<span class="op">@</span>data)</a>
+<a class="sourceLine" id="cb37-5" title="5">  expected &lt;-<span class="st"> </span><span class="kw">fitted</span>(model.name)</a>
+<a class="sourceLine" id="cb37-6" title="6">  </a>
+<a class="sourceLine" id="cb37-7" title="7">  resids &lt;-<span class="st"> </span><span class="kw">residuals</span>(model.name,</a>
+<a class="sourceLine" id="cb37-8" title="8">                      <span class="dt">method =</span> <span class="st">&quot;nonparboot&quot;</span>)</a>
+<a class="sourceLine" id="cb37-9" title="9">  </a>
+<a class="sourceLine" id="cb37-10" title="10">  sse &lt;-<span class="st"> </span><span class="kw">sum</span>(resids<span class="op">^</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb37-11" title="11">             <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb37-12" title="12">  </a>
+<a class="sourceLine" id="cb37-13" title="13">  chisq &lt;-<span class="st"> </span><span class="kw">sum</span>((observed <span class="op">-</span><span class="st"> </span>expected)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>expected,</a>
+<a class="sourceLine" id="cb37-14" title="14">               <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb37-15" title="15">  </a>
+<a class="sourceLine" id="cb37-16" title="16">  freeTuke &lt;-<span class="st"> </span><span class="kw">sum</span>((<span class="kw">sqrt</span>(observed) <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(expected))<span class="op">^</span><span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb37-17" title="17">                  <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb37-18" title="18">  </a>
+<a class="sourceLine" id="cb37-19" title="19">  out &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">SSE =</span> sse,</a>
+<a class="sourceLine" id="cb37-20" title="20">           <span class="dt">Chisq =</span> chisq,</a>
+<a class="sourceLine" id="cb37-21" title="21">           <span class="dt">freemanTukey =</span> freeTuke)</a>
+<a class="sourceLine" id="cb37-22" title="22">  </a>
+<a class="sourceLine" id="cb37-23" title="23">  <span class="kw">return</span>(out)</a>
+<a class="sourceLine" id="cb37-24" title="24">  </a>
+<a class="sourceLine" id="cb37-25" title="25">}</a>
+<a class="sourceLine" id="cb37-26" title="26"></a>
+<a class="sourceLine" id="cb37-27" title="27">pb &lt;-<span class="st"> </span><span class="kw">parboot</span>(model.name,</a>
+<a class="sourceLine" id="cb37-28" title="28">              fitstats,</a>
+<a class="sourceLine" id="cb37-29" title="29">              <span class="dt">nsim =</span> <span class="dv">1000</span>,</a>
+<a class="sourceLine" id="cb37-30" title="30">              <span class="dt">report =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb37-31" title="31">              <span class="dt">method =</span> <span class="st">&quot;nonparboot&quot;</span>)</a>
+<a class="sourceLine" id="cb37-32" title="32"></a>
+<a class="sourceLine" id="cb37-33" title="33">pb</a>
+<a class="sourceLine" id="cb37-34" title="34"></a>
+<a class="sourceLine" id="cb37-35" title="35"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb37-36" title="36"></a>
+<a class="sourceLine" id="cb37-37" title="37"><span class="kw">plot</span>(pb,</a>
+<a class="sourceLine" id="cb37-38" title="38">     <span class="dt">main =</span> <span class="st">&quot;&quot;</span>,</a>
+<a class="sourceLine" id="cb37-39" title="39">     <span class="dt">xlab =</span> <span class="kw">c</span>(<span class="st">&quot;SSE&quot;</span>, <span class="st">&quot;Chisq&quot;</span>, <span class="st">&quot;FT&quot;</span>))</a></code></pre></div>
 <hr class="big">
 </div>
 <div id="common-errors" class="section level2">
@@ -13406,9 +13457,7 @@ pb
 </ul></li>
 </ul></li>
 <li><span style="color:red">Model selection with <code>dredge()</code> is too much for my computer to handle.</span>
-<ul>
-<li>See David (for Spartan) or Casey/Nick (for Boab)</li>
-</ul></li>
++ See David (for Spartan) or Casey/Nick (for Boab)</li>
 </ul>
 <hr class="big">
 </div>
@@ -13435,11 +13484,13 @@ pb
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -13450,6 +13501,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -13468,10 +13527,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

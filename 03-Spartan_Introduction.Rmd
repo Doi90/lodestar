@@ -9,16 +9,13 @@
 
 ***
 
-Spartan is the University of Melbourne's high performance computing system (HPC). It combines high-performance bare-metal compute nodes (somewhere on campus) with cloud instances from the NeCTAR Research Cloud and attached Research Data Storage Services (RDSS).
-
-It is designed to suit the needs of researchers whose desktop/laptop is not up to the particular task. Models running slow, datasets are too big, not enough cores, application licensing issues, etc.
+Spartan is the University of Melbourne's high performance computing system (HPC). It is designed to suit the needs of researchers whose desktop/laptop is not up to the particular task. Models running slow, datasets are too big, not enough cores, application licensing issues, etc.
 
 Spartan consists of:
 
 *  a management node for system administrators,
 *  two log in nodes for users to connect to the system and submit jobs,
-*  'bare metal' compute nodes,
-*  cloud compute nodes, and
+*  'bare metal' compute nodes, and
 *  GPUGPU compute nodes.
 
 ## Accessing Spartan
@@ -202,7 +199,7 @@ The programs available on Spartan as referred to as modules, and you can see a c
 
 ***
 
-A massive list of all modules isn't that useful! We can return more targetted lists either by adding a keyword to `module avail` or by using `module spider`. `module avail` searches for the keyword in the "full" module name so something like `module avail R` will return every module with the letter *r* in it so use something more specific like `module avail R/3.5` instead to return all versions of the R module that are version 3.5.*. `module spider` is a fuzzy match to the "actual" name of the module so `module spider R` will return all modules that are the closest match to the keyword, and a list of other module "actual" names that might also match.
+A massive list of all modules isn't that useful! We can return more targetted lists either by adding a keyword to `module avail` or by using `module spider`. `module avail` searches for the keyword in the "full" module name so something like `module avail r` will return every module with the letter *r* in it so use something more specific like `module avail r/3.6` instead to return all versions of the R module that are version 3.6.*. `module spider` is a fuzzy match to the "actual" name of the module so `module spider r` will return all modules that are the closest match to the keyword, and a list of other module "actual" names that might also match.
 
 ***
 <center>![](Images/Spartan_module_avail_R.png)</center>
@@ -242,7 +239,7 @@ To submit a job using the `sbatch` command you need to write a `slurm` script th
 
 # To give your job a name, replace "MyJob" with an appropriate name
 #SBATCH --job-name=Rsample
-#SBATCH -p cloud
+#SBATCH -p physical
 
 # For R need to run on single CPU
 #SBATCH --ntasks=1
@@ -255,7 +252,7 @@ To submit a job using the `sbatch` command you need to write a `slurm` script th
 #SBATCH --mail-type=ALL
 
 # Load the environment variables for R
-module load R/3.5.0-spartan_gcc-6.2.0 
+module load r/3.6.0 
 
 # The command to actually run the job
 R --vanilla < tutorial.R 
@@ -269,10 +266,10 @@ R --vanilla < tutorial.R
 #SBATCH --job-name=MyJob
 ```
 
-*  `#SBATCH -p <partition>`: This is where you select which partition on Spartan your job will run. The `cloud` partition can only run single node jobs of up to 12 CPUs and 100GB of memory. The `physical` partition can run single or multi-node jobs of up to 12CPUS and 250GB of memory. There are also other specialty partitions with larger requirements (up to 1500GB of memory) or GPUs as well. If you have access to a dedicated partition then use `your partition name`. In most cases you will use the following:
+*  `#SBATCH -p <partition>`: This is where you select which partition on Spartan your job will run. By default you only have acces to the `physical` partition which can run single or multi-node jobs of up to 72CPUS and 1500GB of memory (although getting access to that amount of resources in a single job will take time). There are also other specialty partitions with larger requirements or GPUs as well. If you have access to a dedicated partition then use `your partition name`. In most cases you will use the following:
 
 ```{}
-#SBATCH -p cloud
+#SBATCH -p physical
 ```
 
 *  `#SBATCH --time=<>`: As Spartan is a communal resource and jobs are allocated a share from a queue you need to specify a maximum amount of walltime that you want your instance to remain open. As you aren't likely to know how long your model will need to run for (outside of a rough guess) it is recommended that you give a conservative estimate. If necessary you can contact Spartan support and get your time extended. There are multiple formats for entering a time value depending on the scale of your job: "minutes", "minutes:seconds",  "hours:minutes:seconds", "days-hours", "days-hours:minutes" and "days-hours:minutes:seconds". Many SLURM documentations will list setting `--time=0` as a way to set an indefinite walltime but this will automatically be rejected by Spartan. For example, a one hour instance could be called with the following:
@@ -281,7 +278,7 @@ R --vanilla < tutorial.R
 #SBATCH --time=01:00:00   # hours:minutes:seconds format
 ```
 
-*  `#SBATCH --nodes=<number>`: You need to request an allocation of compute nodes. Most jobs will be single node jobs, but there is the ability to run jobs over multiple nodes that talk to each other. It is not recommended to try running multiple communicating nodes via the cloud partition, use the physical partition instead. Multi-node jobs will require using `OpenMPI` to allow the different nodes to communicate. To call a single node use the following:
+*  `#SBATCH --nodes=<number>`: You need to request an allocation of compute nodes. Most jobs will be single node jobs, but there is the ability to run jobs over multiple nodes that talk to each other. Multi-node jobs will require using `OpenMPI` to allow the different nodes to communicate. To call a single node use the following:
 
 ```{}
 #SBATCH --nodes=1
@@ -299,7 +296,7 @@ R --vanilla < tutorial.R
 #SBATCH --cpus-per-task=4
 ```
 
-*  `#SBATCH --mem=<number>`: This is where you nominate the maximum amount of memory required per node (in megabytes). Cloud nodes have access to up to 100GB of memory, standard physical nodes are used for large jobs of up to 250GB. Some physical nodes and other specialist partitions will have much larger limits (up to 1500GB). To request 10GB of memory (remembering that 1GB = 1024MB) you would use:
+*  `#SBATCH --mem=<number>`: This is where you nominate the maximum amount of memory required per node (in megabytes). Physical nodes can have up to 1500GB. To request 10GB of memory (remembering that 1GB = 1024MB) you would use:
 
 ```{}
 #SBATCH --mem=10240
@@ -336,7 +333,7 @@ Now we can put all of this together to create our SLURM file:
 #!/bin/bash
 
 #SBATCH --job-name=Coding_Club_Example
-#SBATCH -p cloud
+#SBATCH -p physical
 
 #SBATCH --time=1:00:00
 
@@ -349,7 +346,7 @@ Now we can put all of this together to create our SLURM file:
 #SBATCH --mail-user="davidpw@student.unimelb.edu.au"
 #SBATCH --mail-type=ALL
 
-module load R/3.5.0-GCC-6.2.0
+module load r/3.6.0
 
 Rscript --vanilla tutorial.R 
 ```

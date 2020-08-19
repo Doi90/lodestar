@@ -169,7 +169,7 @@ export ftp_proxy=$http_proxy
 
 ## Open R session
 
-module load R/3.5.0-GCC-6.2.0
+module load r/3.6.0
 
 R
 ```

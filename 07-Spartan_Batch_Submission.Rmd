@@ -125,7 +125,7 @@ Putting it together the whole script will look something like this for an `R` sc
 #
 #SBATCH --ntasks=1
 #
-#SBATCH -p cloud
+#SBATCH -p physical
 #
 #SBATCH --mem=10000
 #
@@ -139,7 +139,7 @@ j=$2
 
 module purge
 
-module load R/3.5.0-GCC-6.2.0
+module load r/3.6.0
 
 cd directory_path
 
@@ -216,7 +216,7 @@ Example *batch submission script*: `batch_submission.slurm`
 for simulation in {1..300}
 do
 
-sbatch /data/cephfs/[project_id]/scripts/slurm/job_submission.slurm $simulation
+sbatch /data/gpfs/projects/[project_id]/scripts/slurm/job_submission.slurm $simulation
 
 done
 ```
@@ -230,7 +230,7 @@ Example *job submission script*: `job_submission.slurm`
 #
 #SBATCH --ntasks=1
 #
-#SBATCH -p cloud
+#SBATCH -p physical
 #
 #SBATCH --mem=10000
 #
@@ -243,9 +243,9 @@ simulation=$1
 
 module purge
 
-module load R/3.5.0-GCC-6.2.0
+module load r/3.6.0
 
-cd /data/cephfs/[project_id]
+cd /data/gpfs/projects/[project_id]
 
 Rscript --vanilla scripts/R/script.R $simulation
 ```
@@ -291,7 +291,7 @@ do
   for growth_rate in {1..5}
   do
   
-  sbatch /data/cephfs/[project_id]/scripts/slurm/job_submission.slurm $pop_start_size $growth_rate
+  sbatch /data/gpfs/projects/[project_id]/scripts/slurm/job_submission.slurm $pop_start_size $growth_rate
   
   done
 done
@@ -306,7 +306,7 @@ Example *job submission script*: `job_submission.slurm`
 #
 #SBATCH --ntasks=1
 #
-#SBATCH -p cloud
+#SBATCH -p physical
 #
 #SBATCH --mem=10000
 #
@@ -320,9 +320,9 @@ growth_rate=$2
 
 module purge
 
-module load R/3.5.0-GCC-6.2.0
+module load r/3.6.0
 
-cd /data/cephfs/[project_id]
+cd /data/gpfs/projects/[project_id]
 
 Rscript --vanilla scripts/R/script.R $pop_start_size $growth_rate
 ```
